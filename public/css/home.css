@@ -1,0 +1,335 @@
+#hero {
+    height: 37rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4rem;
+}
+
+#app {
+    display: grid;
+    position: relative;
+    z-index: 10;
+    grid-template-columns: 0.45fr 0.55fr;
+    align-items: center;
+    padding-right: 3rem;
+    padding-left: 2rem;
+    width: 100%;
+    height: 100%;
+    background: white;
+    box-shadow: 0.5rem 0.5rem 1rem rgba(0,0,0,0.2);
+}
+
+.title {
+    padding-left: 2rem;
+    z-index: 2;
+    width: fit-content;
+}
+
+@keyframes text-clip {  /* TODO animatie uitleggen */
+    from {
+        clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+    }
+    to {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+}
+
+@keyframes outer-left {
+    from {
+        transform: translateX(80%);  /* Veranderd van 50% naar 100% */
+    }
+    to {
+        transform: none;
+    }
+}
+
+@keyframes inner-left {
+    from {
+        transform: translateX(-50%);
+    }
+    to {
+        transform: none;
+    }
+}
+
+.hoofdtitel,
+.bijtitel {
+    animation: outer-left 1s 1s cubic-bezier(0.5, 0, 0.1, 1) both;
+}
+
+.title-inner {
+    display: inline-block;
+    font-size: 6rem;
+    animation: inner-left 1s 1s ease both;
+    }
+
+.hoofdtitel-inner {
+    display: inline-block;
+    animation: inner-left 1s 1s ease both,
+               text-clip 1s 0s cubic-bezier(0.5, 0, 0.1, 1) both;
+    display: inline-block;
+}
+
+.bijtitel-inner {
+    animation: text-clip 1s 0s cubic-bezier(0.5, 0, 0.1, 1) both;
+}
+
+.title {
+    animation: outer-left 1s 1s ease both;
+}
+
+.bijtitel {
+    display: inline-block;
+}
+
+.image {
+    animation: image-in 1s cubic-bezier(0.5, 0, 0.1, 1) 2s backwards;
+}
+
+@keyframes image-in {
+    from {
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    }
+    to {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+}
+
+.image img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+#hero button {
+    --primary-color: #e6ded7;
+    --secondary-color: black;
+    --hover-color: black;
+    --hover-text: white;
+    --arrow-width: 10px;
+    --arrow-stroke: 2px;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 20px;
+    color: var(--secondary-color);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 14px;
+    padding-right: 14px;
+    background: var(--primary-color);
+    display: flex;
+    transition: 0.2s background;
+    align-items: center;
+    gap: 0.6em;
+    font-weight: bold;
+    font-size: 15px;
+    width: fit-content;
+    font-family: "Cormorant Upright";
+    align-self: center;
+    margin-bottom: 1rem;
+    margin-top: 3rem;
+  }
+  
+  #hero button .arrow-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #hero button .arrow {
+    margin-top: 1px;
+    width: var(--arrow-width);
+    background: var(--primary-color);
+    height: var(--arrow-stroke);
+    position: relative;
+    transition: 0.2s;
+  }
+  
+  #hero button .arrow::before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    border: solid var(--secondary-color);
+    border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
+    display: inline-block;
+    top: -3px;
+    right: 3px;
+    transition: 0.2s;
+    padding: 3px;
+    transform: rotate(-45deg);
+  }
+  
+  #hero button:hover {
+    background-color: var(--hover-color);
+    color: var(--hover-text);
+    cursor: pointer;
+  }
+  
+  #hero button:hover .arrow {
+    background: var(--primary-color);
+  }
+  
+  #hero button:hover .arrow:before {
+    right: 0;
+    border-color: var(--hover-text); /* TODO Bron: Claude */
+  }
+
+
+#extra-info a {
+    width: fit-content;
+    height: fit-content;
+    text-decoration: none;
+    display: inline-block;
+}
+
+#extra-info button {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+#sectie1 {
+    max-width: 100%;
+    width: auto;
+}
+
+#info {
+    height: fit-content;
+    display: flex;
+    gap: 3.1rem;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    max-width: 100%;
+}
+
+#welkom, #laatste-nieuwtjes {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;  /* Zet standaard uitlijning naar links */
+    background-color: white;
+    padding: 3rem;
+    width: 38rem;
+    height: fit-content;
+    font-size: 1.2rem;
+    box-shadow: 0.5rem 0.5rem 1rem rgba(0,0,0,0.2);
+    box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+#welkom h2, #laatste-nieuwtjes h2 {
+    align-self: center;
+    margin-bottom: 1.4rem;
+}
+
+#welkom img, #laatste-nieuwtjes img {
+    width: 60%;
+    display: block;
+    align-self: center;
+    margin-bottom: 1.4rem;
+}
+
+#laatste-nieuwtjes img {
+    margin-top: 1.4rem;
+}
+
+#laatste-nieuwtjes ul + p {
+    padding-left: 1rem;  /* Pas deze waarde aan voor meer of minder inspringing */
+}
+
+#laatste-nieuwtjes ul {
+    text-decoration: underline;
+}
+
+img {
+    box-shadow: 0.1rem 0.1rem 0.5rem rgba(0,0,0,0.1);
+}
+
+#laatste-nieuwtjes ul {
+    margin-bottom: 0;
+}
+
+#laatste-nieuwtjes a {
+    font-weight: 600;
+    padding-top: 2rem;
+}
+
+@media (max-width: 830px) {
+    #info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #welkom, #laatste-nieuwtjes {
+        width: 100%;
+        max-width: 40rem;
+    }
+    
+    #app {
+        grid-template-columns: 1fr;
+        padding: 2rem;
+    }
+    
+    .title {
+        padding-left: 0;
+        margin-bottom: 2rem;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .title-inner {
+        font-size: 5rem;
+    }
+    
+    .image {
+        grid-row: 2;
+    }
+    
+    #hero {
+        height: auto;
+        padding: 2rem 1rem;
+    }
+}
+
+/* Add an even smaller size for mobile phones */
+@media (max-width: 480px) {
+    #app {
+        height: 80vh;
+    }
+
+    .title-inner {
+        font-size: 4rem;
+    }
+    
+    #welkom, #laatste-nieuwtjes {
+        padding: 1.5rem;
+    }
+}
+
+/* Scroll to info button styles */
+#scroll-to-info {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: #e6ded7;
+    border: 0.09rem solid #3a35353e;
+    box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    animation: fadeIn 0.2s ease-in forwards;
+}
+
+#scroll-to-info:hover {
+    background-color: white;
+    box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.25);
+}
+
+/* Add this new style to keep the arrow visible on hover */
+#scroll-to-info:hover i.fa-arrow-down {
+    color: #3a3535; /* Dark color to ensure visibility against white background */
+}

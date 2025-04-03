@@ -1,0 +1,276 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box; /* Zorgt ervoor dat default padding en border worden meegerekend met breedte en hoogte */
+}
+
+* {
+    margin: 0;  /* Zorgt ervoor dat elk element default geen margin heeft */
+    padding: 0; /* Zorgt ervoor dat elk element default geen padding heeft */
+}
+
+html {
+    scroll-behavior: smooth;
+    cursor: default;
+    font-family: "Cormorant Upright";
+    color: #3a3535;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* TODO animatie onderlijnd From Uiverse.io by WhiteNervosa */ 
+#navbar {
+    background-color: white;
+    font-size: 22px;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    width: 100%; 
+    z-index: 100;
+    box-shadow: 0 0.5rem 0.9rem rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+#navbar nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#navbar ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+#navbar li {
+    display: inline-block;
+}
+
+#navbar a {
+    color: #3a3535;
+    padding: 0.9rem;
+    transition: all 0.3s ease;
+    font-size: 1.3rem;
+    font-family: inherit;
+    cursor: pointer;
+    position: relative;
+    border: none;
+    background: none;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: color; 
+}
+
+#navbar:hover {
+    background-color: white;
+}
+
+#navbar a:hover {
+    font-weight: 700;
+}
+
+#navbar img {
+    box-shadow: none;
+    width: 9%;
+    display: block;
+}
+
+#navbar a:focus,
+  #navbar a:hover {
+    color: black;
+    font-weight: 500;
+}
+
+#navbar a:focus:after,
+  #navbar a:hover:after {
+    width: 100%;
+    left: 0%;
+}
+
+#navbar a:after {
+    content: "";
+    pointer-events: none;
+    bottom: 0.5rem;
+    left: 50%;
+    position: absolute;
+    width: 0%;
+    height: 0.13rem;
+    background-color: black;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: width, left;
+}
+
+/* From Uiverse.io by talhabangyal */ 
+.hamburger {
+    margin-right: 2rem;
+    display: none;
+    cursor: pointer;
+}
+
+.hamburger input {
+    display: none;
+}
+
+.hamburger svg {
+    /* The size of the SVG defines the overall size */
+    height: 2em;
+    /* Define the transition for transforming the SVG */
+    transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.line {
+    fill: none;
+    stroke: #3a3535;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 3;
+    /* Define the transition for transforming the Stroke */
+    transition:
+        stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+        stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.line-top-bottom {
+    stroke-dasharray: 12 63;
+}
+
+.hamburger input:checked + svg {
+    transform: rotate(-45deg);
+}
+
+.hamburger input:checked + svg .line-top-bottom {
+    stroke-dasharray: 20 300;
+    stroke-dashoffset: -32.42;
+}
+
+
+a {
+    text-decoration: none;
+    color: #3a3535;
+}
+
+body {
+    display: grid;
+    grid-template-rows: auto 1fr auto; /* 1fr zorgt dat het middengedeelte uitrekt */
+    padding: 4rem 4rem 0 4rem;
+    background: #e6ded7;
+    max-width: 100%;
+    min-height: 100vh; /* Zorg dat body minstens de volledige viewport hoogte beslaat */
+}
+
+.space {
+    height: 15rem;
+}
+
+#footer {
+    background-color: white;
+    display: flex;
+    padding: 2rem;
+    margin-left: -4rem;
+    margin-right: -4rem;
+    margin-bottom: -4rem;
+    align-items: center;
+    left: 0; 
+    right: 0;
+    bottom: 0;
+    height: fit-content;
+    margin-top: auto; /* Duwt de footer naar beneden wanneer er weinig content is */
+}
+
+#socials {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #3a3535;
+    border-right: 0.15rem solid #e6ded7;
+    padding-right: 2rem;
+    width: 20%;
+}
+
+#socials h3, #vacature h3 {
+    border-bottom: 0.1rem solid #3a3535;
+    margin-bottom: 1rem;
+    width: fit-content;
+}
+
+#vacature {
+    margin-left: 3rem;
+}
+
+@media (max-width: 830px) {
+    body {
+        padding: 4rem 2rem 0 2rem;
+    }
+
+    #navbar {
+        padding: 1rem;
+    }
+
+    #navbar ul {
+        gap: 0.2rem;
+    }
+
+    #navbar img {
+        width: 15%;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .nav-menu {
+        position: fixed;
+        right: -100%;
+        top: 100px;
+        flex-direction: column;
+        background-color: white;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        padding: 20px 0;
+        z-index: 99;
+    }
+
+    .nav-menu li {
+        margin: 16px;
+    }
+
+    .nav-menu.active {
+        right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 4rem 1rem 0 1rem;
+    }
+    
+    #navbar {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    #navbar ul {
+        gap: 10px;
+    }
+    
+    #navbar a {
+        font-size: 18px;
+        padding: 6px;
+    }
+}
+
+#scroll-to-info, #scroll-to-menu {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
