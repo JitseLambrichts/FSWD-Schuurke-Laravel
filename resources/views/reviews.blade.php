@@ -9,27 +9,21 @@
             <div id="nieuwe-review">
                 <h2>Plaats een nieuwe review:</h2>
                 <div id="inputs">
-                    <form id="review-form">
+                    <form id="review-form" action="{{ route('reviews.store') }}" method="POST">
+                        @csrf
                         <div class="form-group"> <!--BRONVERMELDING Copilot-->
                             <p>Selecteer gerecht: </p>
-                            <select id="dish-selection" name="dish" required>
+                            <select id="dish-selection" name="gerecht_id" required>
                                 <option value="" disabled selected>Kies een gerecht</option>
-                                <optgroup label="Voorgerechten">
-                                    <option value="tomatensoep">Tomatensoep</option>
-                                    <option value="carpaccio">Rundscarpaccio</option>
-                                    <option value="garnaalkroketten">Garnaalkroketten</option>
-                                </optgroup>
-                                <optgroup label="Hoofdgerechten">
-                                    <option value="steak">Steak met frietjes</option>
-                                    <option value="stoofvlees">Stoofvlees</option>
-                                    <option value="pasta">Pasta Bolognese</option>
-                                    <option value="vispannetje">Vispannetje</option>
-                                </optgroup>
-                                <optgroup label="Desserts">
-                                    <option value="dame-blanche">Dame Blanche</option>
-                                    <option value="tiramisu">Tiramisu</option>
-                                    <option value="cheesecake">Cheesecake</option>
-                                </optgroup>
+                                @foreach($maaltijden as $categorie => $items)
+                                    <optgroup label="{{ $categorie }}">
+                                        @foreach($items as $maaltijd)
+                                            <option value="{{ $maaltijd->gerecht->gerecht_id }}">
+                                                {{ $maaltijd->gerecht->naam }}
+                                            </option>
+                                        @endforeach
+                                    </optgroup>
+                                @endforeach
                             </select>
                         </div>
 
@@ -37,7 +31,7 @@
                             <p>Uw beoordeling:</p>
                             <!-- From Uiverse.io by aguerquin -->
                             <div class="rating">
-                                <input type="radio" id="star5" name="rate" value="5" />
+                                <input type="radio" id="star5" name="rate" value="5" required />
                                 <label title="Excellent!" for="star5">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512">
                                         <path
@@ -82,48 +76,35 @@
 
                         <div id="informatie-review">
                             <div id="input-box">
-                                <textarea placeholder="Geef hier extra informatie (optioneel)"></textarea>
+                                <textarea name="comment" placeholder="Geef hier extra informatie (optioneel)"></textarea>
                             </div>
                         </div>
+                        <button type="submit"> <!-- TODO Library -->
+                            Review
+                            <div class="arrow-wrapper">
+                                <div class="arrow"></div>
+                            </div>
+                        </button> <!-- Library -->
                     </form>
-                    <button> <!-- TODO Library -->
-                        Review
-                        <div class="arrow-wrapper">
-                            <div class="arrow"></div>
-                        </div>
-                    </button> <!-- Library -->
                 </div>
             </div>
             <div id="bestaande-reviews">
                 <h2>Mijn reviews:</h2>
                 <div id="gegeven-reviews">
-                    <div class="gegeven-review">
-                        <div class="info-links">
-                            <h3>Review 1</h3>
-                            <p>Extra info</p>
+                    @forelse($reviews as $review)
+                        <div class="gegeven-review">
+                            <div class="info-links">
+                                <h3>{{ ucfirst($review->gerecht->naam) }}</h3>
+                                <p>{{ $review->extra_info ?: 'Geen extra informatie' }}</p>
+                                <small>{{ $review->datum ? date('d/m/Y', strtotime($review->datum)) : 'Geen datum' }}</small>
+                            </div>
+                            <div class="info-rechts">
+                                <p>{{ $review->score }} {{ $review->score == 1 ? 'ster' : 'sterren' }}</p>
+                            </div>
                         </div>
-                        <div class="info-rechts">
-                            <p>Aantal sterren</p>
-                        </div>
-                    </div>
-                    <div class="gegeven-review">
-                        <div class="info-links">
-                            <h3>Review 2</h3>
-                            <p>Extra info</p>
-                        </div>
-                        <div class="info-rechts">
-                            <p>Aantal sterren</p>
-                        </div>
-                    </div>
-                    <div class="gegeven-review">
-                        <div class="info-links">
-                            <h3>Review 3</h3>
-                            <p>Extra info</p>
-                        </div>
-                        <div class="info-rechts">
-                            <p>Aantal sterren</p>
-                        </div>
-                    </div>
+                    @empty
+                        <p>Je hebt nog geen reviews gegeven.</p>
+                    @endforelse
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>'t Schuurke</title>
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bestellen.css') }}">
@@ -27,11 +28,11 @@
                 <li><a href="{{ route('home') }}"><i class="fa-solid fa-house"></i></a></li>
                 <li><a href="{{ route('menu') }}">Menu</a></li>
                 <li><a href="{{ route('nieuws') }}">Laatste nieuwtjes</a></li>
-                <li><a href="{{ route('reserveren') }}">Reserveren</a></li>
+                <li><a href="{{ route('reserveringen.index') }}">Reserveren</a></li>
                 <li><a href="{{ route('contact') }}">Contact</a></li>
                 <li><a href="{{ route('mijn-account') }}">Mijn Account</a></li>
                 @auth
-                <li><a href="{{ route('reviews') }}">Reviews</a></li>
+                <li><a href="{{ route('reviews.index') }}">Reviews</a></li>
                 <li><a href="{{ route('bestellen') }}">Bestellen</a></li>
                 @endauth
             </ul>
@@ -67,8 +68,11 @@
             </p>
         </div>
     </div>
-    
+    <script async type='module' src='https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js'></script>
+    <zapier-interfaces-chatbot-embed is-popup='true' chatbot-id='cm91xwsi4003dgnvav8ni99a7'></zapier-interfaces-chatbot-embed>
+
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/cart.js') }}"></script>
     
     <!-- Behoud dit voor modules die specifieke pagina scripts nodig hebben -->
     @yield('scripts')

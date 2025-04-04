@@ -15,7 +15,7 @@
                         <div class="bijtitel-inner">'t Schuurke</div>
                     </div>
                     <div id="extra-info">
-                    <a href="{{ route('reserveren') }}">
+                    <a href="{{ route('reserveringen.index') }}">
                         <button>
                             Reserveer
                             <div class="arrow-wrapper">

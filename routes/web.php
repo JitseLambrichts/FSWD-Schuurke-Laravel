@@ -1,15 +1,17 @@
 <?php
 
+use App\Http\Controllers\BestellingWinkelwagenController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ReserveringController;
 
 Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/menu', function () {
-    return view('menu');
-})->name('menu');
+Route::get('/menu', [App\Http\Controllers\MenuController::class, 'index'])->name('menu');
+Route::get('/menu', [App\Http\Controllers\SuggestieController::class, 'index'])->name('menu');
 
 Route::get('/nieuws', function () {
     return view('nieuws');
@@ -21,23 +23,13 @@ Route::get('/contact', function () {
 
 Route::get('/login', function () {
     return view('login');
-})->name('login');
+})->name('login')->middleware('guest');
 
-Route::get('/reviews', function () {
-    return view('reviews');
-})->name('reviews')->middleware('auth');
-
-Route::get('/reserveren', function () {
-    return view('reserveren');
-})->name('reserveren');
-
-Route::get('/bestellen', function () {
-    return view('bestellen');
-})->name('bestellen')->middleware('auth');
+Route::get('/bestellen', [BestellingWinkelwagenController::class, 'index'])->name('bestellen')->middleware('auth');
 
 Route::get('/register', function () {
     return view('register');
-})->name('register');
+})->name('register')->middleware('guest');
 
 // Beschermd met auth middleware - alleen voor ingelogde gebruikers
 Route::get('/mijn-account', function () {
@@ -48,3 +40,17 @@ Route::get('/mijn-account', function () {
 Route::post('/create-user', [UserController::class, 'store'])->name('create-user');
 Route::post('/login-user', [UserController::class, 'show']);
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+Route::post('/reserveringen', [ReserveringController::class, 'index'])->name('reserveringen.index');
+
+// Group review routes with auth middleware
+Route::middleware(['auth'])->group(function () {
+    Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+    Route::post('/reviews.store', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::get('/reserveringen', [ReserveringController::class, 'index'])->name('reserveringen.index');
+    Route::post('/reserveringen.store', [ReserveringController::class, 'store'])->name('reserveringen.store');
+    Route::get('/winkelwagen', [BestellingWinkelwagenController::class, 'index'])->name('winkelwagen.index');
+    Route::post('/winkelwagen/toevoegen', [BestellingWinkelwagenController::class, 'toevoegen'])->name('winkelwagen.toevoegen');
+    Route::delete('/winkelwagen/verwijderen', [BestellingWinkelwagenController::class, 'verwijderen'])->name('winkelwagen.verwijderen');
+    Route::post('/winkelwagen/bestellen', [BestellingWinkelwagenController::class, 'bestellen'])->name('winkelwagen.bestellen');
+    Route::get('/bestellingen-succes', [BestellingWinkelwagenController::class, 'succes'])->name('bestellingen.succes');
+});

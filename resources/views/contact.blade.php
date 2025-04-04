@@ -9,7 +9,8 @@
             <div id="contact-form">
                 <h2>Contacteer ons:</h2>
                 <br>
-                <div id="inputs">
+                <form id="contact-form" method="POST">
+                    @csrf
                     <div class="input-box">
                         <input type="text" placeholder="Naam" required>
                     </div>
@@ -20,13 +21,22 @@
                         <textarea placeholder="Laat hier uw bericht achter" required></textarea> 
                     </div>
                     <br>
-                    <button> <!-- TODO Library -->
+                    <button type="submit"> <!-- TODO Library -->
                         Verzend
                         <div class="arrow-wrapper">
                             <div class="arrow"></div>
                         </div>
                     </button> <!-- Library -->
-                </div>
+                </form>
+                @if ($errors->any())
+                    <div class="alert alert-danger mt-3">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <p>{{ $error }}</p>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>            
         </div>
     </div>

@@ -8,32 +8,65 @@
         <div id="body-reserveren">
             <h2>Maak hier je reservatie:</h2>
 
-            <form id="reservatie-formulier">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            @if (session('succes'))
+                <div class="alert alert-success">
+                    {{ session('succes') }}
+                </div>
+            @endif
+
+            <form id="reservatie-formulier" action="{{ route('reserveringen.store') }}" method="POST" >
+                @csrf
                 <div class="form-group">
                     <label for="datum">Datum:</label>
-                    <input type="date" id="datum" name="datum" required>
+                    <input type="date" id="datum" name="datum" min="{{ date('Y-m-d') }}" value="{{ old('datum') }}" required>
+                    @error('datum')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="form-group">
-                    <label for="tijd">Tijdstip:</label>
-                    <input type="time" id="time" required>
+                    <label for="tijdstip">Tijdstip:</label>
+                    <select id="tijdstip" name="tijdstip" required>
+                        <option value="">-- Selecteer tijdstip --</option>
+                        @foreach(['11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', 
+                                  '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', 
+                                  '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30'] as $time)
+                            <option value="{{ $time }}" {{ old('tijdstip') == $time ? 'selected' : '' }}>{{ $time }}</option>
+                        @endforeach
+                    </select>
+                    @error('tijdstip')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="aantal-personen">Aantal personen:</label>
-                    <input type="number" id="aantal-personen" name="aantal-personen" min="1" max="20" required>
+                    <input type="number" id="aantal-personen" name="aantal-personen" min="1" max="20" value="{{ old('aantal-personen') }}" required>
+                    @error('aantal-personen')
+                        <span class="error-message">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="opmerkingen">Speciale verzoeken:</label>
-                    <textarea id="opmerkingen" name="opmerkingen" rows="3"></textarea>
+                    <textarea id="opmerkingen" name="opmerkingen" rows="3">{{ old('opmerkingen') }}</textarea>
                 </div>
 
-                <button> <!-- TODO Library -->
+                <button>
                     Reserveer
                     <div class="arrow-wrapper">
                         <div class="arrow"></div>
                     </div>
-                </button> <!-- Library -->
+                </button>
             </form>
         </div>
     </div>
