@@ -28,4 +28,12 @@ class Bestelling extends Model
         return $this->belongsToMany(Gerecht::class, 'bestelling_bevat_gerechten', 'bestelling_id', 'gerecht_id')
                     ->withTimestamps();
     }
+
+    public function betaling() {
+        return $this->hasOne(Betaling::class, 'bestelling_id');
+    }
+
+    public function bestellingItems() {
+        return $this->hasMany(BestellingBevat::class, 'bestelling_id');
+    }
 }

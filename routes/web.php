@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BestellingWinkelwagenController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
@@ -41,6 +42,7 @@ Route::post('/create-user', [UserController::class, 'store'])->name('create-user
 Route::post('/login-user', [UserController::class, 'show']);
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::post('/reserveringen', [ReserveringController::class, 'index'])->name('reserveringen.index');
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
 // Group review routes with auth middleware
 Route::middleware(['auth'])->group(function () {

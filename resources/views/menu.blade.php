@@ -24,6 +24,10 @@
                                 <p>Allergenen: <strong>{{ $suggestie->gerecht->allergenen }}</strong></p>
                             @endif
                         </div>
+                        <div class="aantal-gerechten">
+                            <p>Aantal:</p>
+                            <input type="number" name="aantal" class="aantal-input" min="1" value="1">
+                        </div>
                         <div class="shopping-cart">
                             <button data-gerecht-id="{{ $suggestie->gerecht->gerecht_id }}">
                                 <i class="fa-solid fa-cart-plus"></i>
@@ -49,6 +53,10 @@
                             @if($gerecht->allergenen)
                                 <p>Allergenen: <strong>{{ $gerecht->allergenen }}</strong></p>
                             @endif
+                        </div>
+                        <div class="aantal-gerechten">
+                            <p>Aantal:</p>
+                            <input type="number" name="aantal" class="aantal-input" min="1" value="1">
                         </div>
                         <div class="shopping-cart">
                             <button data-gerecht-id="{{ $gerecht->gerecht_id }}">

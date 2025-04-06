@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Bestelling;
 use App\Models\BestellingBevat;
 use App\Models\Gerecht;
+use App\Models\Betaling;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
@@ -34,11 +35,19 @@ class BestellingWinkelwagenController extends Controller
             // Bereken totaalprijs
             $totaalprijs = $winkelwagen->totaalprijs;
         }
+
+        //Haal de vorige bestellingen op
+        $vorigebestellingen = Bestelling::where('user_id', Auth::id())
+            ->where('status', '!=', 'In winkelwagen')
+            ->with(['betaling', 'bestellingItems.gerecht'])
+            ->orderBy('created_at', 'desc')
+            ->get();
         
         return view('bestellen', [
             'winkelwagen' => $winkelwagen,
             'items' => $items,
-            'totaalprijs' => $totaalprijs
+            'totaalprijs' => $totaalprijs,
+            'vorigebestellingen' => $vorigebestellingen
         ]);
     }
 
@@ -210,6 +219,7 @@ class BestellingWinkelwagenController extends Controller
         try {
             $validated = $request->validate([
                 'afhaaltijdstip' => 'required|date|after:now',
+                'betaalmethode' => 'required|in:Bankcontact,Credit kaart,Cash',
             ]);
             
             // Controleer of er een actieve gebruiker is
@@ -243,6 +253,18 @@ class BestellingWinkelwagenController extends Controller
                 $winkelwagen->afhaaltijdstip = $request->afhaaltijdstip;
                 $winkelwagen->save();
                 
+                $betaling = new Betaling();
+                $betaling->bestelling_id = $winkelwagen->bestelling_id;
+                $betaling->datum = now();
+                if($request->betaalmethode === 'Cash') {
+                    $betaling->status = 'Niet betaald';
+                } else {
+                    $betaling->status = 'Betaald';
+                }
+                $betaling->betaalmethode = $request->betaalmethode;
+                $betaling->save();
+
+
                 DB::commit();
                 
                 return redirect()->route('bestellingen.succes')

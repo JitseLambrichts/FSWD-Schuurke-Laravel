@@ -9,16 +9,16 @@
             <div id="contact-form">
                 <h2>Contacteer ons:</h2>
                 <br>
-                <form id="contact-form" method="POST">
+                <form id="contact-form" method="POST" action="{{ route('contact.submit') }}">
                     @csrf
                     <div class="input-box">
-                        <input type="text" placeholder="Naam" required>
+                        <input type="text" name="naam" placeholder="Naam" required>
                     </div>
                     <div class="input-box">
-                        <input type="text" placeholder="Email" required>
+                        <input type="text" name="email" placeholder="Email" required>
                     </div>
                     <div class="input-box">
-                        <textarea placeholder="Laat hier uw bericht achter" required></textarea> 
+                        <textarea name="bericht" placeholder="Laat hier uw bericht achter" required></textarea> 
                     </div>
                     <br>
                     <button type="submit"> <!-- TODO Library -->
@@ -28,6 +28,11 @@
                         </div>
                     </button> <!-- Library -->
                 </form>
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 @if ($errors->any())
                     <div class="alert alert-danger mt-3">
                         <ul>

@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('restaurants', function (Blueprint $table) {
-            $table->bigIncrements('restaurant_id');
+        Schema::create('contacts', function (Blueprint $table) {
+            $table->bigIncrements('contactform_id');
             $table->string('naam');
-            $table->string('telefoonnummer', 50);
             $table->string('email');
-            $table->text('openingsuren');
-            $table->timestamps();                   //Verschil tussen string en text -> text is lang en geen limiet terwijl string een lim heeft van 255
+            $table->text('bericht');
+            $table->timestamps();
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('restaurants');
+        Schema::dropIfExists('contacts');
     }
 };
