@@ -1,0 +1,12 @@
+#bestaande-reservaties {
+    padding-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+#bestaande-reservaties h3 {
+    text-decoration: underline;
+}
+
+.aankomende-reservatie ul {
+    padding-left: 3rem;
+}

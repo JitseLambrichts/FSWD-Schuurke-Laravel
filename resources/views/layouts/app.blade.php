@@ -10,9 +10,8 @@
     <link rel="stylesheet" href="{{ asset('css/contact.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/mijn-account.css') }}">
     <link rel="stylesheet" href="{{ asset('css/nieuws.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/reserveren.css') }}">
     <link rel="stylesheet" href="{{ asset('css/reviews.css') }}">
     <link rel="stylesheet" href="{{ asset('css/formulieren.css') }}">
 

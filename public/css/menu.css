@@ -133,7 +133,9 @@ label {
     gap: 2rem;
 }
 
-@media (max-width: 830px) {
+/* TODO Bronvermelding Copilot */
+
+@media (max-width: 940px) {
     #suggestie-container {
         flex-wrap: wrap;
     }
@@ -144,5 +146,95 @@ label {
 
     .containers-kolom {
         margin: 2rem;
+    }
+
+    .wit-kader-algemeen {
+        padding: 2rem;
+        margin-top: 3rem;
+    }
+    
+    #gerechten {
+        padding: 1.5rem;
+        gap: 2rem;
+    }
+    
+    .suggestie {
+        padding: 1.5rem;
+    }
+    
+    .gerecht {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .bestelling-info-gerechten {
+        width: 100%;
+        justify-content: flex-start;
+        margin-top: 1.5rem;
+        margin-left: 0;
+    }
+    
+    .bestelling-info-suggesties {
+        gap: 2rem;
+        margin: 1.5rem 0;
+        justify-content: flex-start;
+    }
+    
+    .tekst-links {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .wit-kader-algemeen {
+        padding: 1.5rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    #gerechten {
+        padding: 0.5rem;
+        gap: 2rem;
+    }
+    
+    #suggestie-container {
+        gap: 2rem;
+    }
+    
+    .gerecht, .suggestie {
+        padding: 1rem;
+        width: 100%;
+    }
+    
+    .bestelling-info-suggesties {
+        gap: 1rem;
+        margin: 1rem 0;
+        justify-content: flex-start;
+    }
+    
+    .bestelling-info-gerechten {
+        gap: 1rem;
+        margin: 0.8rem 0;
+    }
+    
+    .suggestie h2, .gerecht h2 {
+        font-size: 1.3rem;
+    }
+    
+    .suggestie p, .gerecht p {
+        font-size: 0.9rem;
+    }
+    
+    .aantal-gerechten input, .aantal-suggesties input {
+        width: 3.5rem;
+        padding: 0.5rem;
+    }
+    
+    .gerecht button, .suggestie button {
+        padding: 0.6em;
+    }
+    
+    .aantal-gerechten p, .aantal-suggesties p {
+        font-size: 0.9rem;
     }
 }

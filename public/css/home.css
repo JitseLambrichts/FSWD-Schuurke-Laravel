@@ -102,80 +102,6 @@
     height: auto;
 }
 
-#hero button {
-    --primary-color: #e6ded7;
-    --secondary-color: black;
-    --hover-color: black;
-    --hover-text: white;
-    --arrow-width: 10px;
-    --arrow-stroke: 2px;
-    box-sizing: border-box;
-    border: 0;
-    border-radius: 20px;
-    color: var(--secondary-color);
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 14px;
-    padding-right: 14px;
-    background: var(--primary-color);
-    display: flex;
-    transition: 0.2s background;
-    align-items: center;
-    gap: 0.6em;
-    font-weight: bold;
-    font-size: 15px;
-    width: fit-content;
-    font-family: "Cormorant Upright";
-    align-self: center;
-    margin-bottom: 1rem;
-    margin-top: 3rem;
-}
-
-#hero button .arrow-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#hero button .arrow {
-    margin-top: 1px;
-    width: var(--arrow-width);
-    background: var(--primary-color);
-    height: var(--arrow-stroke);
-    position: relative;
-    transition: 0.2s;
-}
-
-#hero button .arrow::before {
-    content: "";
-    box-sizing: border-box;
-    position: absolute;
-    border: solid var(--secondary-color);
-    border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
-    display: inline-block;
-    top: -3px;
-    right: 3px;
-    transition: 0.2s;
-    padding: 3px;
-    transform: rotate(-45deg);
-}
-
-#hero button:hover {
-    background-color: var(--hover-color);
-    color: var(--hover-text);
-    cursor: pointer;
-}
-
-#hero button:hover .arrow {
-    background: var(--primary-color);
-}
-
-#hero button:hover .arrow:before {
-    right: 0;
-    border-color: var(--hover-text); /* TODO Bron: Claude */
-}
-
-
 #extra-info a {
     width: fit-content;
     height: fit-content;
@@ -241,18 +167,13 @@ img {
     box-shadow: 0.1rem 0.1rem 0.5rem rgba(0,0,0,0.1);
 }
 
-@media (max-width: 830px) {
+@media (max-width: 940px) {
     #info {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
-    #welkom, #laatste-nieuwtjes {
-        width: 100%;
-        max-width: 40rem;
-    }
-    
     .wit-kader-home {
         grid-template-columns: 1fr;
         padding: 2rem;
@@ -271,11 +192,22 @@ img {
     
     .image {
         grid-row: 2;
+        margin-top: 1rem;
     }
     
     #hero {
         height: auto;
         padding: 2rem 1rem;
+    }
+    
+    /* Add these styles to better handle the wit-kader-half elements */
+    .wit-kader-half {
+        width: 90%;
+        margin-bottom: 1rem;
+    }
+    
+    .wit-kader-half img {
+        width: 70%;
     }
 }
 
@@ -292,33 +224,4 @@ img {
     #welkom, #laatste-nieuwtjes {
         padding: 1.5rem;
     }
-}
-
-/* Scroll to info button styles */
-#scroll-to-info {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    background-color: #e6ded7;
-    border: 0.09rem solid #3a35353e;
-    box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.1);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    animation: fadeIn 0.2s ease-in forwards;
-}
-
-#scroll-to-info:hover {
-    background-color: white;
-    box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.25);
-}
-
-/* Add this new style to keep the arrow visible on hover */
-#scroll-to-info:hover i.fa-arrow-down {
-    color: #3a3535; /* Dark color to ensure visibility against white background */
 }

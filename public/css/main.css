@@ -208,74 +208,6 @@ body {
     margin-left: 3rem;
 }
 
-@media (max-width: 830px) {
-    body {
-        padding: 4rem 2rem 0 2rem;
-    }
-
-    #navbar {
-        padding: 1rem;
-    }
-
-    #navbar ul {
-        gap: 0.2rem;
-    }
-
-    #navbar img {
-        width: 15%;
-    }
-
-    .hamburger {
-        display: block;
-    }
-
-    .nav-menu {
-        position: fixed;
-        right: -100%;
-        top: 100px;
-        flex-direction: column;
-        background-color: white;
-        width: 100%;
-        text-align: center;
-        transition: 0.3s;
-        padding: 20px 0;
-        z-index: 99;
-    }
-
-    .nav-menu li {
-        margin: 16px;
-    }
-
-    .nav-menu.active {
-        right: 0;
-    }
-}
-
-@media (max-width: 480px) {
-    body {
-        padding: 4rem 1rem 0 1rem;
-    }
-    
-    #navbar {
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-    
-    #navbar ul {
-        gap: 10px;
-    }
-    
-    #navbar a {
-        font-size: 18px;
-        padding: 6px;
-    }
-}
-
-#scroll-to-info, #scroll-to-menu {
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-/* Voeg deze CSS toe aan je stylesheet */
 .error-message {
     padding: 1rem;
     color: #e3342f;
@@ -377,3 +309,128 @@ button {
     right: 0;
     border-color: var(--hover-text); /* TODO Bron: Claude */
   }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        scale: 0.9;
+    }
+    to {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+@media (max-width: 940px) {
+    body {
+        padding: 4rem 2rem 0 2rem;
+    }
+
+    #navbar {
+        padding: 1rem;
+    }
+
+    #navbar ul {
+        gap: 0.2rem;
+    }
+
+    #navbar img {
+        width: 15%;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .nav-menu {
+        position: fixed;
+        right: -100%;
+        top: 100px;
+        flex-direction: column;
+        background-color: white;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        padding: 20px 0;
+        z-index: 99;
+    }
+
+    .nav-menu li {
+        margin: 16px;
+    }
+
+    .nav-menu.active {
+        right: 0;
+    }
+
+    /* Improved footer responsive adjustments for tablet */
+    #footer {
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        margin-left: -2rem;  /* Match the body padding at this breakpoint */
+        margin-right: -2rem; /* Match the body padding at this breakpoint */
+    }
+    
+    #socials {
+        width: 25%;
+        padding-right: 1.5rem;
+    }
+    
+    #vacature {
+        margin-left: 1.5rem;
+        width: 65%;
+    }
+    
+    #vacature p {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 4rem 1rem 0 1rem;
+    }
+    
+    #navbar {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    #navbar ul {
+        top: 5rem;
+        gap: 10px;
+    }
+    
+    #navbar a {
+        font-size: 18px;
+        padding: 6px;
+    }
+
+    #footer {
+        flex-direction: column;
+        padding: 1.5rem 1rem;
+        margin-left: -1rem;
+        margin-right: -1rem;
+        text-align: center;
+        gap: 1.5rem;
+    }
+    
+    #socials {
+        width: 100%;
+        border-right: none;
+        border-bottom: 0.15rem solid #e6ded7;
+        padding-right: 0;
+        padding-bottom: 1.5rem;
+    }
+    
+    #socials h3, #vacature h3 {
+        margin: 0 auto 1rem auto;
+    }
+    
+    #vacature {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+

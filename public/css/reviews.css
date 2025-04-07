@@ -20,7 +20,7 @@
     border-right: 0.4rem solid #e6ded7;
 }
 
-#nieuwe-review h2 {
+#nieuwe-review h2, #bestaande-reviews h2 {
     padding-bottom: 2rem;
 }
 
@@ -28,11 +28,12 @@
     font-family: "Cormorant Upright" !important;
 }
 
-.form-group {
+#review-formulier .form-group {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: start;
+    margin-bottom: 0;
 }
 
 #informatie-review {
@@ -129,104 +130,32 @@ select {
     fill: #008905;
 }
 
-/* TODO From Uiverse.io by satyamchaudharydev */ 
-button {
-    --primary-color: #e6ded7;
-    --secondary-color: black;
-    --hover-color: black;
-    --hover-text: white;
-    --arrow-width: 10px;
-    --arrow-stroke: 2px;
-    box-sizing: border-box;
-    border: 0;
-    border-radius: 20px;
-    color: var(--secondary-color);
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 14px;
-    padding-right: 14px;
-    background: var(--primary-color);
-    display: flex;
-    transition: 0.2s background;
-    align-items: center;
-    gap: 0.6em;
-    font-weight: bold;
-    font-size: 15px;
-    width: fit-content;
-    font-family: "Cormorant Upright";
-    align-self: center;
-}
-
-button .arrow-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-button .arrow {
-    margin-top: 1px;
-    width: var(--arrow-width);
-    background: var(--primary-color);
-    height: var(--arrow-stroke);
-    position: relative;
-    transition: 0.2s;
-}
-
-button .arrow::before {
-    content: "";
-    box-sizing: border-box;
-    position: absolute;
-    border: solid var(--secondary-color);
-    border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
-    display: inline-block;
-    top: -3px;
-    right: 3px;
-    transition: 0.2s;
-    padding: 3px;
-    transform: rotate(-45deg);
-}
-
-button:hover {
-    background-color: var(--hover-color);
-    color: var(--hover-text);
-    cursor: pointer;
-}
-
-button:hover .arrow {
-    background: var(--primary-color);
-}
-
-button:hover .arrow:before {
-    right: 0;
-    border-color: var(--hover-text); /* TODO Bron: Claude */
-}
-
-#input-box input {
-    font-family: inherit;
-    font-size: 0.9rem;
-    width: 100%;
-    padding: 0.9rem;
-    border: 0.09rem solid #3a35353e;
-    border-radius: 2cap;
-}
-
-/* Add styles for textarea */
-#input-box textarea {
-    font-family: inherit;
-    font-size: 0.9rem;
-    width: 100%;
-    padding: 0.9rem;
-    border: 0.09rem solid #3a35353e;
-    border-radius: 2cap;
-    resize: vertical; /* Only allow vertical resizing */
-    min-height: 8rem; 
-    overflow-y: auto; /* Add scrollbar when content exceeds max height */
-}
-
-#review-form {
+#review-formulier {
     display: flex;
     flex-direction: column;
     gap: 3rem;
+}
+
+#review-formulier .form-group select{
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    border: 1px solid #e6ded7;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1rem;
+    width: 100% !important;
+    max-width: 350px;
+    box-sizing: border-box;
+}
+
+#review-formulier #input-box textarea {
+    font-family: inherit;
+    height: 10rem;
+    padding: 0.75rem;
+    width: 100% !important;
+    border: 1px solid #e6ded7;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 #bestaande-reviews {
@@ -254,7 +183,7 @@ button:hover .arrow:before {
     width: 100%;
 }
 
-@media (max-width: 830px) {
+@media (max-width: 940px) {
     #body-review {
         width: 100%;
         flex-wrap: wrap;
@@ -268,19 +197,80 @@ button:hover .arrow:before {
         border-bottom: 0.4rem solid #e6ded7;
     }
 
-    #review-form {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 1.5rem;
+    /* Modify the form to be better on tablets */
+    #review-formulier {
+        flex-direction: column;
+        gap: 2rem;
+        align-items: flex-start;
+        width: 100%;
     }
 
     #inputs {
-        padding: 0rem;
+        width: 100%;
     }
 
-    .form-group {
-        width: fit-content;
+    #review-formulier .form-group, #sterren, #informatie-review {
+        width: 100% !important;
+    }
+
+    #sterren {
+        align-items: flex-start;
+    }
+
+    /* Adjust existing reviews section */
+    #bestaande-reviews {
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+    }
+}
+
+/* Add new media query for phones */
+@media (max-width: 480px) {
+    .wit-kader-algemeen {
+        padding: 1.5rem;
+    }
+
+    /* Fix star rating display on small screens */
+    .rating {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+    }
+
+    .rating > label {
+        font-size: 1.5rem;
+    }
+
+    /* Adjust form elements */
+    #review-formulier .form-group select {
+        width: 100% !important;
+        padding: 0.75rem;
+    }
+
+    #input-box textarea {
+        min-height: 6rem;
+    }
+
+    /* Fix review display */
+    .gegeven-review {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .info-rechts {
+        align-self: flex-start;
+    }
+
+    .stars {
+        font-size: 1.25rem;
+    }
+
+    /* Ensure the form button is properly sized */
+    button {
+        align-self: center;
+        width: 100%;
+        justify-content: center;
     }
 }

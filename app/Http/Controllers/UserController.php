@@ -51,13 +51,16 @@ class UserController extends Controller
         }
     }
     
-    public function logout(Request $request)
-    {
+    public function logout(Request $request) {
         Auth::logout();
-        // Completely remove all items from session
-        $request->session()->invalidate();
-        $request->session()->regenerateToken(); //Regenerates @csrf tokens
+        $request->session()->invalidate();      //session invalidaten -> zeggen dat de sessie niet meer geldig is
+        $request->session()->regenerateToken();
 
         return redirect()->route('login');
+    }
+
+    public function account() {
+        $reserveringen = Auth::user()->reserveringen;
+        return view('mijn-account', compact('reserveringen'));
     }
 }

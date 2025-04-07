@@ -7,7 +7,7 @@
             <div id="nieuwe-review">
                 <h2>Plaats een nieuwe review:</h2>
                 <div id="inputs">
-                    <form id="review-form" action="{{ route('reviews.store') }}" method="POST">
+                    <form id="review-formulier" action="{{ route('reviews.store') }}" method="POST">
                         @csrf
                         <div class="form-group"> <!--BRONVERMELDING Copilot-->
                             <p>Selecteer gerecht: </p>

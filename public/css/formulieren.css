@@ -50,6 +50,7 @@
 #register-formulier .form-group input,
 #contact-formulier .form-group input,
 #contact-formulier .form-group textarea {
+    width: 50% !important;
     padding: 0.75rem;
     border: 1px solid #e6ded7;
     border-radius: 4px;
@@ -62,4 +63,64 @@ input:focus, textarea:focus {
     outline: none;
     border-color: #3a3535;
     box-shadow: 0 0 0 2px rgba(58, 53, 53, 0.1);
+}
+
+@media (max-width: 480px) {
+  #login-formulier,
+  #register-formulier,
+  #contact-formulier,
+  #reservatie-formulier {
+      width: 100% !important;
+      padding: 2rem 1rem !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      gap: 0.1rem !important;
+  }
+  
+  #login-formulier input[type="text"],
+  #login-formulier input[type="email"],
+  #login-formulier input[type="password"],
+  #register-formulier input[type="text"],
+  #register-formulier input[type="email"],
+  #register-formulier input[type="password"],
+  #contact-formulier input[type="text"],
+  #contact-formulier input[type="email"],
+  #contact-formulier textarea,
+  #reservatie-formulier input[type="text"],
+  #reservatie-formulier input[type="email"],
+  #reservatie-formulier select,
+  #reservatie-formulier textarea {
+      height: 3rem !important;
+      padding: 1rem !important;
+      width: 100% !important;
+      margin-bottom: 15px !important;
+      border-radius: 5px !important;
+      box-sizing: border-box !important;
+      font-size: 16px !important;
+  }
+  
+  /* Aanpassing voor textarea die normaal hoger moet zijn */
+  #contact-formulier textarea,
+  #reservatie-formulier textarea {
+      height: auto !important;
+      min-height: 6rem !important;
+  }
+  
+  #login-formulier button,
+  #register-formulier button,
+  #contact-formulier button,
+  #reservatie-formulier button {
+      width: 70% !important;
+  }
+  
+  .form-group {
+      width: 100% !important;
+      margin-bottom: 15px !important;
+  }
+  
+  #register-link,
+  #login-link {
+      text-align: center;
+      margin-top: 20px;
+  }
 }

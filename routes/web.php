@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ReserveringController;
+use App\Models\Reservatie;
 
 Route::get('/', function () {
     return view('home');
@@ -32,12 +33,7 @@ Route::get('/register', function () {
     return view('register');
 })->name('register')->middleware('guest');
 
-// Beschermd met auth middleware - alleen voor ingelogde gebruikers
-Route::get('/mijn-account', function () {
-    return view('mijn-account');
-})->name('mijn-account')->middleware('auth');
-
-// Nieuwe routes voor gebruikersregistratie en login
+Route::get('/mijn-account', [UserController::class, 'account'])->name('mijn-account')->middleware('auth');
 Route::post('/create-user', [UserController::class, 'store'])->name('create-user');
 Route::post('/login', [UserController::class, 'show'])->name('login');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');

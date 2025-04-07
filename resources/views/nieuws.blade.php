@@ -20,12 +20,6 @@
                     <img src="{{ asset('images/feestmenu.jpg') }}" alt="">
                 </div>
             </div>
-            <div id="vacature">
-                <h3>Vacature:</h3>
-                <p>Ben jij nog op zoek naar een fultime / flexi of parttime job , dan ben je bij ons aan het juiste adres. <br>
-                    Voor meer info mag u ons gerust contacteren!Bent u geïnteresseerd dan kan u ons altijd bereiken op het nummer: 011 79 38 18 of stuur gerust een <a href="{{ route('contact') }}"><strong>mailtje</strong></a>.
-                </p>
-            </div>
         </div>
     </div>
 @endsection
