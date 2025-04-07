@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('bestelling_id')->constrained('bestellingen', 'bestelling_id')->cascadeOnDelete();
             $table->dateTime('datum');
             $table->enum('status', ['Betaald', 'Niet betaald']);
-            $table->enum('betaalmethode', ['Bankcontact', 'Credit kaart', 'Cash']);
+            $table->enum('betaalmethode', ['Bankcontact', 'Credit', 'Cash']);
             $table->timestamps();
         });
     }

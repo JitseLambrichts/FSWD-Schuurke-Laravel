@@ -1,10 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="reserveren">
-        <div id="titel-reserveren">
-            <h1>Reserveren</h1>
-        </div>
+    <div class="wit-kader-algemeen">
+        <h1>Reserveren</h1>
         <div id="body-reserveren">
             <h2>Maak hier je reservatie:</h2>
 
@@ -51,7 +49,7 @@
 
                 <div class="form-group">
                     <label for="aantal-personen">Aantal personen:</label>
-                    <input type="number" id="aantal-personen" name="aantal-personen" min="1" max="20" value="{{ old('aantal-personen') }}" required>
+                    <input type="number" id="aantal-personen" name="aantal-personen" min="1" max="20" value="1" required>
                     @error('aantal-personen')
                         <span class="error-message">{{ $message }}</span>
                     @enderror

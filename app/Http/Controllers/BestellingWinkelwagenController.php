@@ -10,6 +10,7 @@ use App\Models\Betaling;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon; // Add this import at the top
 
 class BestellingWinkelwagenController extends Controller
 {
@@ -216,43 +217,60 @@ class BestellingWinkelwagenController extends Controller
      */
     public function bestellen(Request $request)
     {
+        Log::info('Bestellen request received:', $request->all()); // <-- Add this line
+
         try {
+            // Validate the separate date and time fields
             $validated = $request->validate([
-                'afhaaltijdstip' => 'required|date|after:now',
-                'betaalmethode' => 'required|in:Bankcontact,Credit kaart,Cash',
+                'afhaaldatum' => 'required|date',
+                'afhaaltijd' => 'required|date_format:H:i',
+                'betaalmethode' => 'required|in:Bankcontact,Credit,Cash',
             ]);
-            
+
+            Log::info('Validation passed. Validated data:', $validated); // <-- Optional: Add log after validation
+
+            // Combine date and time
+            $afhaaltijdstipString = $request->afhaaldatum . ' ' . $request->afhaaltijd;
+            $afhaaltijdstip = Carbon::createFromFormat('Y-m-d H:i', $afhaaltijdstipString);
+
+            // Manually validate if the combined datetime is in the future
+            if ($afhaaltijdstip->isPast()) {
+                return redirect()->back()
+                    ->withErrors(['afhaaltijdstip' => 'Het afhaaltijdstip moet in de toekomst liggen.'])
+                    ->withInput();
+            }
+
             // Controleer of er een actieve gebruiker is
             if (!Auth::check()) {
                 return redirect()->route('login')
                     ->with('error', 'Je moet ingelogd zijn om te bestellen');
             }
-            
+
             // Zoek de actieve winkelwagen
             $winkelwagen = Bestelling::where('user_id', Auth::id())
                 ->where('status', 'In winkelwagen')
                 ->first();
-                
+
             if (!$winkelwagen) {
                 return redirect()->route('bestellen')
                     ->with('error', 'Geen actieve winkelwagen gevonden');
             }
-            
+
             // Controleer of er items in de winkelwagen zitten
             $itemCount = BestellingBevat::where('bestelling_id', $winkelwagen->bestelling_id)->count();
             if ($itemCount === 0) {
                 return redirect()->route('bestellen')
                     ->with('error', 'Je winkelwagen is leeg');
             }
-            
+
             DB::beginTransaction();
-            
+
             try {
-                // Update de bestelling status
+                // Update de bestelling status en het gecombineerde afhaaltijdstip
                 $winkelwagen->status = 'Besteld';
-                $winkelwagen->afhaaltijdstip = $request->afhaaltijdstip;
+                $winkelwagen->afhaaltijdstip = $afhaaltijdstip; // Use the combined Carbon instance
                 $winkelwagen->save();
-                
+
                 $betaling = new Betaling();
                 $betaling->bestelling_id = $winkelwagen->bestelling_id;
                 $betaling->datum = now();
@@ -266,15 +284,21 @@ class BestellingWinkelwagenController extends Controller
 
 
                 DB::commit();
-                
+
                 return redirect()->route('bestellingen.succes')
                     ->with('bestelling_id', $winkelwagen->bestelling_id);
             } catch (\Exception $e) {
                 DB::rollBack();
-                throw $e;
+                throw $e; // Re-throw the exception for better debugging
             }
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            Log::error('Validation failed during bestellen:', ['errors' => $e->errors(), 'input' => $request->all()]); // <-- Add log for validation errors
+            // Redirect back with validation errors
+            return redirect()->back()
+                        ->withErrors($e->validator)
+                        ->withInput();
         } catch (\Exception $e) {
-            Log::error('Fout bij plaatsen bestelling: ' . $e->getMessage());
+            Log::error('Exception during bestellen:', ['message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]); // <-- Add log for general errors
             return redirect()->route('bestellen')
                 ->with('error', 'Er is een fout opgetreden: ' . $e->getMessage());
         }

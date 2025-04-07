@@ -6,7 +6,7 @@
     margin-top: 4rem;
 }
 
-#app {
+.wit-kader-home {
     display: grid;
     position: relative;
     z-index: 10;
@@ -129,24 +129,24 @@
     align-self: center;
     margin-bottom: 1rem;
     margin-top: 3rem;
-  }
-  
-  #hero button .arrow-wrapper {
+}
+
+#hero button .arrow-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  #hero button .arrow {
+}
+
+#hero button .arrow {
     margin-top: 1px;
     width: var(--arrow-width);
     background: var(--primary-color);
     height: var(--arrow-stroke);
     position: relative;
     transition: 0.2s;
-  }
-  
-  #hero button .arrow::before {
+}
+
+#hero button .arrow::before {
     content: "";
     box-sizing: border-box;
     position: absolute;
@@ -158,22 +158,22 @@
     transition: 0.2s;
     padding: 3px;
     transform: rotate(-45deg);
-  }
-  
-  #hero button:hover {
+}
+
+#hero button:hover {
     background-color: var(--hover-color);
     color: var(--hover-text);
     cursor: pointer;
-  }
-  
-  #hero button:hover .arrow {
+}
+
+#hero button:hover .arrow {
     background: var(--primary-color);
-  }
-  
-  #hero button:hover .arrow:before {
+}
+
+#hero button:hover .arrow:before {
     right: 0;
     border-color: var(--hover-text); /* TODO Bron: Claude */
-  }
+}
 
 
 #extra-info a {
@@ -197,59 +197,48 @@
 #info {
     height: fit-content;
     display: flex;
-    gap: 3.1rem;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 3rem;
     max-width: 100%;
 }
 
-#welkom, #laatste-nieuwtjes {
+.wit-kader-half {
     display: flex;
     flex-direction: column;
     align-items: flex-start;  /* Zet standaard uitlijning naar links */
     background-color: white;
     padding: 3rem;
-    width: 38rem;
     height: fit-content;
+    width: 45%;
     font-size: 1.2rem;
     box-shadow: 0.5rem 0.5rem 1rem rgba(0,0,0,0.2);
     box-sizing: border-box; /* Ensure padding is included in width */
 }
 
-#welkom h2, #laatste-nieuwtjes h2 {
+.wit-kader-half h2 {
     align-self: center;
     margin-bottom: 1.4rem;
 }
 
-#welkom img, #laatste-nieuwtjes img {
+.wit-kader-half img {
     width: 60%;
     display: block;
     align-self: center;
-    margin-bottom: 1.4rem;
+    margin: 1.4rem;
 }
 
-#laatste-nieuwtjes img {
-    margin-top: 1.4rem;
+.wit-kader-half ul + p {
+    padding-left: 1rem;     /* zorgen voor extra inspringin voor de ul zodat de p niet direct onder de ul staat, maar een mooie spatie heeft */
 }
 
-#laatste-nieuwtjes ul + p {
-    padding-left: 1rem;  /* Pas deze waarde aan voor meer of minder inspringing */
-}
-
-#laatste-nieuwtjes ul {
+.wit-kader-half ul {
     text-decoration: underline;
 }
 
 img {
     box-shadow: 0.1rem 0.1rem 0.5rem rgba(0,0,0,0.1);
-}
-
-#laatste-nieuwtjes ul {
-    margin-bottom: 0;
-}
-
-#laatste-nieuwtjes a {
-    font-weight: 600;
-    padding-top: 2rem;
 }
 
 @media (max-width: 830px) {
@@ -264,7 +253,7 @@ img {
         max-width: 40rem;
     }
     
-    #app {
+    .wit-kader-home {
         grid-template-columns: 1fr;
         padding: 2rem;
     }
@@ -292,7 +281,7 @@ img {
 
 /* Add an even smaller size for mobile phones */
 @media (max-width: 480px) {
-    #app {
+    #wit-kader-titel {
         height: 80vh;
     }
 

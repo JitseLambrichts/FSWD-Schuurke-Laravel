@@ -1,10 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="bestellen">
-        <div id="titel-bestellen">
-            <h1>Bestellen</h1>
-        </div>
+    <div class="wit-kader-algemeen">
+        <h1>Bestellen</h1>
         <div id="body-bestellen">
             <div id="nieuwe-bestellingen">
                 <h2>Nieuwe Bestellingen</h2>
@@ -15,7 +13,7 @@
                             <div class="winkelwagen-item">
                                 <div class="item-info">
                                     <p>{{ $item->gerecht->naam }} (€{{ number_format($item->gerecht->prijs, 2, ',', '.') }}) x {{ $item->aantal }}</p>
-                                    <p>Subtotaal: €{{ number_format($item->gerecht->prijs * $item->aantal, 2, ',', '.') }}</p>
+                                    <p>Subtotaal: <strong>€{{ number_format($item->gerecht->prijs * $item->aantal, 2, ',', '.') }}</strong></p>
                                 </div>
                                 <div class="item-actions">
                                     <button class="remove-btn verwijder-item" data-gerecht-id="{{ $item->gerecht_id }}">
@@ -24,9 +22,10 @@
                                 </div>
                             </div>
                         @endforeach
-                        <div class="totaal">
-                            <p>Totaal: €{{ number_format($totaalprijs, 2, ',', '.') }}</p>
+                        <div id="totaal">
+                            <p>Totaal: <strong>€{{ number_format($totaalprijs, 2, ',', '.') }}</strong></p>
                         </div>
+                        <br>
                     @else
                         <p>Je winkelwagen is leeg</p>
                         <p>Bekijk het <a href="{{ route('menu') }}"><strong>menu</strong></a> om gerechten toe te voegen.</p>
@@ -34,30 +33,51 @@
                 </div>
                 
                 @if($winkelwagen && $items->count() > 0)
-                    <form action="{{ route('winkelwagen.bestellen') }}" method="POST">
+                    <form id="bestel-formulier" action="{{ route('winkelwagen.bestellen') }}" method="POST">
                         @csrf
-                        <div id="tijdstip">
-                            <h3>Tijdstip van afhalen/levering</h3>
-                            <div class="form-group">
-                                <input type="datetime-local" id="afhaaltijdstip" name="afhaaltijdstip" required>
-                                <h3>Kies een betaalmethode</h3>
-                                <div id="radio-optie">
-                                    <input type="radio" name="betaalmethode" id="betaalmethode_bankcontact" value="Bankcontact" required>
-                                    <label for="betaalmethode_bankcontact">Bankcontact</label>
-                                </div>
-                                <div id="radio-optie">
-                                    <input type="radio" name="betaalmethode" id="betaalmethode_credit" value="Credit" required>
-                                    <label for="betaalmethode_credit">Credit Card</label>
-                                </div>
-                                <div id="radio-optie">
-                                    <input type="radio" name="betaalmethode" id="betaalmethode_cash" value="Cash" required>
-                                    <label for="betaalmethode_cash">Cash</label>
-                                </div>
-                                @error('afhaaltijdstip')
-                                    <span class="error-message">{{ $message }}</span>
-                                @enderror
-                            </div>
+                        <h3>Tijdstip van afhalen</h3>
+                        <div class="form-group">
+                            <label for="afhaaldatum">Datum:</label>
+                            <input type="date" id="afhaaldatum" name="afhaaldatum" required>
                         </div>
+                        <div class="form-group">
+                            <label for="afhaaltijd">Tijd:</label>
+                            <input type="time" id="afhaaltijd" name="afhaaltijd" required>
+                        </div>
+                        <h3>Kies een betaalmethode</h3>
+
+                        <!-- From Uiverse.io by coding-masala --> 
+                        <div class="radio-group">
+                            <input type="radio" id="betaalmethode_bankcontact" name="betaalmethode" class="radio-input" value="Bankcontact" required>
+                            <label for="betaalmethode_bankcontact" class="radio-label">
+                                <span class="radio-inner-circle"></span>
+                                Bankcontact
+                            </label>
+                            
+                            <input type="radio" id="betaalmethode_credit" name="betaalmethode" class="radio-input" value="Credit" required>
+                            <label for="betaalmethode_credit" class="radio-label">
+                                <span class="radio-inner-circle"></span>
+                                Credit kaart
+                            </label>
+                            
+                            <input type="radio" id="betaalmethode_cash" name="betaalmethode" class="radio-input" value="Cash" required>
+                            <label for="betaalmethode_cash" class="radio-label">
+                                <span class="radio-inner-circle"></span>
+                                Cash
+                            </label>
+                        </div>
+                        @error('betaalmethode')
+                            <span class="error-message">{{ $message }}</span>
+                        @enderror
+                        @error('afhaaldatum')
+                            <span class="error-message">{{ $message }}</span>
+                        @enderror
+                        @error('afhaaltijd')
+                            <span class="error-message">{{ $message }}</span>
+                        @enderror
+                        @error('afhaaltijdstip') {{-- Keep this for combined validation errors --}}
+                            <span class="error-message">{{ $message }}</span>
+                        @enderror
                         <button type="submit">
                             Bestel
                             <div class="arrow-wrapper">
@@ -70,7 +90,6 @@
             
             <div id="vorige-bestellingen">
                 <h2>Vorige bestellingen</h2>
-                
                 @if($vorigebestellingen->count() > 0)
                     @foreach($vorigebestellingen as $bestelling)
                         <div class="vorige-bestelling">

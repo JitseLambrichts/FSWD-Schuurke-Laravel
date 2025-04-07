@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('css/nieuws.css') }}">
     <link rel="stylesheet" href="{{ asset('css/reserveren.css') }}">
     <link rel="stylesheet" href="{{ asset('css/reviews.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/formulieren.css') }}">
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500;600;700&display=swap');

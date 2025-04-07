@@ -277,6 +277,7 @@ body {
 
 /* Voeg deze CSS toe aan je stylesheet */
 .error-message {
+    padding: 1rem;
     color: #e3342f;
     font-size: 0.85em;
     margin-top: 0.25rem;
@@ -291,13 +292,88 @@ body {
 }
 
 .alert-danger {
+    padding: 1rem;
     color: #721c24;
     background-color: #f8d7da;
     border-color: #f5c6cb;
 }
 
 .alert-success {
+    padding: 1rem;
     color: #155724;
     background-color: #d4edda;
     border-color: #c3e6cb;
 }
+
+button {
+    --primary-color: #e6ded7;
+    --secondary-color: black;
+    --hover-color: black;
+    --hover-text: white;
+    --arrow-width: 10px;
+    --arrow-stroke: 2px;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 20px;
+    color: var(--secondary-color);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 14px;
+    padding-right: 14px;
+    background: var(--primary-color);
+    display: flex;
+    transition: 0.2s background;
+    align-items: center;
+    gap: 0.6em;
+    font-weight: bold;
+    font-size: 15px;
+    width: fit-content;
+    font-family: "Cormorant Upright";
+    align-self: center;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
+  
+  button .arrow-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  button .arrow {
+    margin-top: 1px;
+    width: var(--arrow-width);
+    background: var(--primary-color);
+    height: var(--arrow-stroke);
+    position: relative;
+    transition: 0.2s;
+  }
+  
+  button .arrow::before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    border: solid var(--secondary-color);
+    border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
+    display: inline-block;
+    top: -3px;
+    right: 3px;
+    transition: 0.2s;
+    padding: 3px;
+    transform: rotate(-45deg);
+  }
+  
+  button:hover {
+    background-color: var(--hover-color);
+    color: var(--hover-text);
+    cursor: pointer;
+  }
+  
+  button:hover .arrow {
+    background: var(--primary-color);
+  }
+  
+  button:hover .arrow:before {
+    right: 0;
+    border-color: var(--hover-text); /* TODO Bron: Claude */
+  }

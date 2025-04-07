@@ -1,10 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="reviews">
-        <div id="titel-reviews">
-            <h1>Reviews</h1>
-        </div>
+    <div class="wit-kader-algemeen">
+        <h1>Reviews</h1>
         <div id="body-review">
             <div id="nieuwe-review">
                 <h2>Plaats een nieuwe review:</h2>
@@ -26,7 +24,6 @@
                                 @endforeach
                             </select>
                         </div>
-
                         <div id="sterren">
                             <p>Uw beoordeling:</p>
                             <!-- From Uiverse.io by aguerquin -->
@@ -73,7 +70,6 @@
                                 </label>
                             </div>
                         </div>
-
                         <div id="informatie-review">
                             <div id="input-box">
                                 <textarea name="comment" placeholder="Geef hier extra informatie (optioneel)"></textarea>
@@ -99,7 +95,11 @@
                                 <small>{{ $review->datum ? date('d/m/Y', strtotime($review->datum)) : 'Geen datum' }}</small>
                             </div>
                             <div class="info-rechts">
-                                <p>{{ $review->score }} {{ $review->score == 1 ? 'ster' : 'sterren' }}</p>
+                                <div class="stars">
+                                    @for ($i=0 ; $i < $review->score; $i++)
+                                        <i class="fa-solid fa-star"></i>
+                                    @endfor
+                                </div>
                             </div>
                         </div>
                     @empty

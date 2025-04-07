@@ -2,15 +2,6 @@ html {
     color: #3a3535;
 }
 
-#menu {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
-    background-color: white;
-    padding: 3rem;
-    box-shadow: 0.5rem 0.5rem 1rem rgba(0,0,0,0.05);
-    animation: fadeIn 0.2s ease-in forwards;
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -22,7 +13,7 @@ html {
   }
 }
 
-#menu h1 {
+.wit-kader-algemeen h1 {
     width: 100%;
     padding-bottom: 1rem;
     border-bottom: 0.15rem solid #3a3535;
@@ -31,15 +22,6 @@ html {
 
 #body-menu {
     display: flex;
-}
-
-#navbar-menu {
-    width: 20%;
-    border-right: 0.3rem solid #e6ded7;
-}
-
-#navbar-menu h2 {
-  margin-bottom: 0.5rem;
 }
 
 #gerechten {
@@ -78,69 +60,13 @@ label {
     cursor: pointer;
 }
 
-/* TODO From Uiverse.io by KSAplay + Claude + Zelf */ 
-.container {
-    display: flex;
-    align-items: center; /* Verticaal centreren van checkmark en tekst */
-    gap: 0.5rem; /* Ruimte tussen checkmark en tekst */
-    font-size: 1rem;
-    user-select: none;
-    -webkit-user-select: none; /* Zie lijn 100 voor uitleg */
-    position: relative; /* Behoud positie voor input */
-    margin-bottom: 0.8rem; /* Voeg deze regel toe voor kleinere verticale spacing */
-    cursor: default;
-}
-
-.checkmark {
-    position: relative;
-    width: 1rem;
-    height: 1rem;
-    border: 0.15rem solid black;
-    cursor: pointer;
-}
-
-.checkmark:after {
-    content: '';
-    position: absolute;
-    top: 25%;
-    left: 25%;
-    background-color: black;
-    width: 50%;
-    height: 50%;
-    transform: scale(0);
-    transition: .1s ease;
-}
-
-.container input:checked ~ .checkmark:after {
-    transform: scale(1);
-}
-
-.container input {
-    position: absolute;
-    opacity: 0;
-    height: 0;
-    width: 0;
-}
-
-.container span { /* TODO Grok AI  -> zorgen dat de tekst niet geselcteerd kan worden */
-    -webkit-user-select: none; /* Voor Safari */
-    -moz-user-select: none;    /* Voor Firefox */
-    -ms-user-select: none;     /* Voor Internet Explorer */
-    user-select: none;
-    cursor: pointer;
-}
-
-html {
-    color: #3a3535;
-}
-
-#suggesties {
+.wit-kader-algemeen {
     margin-top: 4rem;
     margin-bottom: 4rem;
     background-color: white;
     padding: 3rem;
     animation: fadeIn 0.2s ease-in forwards;
-    box-shadow: 5px 5px 10px rgba(0,0,0,0.05);
+    box-shadow: 0.5rem 0.5rem 1rem rgba(0,0,0,0.2);
 }
 
 @keyframes fadeIn {
@@ -153,70 +79,58 @@ html {
     scale: 1;
   }
 }
-#body-suggesties {
+
+.suggestie {
     display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    border: 0.09rem solid #3a35353e;
+    border-radius: 2cap;
+    width: 45%;
+    padding: 2rem;
+    box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.1);
 }
 
-#titel-suggesties {
-    border-bottom: 0.15rem solid #3a3535;
-    padding-bottom: 1rem;
-}
-
-#foto-suggesties {
+.bestelling-info-suggesties {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
+    gap: 3rem;
+    width: 100%;
+    margin: 2rem;
+}
+
+.bestelling-info-gerechten {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 2rem;
+    margin: 1.5rem;
+}
+
+.aantal-gerechten input, .aantal-suggesties input {
+    width: 4rem;
+    padding: 0.75rem;
+    border: 1px solid #e6ded7;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.aantal-gerechten input:focus, .aantal-suggesties input:focus {     /* probleem met kleur van de focus */
+    outline: none;
+    border-color: #e6ded7;
+    box-shadow: 0 0 0 2px rgba(230, 222, 215, 0.3);
 }
 
 #suggestie-container {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.containers-kolom {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  gap: 4rem;
-  margin: 4rem;
-  width: 100%;
-}
-
-.suggestie-tekst {
-  text-align: center;
-  border: 0.09rem solid #3a35353e;
-  border-radius: 2rem;
-  box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.1);
-  padding: 2rem;
-}
-
-#scroll-to-menu {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  background-color: #e6ded7;
-  border: 0.09rem solid #3a35353e;
-  box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.1);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-  animation: fadeIn 0.2s ease-in forwards;
-}
-
-#scroll-to-menu:hover {
-  background-color: white;
-  box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.25);
-}
-
-/* Add this new style to keep the arrow visible on hover */
-#scroll-to-menu:hover i.fa-arrow-down {
-  color: #3a3535; /* Dark color to ensure visibility against white background */
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 2rem;
 }
 
 @media (max-width: 830px) {

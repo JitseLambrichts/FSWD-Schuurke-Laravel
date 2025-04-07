@@ -7,21 +7,23 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             const gerechtId = this.getAttribute('data-gerecht-id');
             
-            // Find the closest parent element with class 'gerecht'
-            const gerechtContainer = this.closest('.gerecht');
+            // Find the closest parent item container (.suggestie or .gerecht)
+            const itemContainer = this.closest('.suggestie, .gerecht'); // <-- Find either parent
             
             // Get the quantity input value within this container
-            const aantalInput = gerechtContainer.querySelector('.aantal-input');
-            const aantal = aantalInput ? aantalInput.value : 1;
+            // It should always have the class 'aantal-input' regardless of parent
+            const aantalInput = itemContainer ? itemContainer.querySelector('.aantal-input') : null; // <-- Find input within that parent
+            const aantal = aantalInput ? aantalInput.value : 1; // Default to 1 if not found
             
             // CSRF token ophalen
             const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             
-            // Formulier data maken
-            const formData = new FormData();
-            formData.append('gerecht_id', gerechtId);
-            formData.append('aantal', aantal); // Use the quantity from input
-            formData.append('_token', token);
+            // Formulier data maken (Using JSON)
+            const payload = {
+                gerecht_id: gerechtId,
+                aantal: aantal,
+                _token: token 
+            };
             
             // Feedback voor de gebruiker voordat we de aanvraag versturen
             this.disabled = true;
@@ -31,9 +33,11 @@ document.addEventListener('DOMContentLoaded', function() {
             fetch('/winkelwagen/toevoegen', {
                 method: 'POST',
                 headers: {
-                    'X-CSRF-TOKEN': token
+                    'Content-Type': 'application/json', 
+                    'Accept': 'application/json',       
+                    'X-CSRF-TOKEN': token             
                 },
-                body: formData
+                body: JSON.stringify(payload) 
             })
             .then(response => {
                 // Herstellen van de knop
@@ -41,26 +45,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.innerHTML = '<i class="fa-solid fa-cart-plus"></i>';
                 
                 if (!response.ok) {
-                    if (response.status === 401) {
-                        alert('Je moet ingelogd zijn om te bestellen.');
-                        window.location.href = '/login'; // Redirect naar login pagina
-                        return null;
-                    }
                     return response.json().then(data => {
-                        throw new Error(data.message || 'Er is een fout opgetreden.');
+                        if (response.status === 401) {
+                            alert('Je moet ingelogd zijn om te bestellen.');
+                            window.location.href = '/login'; 
+                        } else {
+                            throw new Error(data.message || `Fout ${response.status}: Kon item niet toevoegen.`);
+                        }
+                    }).catch(() => {
+                        throw new Error(`Fout ${response.status}: Kon item niet toevoegen.`);
                     });
                 }
-                return response.json();
+                return response.json(); 
             })
             .then(data => {
                 if (data && data.success) {
-                    // Toon bevestiging aan de gebruiker
-                    alert('Gerecht toegevoegd aan winkelwagen!');
+                    alert(data.message || 'Gerecht toegevoegd aan winkelwagen!');
+                    // updateCartCounter(data.cartCount); 
+                } else if (data && data.message) {
+                    alert(data.message);
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert(error.message || 'Er is een fout opgetreden bij het toevoegen aan de winkelwagen.');
+                alert(error.message || 'Er is een onbekende fout opgetreden bij het toevoegen aan de winkelwagen.');
+                this.disabled = false;
+                this.innerHTML = '<i class="fa-solid fa-cart-plus"></i>';
             });
         });
     });

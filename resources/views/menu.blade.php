@@ -1,30 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- TODO extra <button id="scroll-to-menu" aria-label="Scroll naar menu">
-        <i class="fa-solid fa-arrow-down"></i>
-    </button> -->
-    <div id="suggesties">
-        <div id="titel-suggesties">
-            <h1>Suggesties</h1>
-            <p>(Van ... tot ...)</p>
-        </div>
+    <div class="wit-kader-algemeen">
+        <h1>Suggesties (Van ... tot ...)</h1>
         <br>
-        <div id="body-suggesties">
-            <div id="suggestie-container">
-                @foreach($suggesties as $suggestie)
-                    <div class="gerecht">
-                        <div class="tekst-links">
-                            <h2>{{ ucfirst($suggestie->gerecht->naam) }}</h2>
-                            @if($suggestie->gerecht->beschrijving)
-                                <p>Beschrijving: <strong>{{ $suggestie->gerecht->beschrijving }}</strong></p>
-                            @endif
-                            <p>Prijs: <strong>€{{ number_format($suggestie->gerecht->prijs, 2, ',', '.') }}</strong></p>
-                            @if($suggestie->gerecht->allergenen)
-                                <p>Allergenen: <strong>{{ $suggestie->gerecht->allergenen }}</strong></p>
-                            @endif
-                        </div>
-                        <div class="aantal-gerechten">
+        <div id="suggestie-container">
+            @foreach($suggesties as $suggestie)
+                <div class="suggestie">
+                    <div class="tekst-links">
+                        <h2>{{ ucfirst($suggestie->gerecht->naam) }}</h2>
+                        @if($suggestie->gerecht->beschrijving)
+                            <p>Beschrijving: <strong>{{ $suggestie->gerecht->beschrijving }}</strong></p>
+                        @endif
+                        <p>Prijs: <strong>€{{ number_format($suggestie->gerecht->prijs, 2, ',', '.') }}</strong></p>
+                        @if($suggestie->gerecht->allergenen)
+                            <p>Allergenen: <strong>{{ $suggestie->gerecht->allergenen }}</strong></p>
+                        @endif
+                    </div>
+                    <div class="bestelling-info-suggesties">
+                        <div class="aantal-suggesties">
                             <p>Aantal:</p>
                             <input type="number" name="aantal" class="aantal-input" min="1" value="1">
                         </div>
@@ -34,11 +28,11 @@
                             </button>
                         </div>
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
         </div>
     </div>
-    <div id="menu">
+    <div class="wit-kader-algemeen">
         <h1>Menu</h1>
         <div id="body-menu">
             <div id="gerechten">
@@ -54,14 +48,16 @@
                                 <p>Allergenen: <strong>{{ $gerecht->allergenen }}</strong></p>
                             @endif
                         </div>
-                        <div class="aantal-gerechten">
-                            <p>Aantal:</p>
-                            <input type="number" name="aantal" class="aantal-input" min="1" value="1">
-                        </div>
-                        <div class="shopping-cart">
-                            <button data-gerecht-id="{{ $gerecht->gerecht_id }}">
-                                <i class="fa-solid fa-cart-plus"></i>
-                            </button>
+                        <div class="bestelling-info-gerechten">
+                            <div class="aantal-gerechten">
+                                <p>Aantal:</p>
+                                <input type="number" name="aantal" class="aantal-input" min="1" value="1">
+                            </div>
+                            <div class="shopping-cart">
+                                <button data-gerecht-id="{{ $gerecht->gerecht_id }}">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 @endforeach

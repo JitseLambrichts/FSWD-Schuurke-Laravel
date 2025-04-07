@@ -39,7 +39,7 @@ Route::get('/mijn-account', function () {
 
 // Nieuwe routes voor gebruikersregistratie en login
 Route::post('/create-user', [UserController::class, 'store'])->name('create-user');
-Route::post('/login-user', [UserController::class, 'show']);
+Route::post('/login', [UserController::class, 'show'])->name('login');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::post('/reserveringen', [ReserveringController::class, 'index'])->name('reserveringen.index');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');

@@ -1,11 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- TODO extra <a href="#info" id="scroll-to-info" class="scroll-button" aria-label="Scroll naar info">
-        <i class="fa-solid fa-arrow-down"></i>
-    </a> -->
+<!-- TODO Bronvermelding hero section -->
     <div id="hero">
-        <div id="app">
+        <div class="wit-kader-home">
             <div class="title">
                 <div class="title-inner">
                     <div class="hoofdtitel">
@@ -34,7 +32,7 @@
     </div>
     <div class="space"></div>
     <div id="info">
-        <div id="welkom">
+        <div class="wit-kader-half">
             <h2>Welkom</h2>
             <img src="{{ asset('images/foto_welkom.jpg') }}" alt="Foto Welkom">
             <p>
@@ -48,7 +46,7 @@
                 <br>Team Taverne ’t Schuurke.
             </p>
         </div>
-        <div id="laatste-nieuwtjes">
+        <div class="wit-kader-half">
             <h2>Laatste nieuwtjes</h2>
                 <ul>
                     <li>Valentijn Menu 2025:</li>
@@ -57,7 +55,7 @@
                     Valentijn staat voor de deur. Ook dit jaar bieden we een lekker valentijnsmenu aan in onze taverne:
                 </p>
                 <img src="{{ asset('images/valentijnmenu.jpg') }}" alt="Foto valentijnsmenu">
-                <a href="{{ route('nieuws') }}">Zie meer</a>
+                <a href="{{ route('nieuws') }}"> <strong>Zie meer</strong></a>
         </div>
     </div>
 @endsection
