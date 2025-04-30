@@ -22,7 +22,7 @@
     width: 50%;
     height: fit-content;
     text-align: center;
-    border: 0.09rem solid #3a35353e;
+    border: 0.09rem solid var(--kader-border, #3a35353e);
     border-radius: 2cap;
     box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.1);
 }

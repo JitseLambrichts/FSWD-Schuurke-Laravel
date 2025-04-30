@@ -36,7 +36,7 @@ html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 0.09rem solid #3a35353e;
+    border: 0.09rem solid var(--kader-border, #3a35353e);
     border-radius: 2cap;
     padding: 1.5rem;
     box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.1);
@@ -46,7 +46,7 @@ html {
     cursor: pointer;
     background-color: #e6ded7;
     padding: 0.8em;
-    border: 0.09rem solid #3a35353e;
+    border: 0.09rem solid var(--kader-border, #3a35353e);
     border-radius: 2cap;
     box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.1);
 }
@@ -63,10 +63,10 @@ label {
 .wit-kader-algemeen {
     margin-top: 4rem;
     margin-bottom: 4rem;
-    background-color: white;
+    background-color: var(--kader-background, white);
     padding: 3rem;
     animation: fadeIn 0.2s ease-in forwards;
-    box-shadow: 0.5rem 0.5rem 1rem rgba(0,0,0,0.2);
+    box-shadow: 0.5rem 0.5rem 1rem var(--kader-shadow, rgba(0,0,0,0.2));
 }
 
 @keyframes fadeIn {
@@ -84,7 +84,7 @@ label {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    border: 0.09rem solid #3a35353e;
+    border: 0.09rem solid var(--kader-border, #3a35353e);
     border-radius: 2cap;
     width: 45%;
     padding: 2rem;
@@ -113,7 +113,7 @@ label {
 .aantal-gerechten input, .aantal-suggesties input {
     width: 4rem;
     padding: 0.75rem;
-    border: 1px solid #e6ded7;
+    border: 1px solid var(--kader-border, #3a35353e);
     border-radius: 4px;
     font-family: inherit;
     font-size: 1rem;
@@ -122,7 +122,7 @@ label {
 
 .aantal-gerechten input:focus, .aantal-suggesties input:focus {     /* probleem met kleur van de focus */
     outline: none;
-    border-color: #e6ded7;
+    border-color: var(--kader-border, #3a35353e);
     box-shadow: 0 0 0 2px rgba(230, 222, 215, 0.3);
 }
 

@@ -36,12 +36,33 @@ class ReviewController extends Controller
         
         Review::create([
             'user_id' => Auth::id(),
-            'gerecht_id' => $validated['gerecht_id'], // Make sure this line is present
+            'gerecht_id' => $validated['gerecht_id'], 
             'score' => $validated['rate'],
             'extra_info' => $request->comment,
             'datum' => now(),
         ]);
         
         return redirect()->route('reviews.index')->with('success', 'Review toegevoegd!');
+    }
+
+    /**
+     * Update the specified review comment in storage.
+     */
+    public function update(Request $request, Review $review)
+    {
+        // Authorization: Ensure the logged-in user owns this review
+        if ($review->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $validated = $request->validate([
+            'comment' => 'nullable|string|max:500',
+        ]);
+
+        $review->update([
+            'extra_info' => $validated['comment'],
+        ]);
+
+        return redirect()->route('reviews.index')->with('success', 'Review opmerking bijgewerkt!');
     }
 }

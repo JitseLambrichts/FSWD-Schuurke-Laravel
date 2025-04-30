@@ -44,6 +44,7 @@ Route::post('/contact', [ContactController::class, 'submit'])->name('contact.sub
 Route::middleware(['auth'])->group(function () {
     Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
     Route::post('/reviews.store', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::patch('/reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
     Route::get('/reserveringen', [ReserveringController::class, 'index'])->name('reserveringen.index');
     Route::post('/reserveringen.store', [ReserveringController::class, 'store'])->name('reserveringen.store');
     Route::get('/winkelwagen', [BestellingWinkelwagenController::class, 'index'])->name('winkelwagen.index');

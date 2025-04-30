@@ -34,7 +34,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 0.09rem solid #3a35353e;
+    border: 0.09rem solid var(--kader-border, #3a35353e);
     border-radius: 2cap;
     padding: 1.5rem;
     box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.1);
@@ -57,7 +57,7 @@
     width: 90%;
     justify-content: space-between;
     align-items: center;
-    border: 0.09rem solid #3a35353e;
+    border: 0.09rem solid var(--kader-border, #3a35353e);
     border-radius: 2cap;
     padding: 1rem 2rem 1rem 1rem;
     box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.03);
@@ -100,7 +100,7 @@
     padding: 0.5em;
     margin-bottom: 0.5em;
     background-color: #e6ded7;
-    border: 1px solid #3a35353e;
+    border: 1px solid var(--kader-border, #3a35353e);
     border-radius: 4px;
     transition: background-color 0.2s, border-color 0.2s;
     color: black;
@@ -168,7 +168,7 @@
 .form-group input {
     width: 30% !important;
     padding: 0.75rem;
-    border: 1px solid #e6ded7;
+    border: 1px solid var(--kader-border, #3a35353e);
     border-radius: 4px;
     font-family: inherit;
     font-size: 1rem;
@@ -179,7 +179,7 @@
 .form-group textarea:focus,
 .form-group select:focus {
     outline: none;
-    border-color: #3a3535;
+    border-color: var(--kader-border, #3a35353e);
     box-shadow: 0 0 0 2px rgba(58, 53, 53, 0.1);
 } 
 

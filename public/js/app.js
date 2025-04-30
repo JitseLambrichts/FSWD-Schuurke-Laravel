@@ -78,3 +78,67 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Review Edit Toggle
+document.querySelectorAll('.edit-review-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const reviewId = this.getAttribute('data-review-id');
+        const reviewDiv = document.getElementById(`review-${reviewId}`);
+        const commentP = reviewDiv.querySelector('.review-comment');
+        const editForm = reviewDiv.querySelector('.edit-review-form');
+        
+        // Hide comment, show form
+        if (commentP) commentP.style.display = 'none';
+        this.style.display = 'none'; // Hide edit button
+        if (editForm) editForm.style.display = 'block';
+    });
+});
+
+document.querySelectorAll('.cancel-edit-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const reviewId = this.getAttribute('data-review-id');
+        const reviewDiv = document.getElementById(`review-${reviewId}`);
+        const commentP = reviewDiv.querySelector('.review-comment');
+        const editForm = reviewDiv.querySelector('.edit-review-form');
+        const editButton = reviewDiv.querySelector('.edit-review-btn');
+        
+        // Hide form, show comment and edit button
+        if (editForm) editForm.style.display = 'none';
+        if (commentP) commentP.style.display = 'block';
+        if (editButton) editButton.style.display = 'inline-block'; 
+    });
+});
+
+// Theme toggling functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const themeToggleBtn = document.getElementById('theme-toggle-button');
+    const iconElement = themeToggleBtn.querySelector('i');
+    
+    // Check if user has a saved preference
+    const savedTheme = localStorage.getItem('theme');
+    
+    // Apply saved theme if it exists
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        iconElement.classList.replace('fa-moon', 'fa-sun');
+    }
+    
+    // Toggle theme when button is clicked
+    themeToggleBtn.addEventListener('click', function() {
+        // Toggle dark mode class on body
+        document.body.classList.toggle('dark-mode');
+        
+        // Update the icon
+        if (document.body.classList.contains('dark-mode')) {
+            iconElement.classList.replace('fa-moon', 'fa-sun');
+            localStorage.setItem('theme', 'dark');
+            
+        } else {
+            iconElement.classList.replace('fa-sun', 'fa-moon');
+            localStorage.setItem('theme', 'light');
+            
+        }
+    });
+});
+
+

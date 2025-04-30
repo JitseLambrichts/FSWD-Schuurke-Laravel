@@ -35,6 +35,11 @@
                 <li><a href="{{ route('reviews.index') }}">Reviews</a></li>
                 <li><a href="{{ route('bestellen') }}">Bestellen</a></li>
                 @endauth
+                <li class="theme-toggle">
+                    <button id="theme-toggle-button">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                </li>
             </ul>
             <!-- From Uiverse.io by talhabangyal --> 
             <label class="hamburger">

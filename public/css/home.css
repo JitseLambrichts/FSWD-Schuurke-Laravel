@@ -16,8 +16,8 @@
     padding-left: 2rem;
     width: 100%;
     height: 100%;
-    background: white;
-    box-shadow: 0.5rem 0.5rem 1rem rgba(0,0,0,0.2);
+    background: var(--kader-background, white);
+    box-shadow: 0.5rem 0.5rem 1rem var(--kader-shadow, rgba(0,0,0,0.2));
 }
 
 .title {

@@ -13,14 +13,14 @@
     justify-content: space-evenly;
     margin-top: 4rem;
     margin-bottom: 4rem;
-    background-color: white;
+    background-color: var(--kader-background, white);
     padding: 5rem 1rem;
     animation: fadeIn 0.2s ease-in forwards;
-    box-shadow: 0.5rem 0.5rem 1rem rgba(0,0,0,0.2);
+    box-shadow: 0.5rem 0.5rem 1rem var(--kader-shadow, rgba(0,0,0,0.2));
 }
 
 #live-locatie {
-    border: 0.5rem solid #3a3535;
+    border: 0.5rem solid var(--kader-border, #3a35353e);
     box-shadow: 0 0.5rem 0.9rem rgba(0,0,0,0.1);
 }
 

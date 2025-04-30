@@ -9,6 +9,80 @@
     padding: 0; /* Zorgt ervoor dat elk element default geen padding heeft */
 }
 
+:root {
+    --background-light: white;
+    --text-light: #3a3535;
+    --shadow-light: rgba(0,0,0,0.2);
+    --border-light: #3a35353e;
+
+    --background-dark: #3a3535;
+    --text-dark: #e6ded7;
+    --shadow-dark: rgba(0,0,0,0.4);
+    --border-dark: #e6ded7;
+
+    --kader-background: var(var(--background-light));
+    --kader-text: var(var(--text-light));
+    --kader-shadow: var(var(--shadow-light));
+    --kader-border: var(var(--border-light));
+}
+
+.dark-mode .wit-kader-algemeen,
+.dark-mode .wit-kader-half,
+.dark-mode .wit-kader-home,
+.dark-mode .wit-kader-contact {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+    box-shadow: 0.5rem 0.5rem 1rem var(--shadow-dark);
+    border: var(--border-dark);
+}
+
+/* Add this to your main.css file */
+.dark-mode .gerecht,
+.dark-mode .suggestie,
+.dark-mode .gerecht button,
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select,
+.dark-mode .gegeven-review,
+.dark-mode .nieuwtje,           /* Add these new selectors */
+.dark-mode .winkelwagen-item,
+.dark-mode .vorige-bestelling,
+.dark-mode form,
+.dark-mode .form-group,
+.dark-mode .radio-label,
+.dark-mode #login-formulier,
+.dark-mode #register-formulier,
+.dark-mode #contact-formulier,
+.dark-mode #reservatie-formulier {
+    border-color: #e6ded7; /* Lichtere border color voor dark mode */
+}
+
+.dark-mode #register-link a {
+    color: #f0c883;
+}
+
+/* Theme toggle button styling */
+#theme-toggle-btn {
+    background: transparent;
+    border: none;
+    color: #3a3535;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.dark-mode #theme-toggle-btn {
+    color: var(--text-dark);
+}
+
+.dark-mode #navbar a:after {
+    background-color: var(--text-dark);
+}
+
 html {
     scroll-behavior: smooth;
     cursor: default;

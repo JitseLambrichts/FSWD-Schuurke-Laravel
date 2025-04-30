@@ -16,7 +16,7 @@
     max-width: 500px;
     padding: 2rem;
     box-sizing: border-box;
-    border: 1px solid #e6ded7;
+    border: 1px solid var(--kader-border, #3a35353e);
     border-radius: 2rem;
     box-shadow: 0.5rem 0.5rem 1rem rgba(0,0,0,0.02);
     padding-top: 3rem;
@@ -37,7 +37,7 @@
   #reservatie-formulier .form-group textarea, 
   #reservatie-formulier .form-group select {
     padding: 0.75rem;
-    border: 1px solid #e6ded7;
+    border: 1px solid var(--kader-border, #3a35353e);
     border-radius: 4px;
     font-family: inherit;
     font-size: 1rem;
@@ -52,7 +52,7 @@
 #contact-formulier .form-group textarea {
     width: 50% !important;
     padding: 0.75rem;
-    border: 1px solid #e6ded7;
+    border: 1px solid var(--kader-border, #3a35353e);
     border-radius: 4px;
     font-family: inherit;
     font-size: 1rem;
@@ -61,7 +61,7 @@
 
 input:focus, textarea:focus {
     outline: none;
-    border-color: #3a3535;
+    border-color: var(--kader-border, #3a35353e);
     box-shadow: 0 0 0 2px rgba(58, 53, 53, 0.1);
 }
 

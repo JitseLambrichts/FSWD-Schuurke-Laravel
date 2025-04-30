@@ -88,11 +88,12 @@
                 <h2>Mijn reviews:</h2>
                 <div id="gegeven-reviews">
                     @forelse($reviews as $review)
-                        <div class="gegeven-review">
+                        <div class="gegeven-review" id="review-{{ $review->review_id }}">
                             <div class="info-links">
                                 <h3>{{ ucfirst($review->gerecht->naam) }}</h3>
-                                <p>{{ $review->extra_info ?: 'Geen extra informatie' }}</p>
+                                <p class="review-comment">{{ $review->extra_info ?: 'Geen extra informatie' }}</p>
                                 <small>{{ $review->datum ? date('d/m/Y', strtotime($review->datum)) : 'Geen datum' }}</small>
+                                <button class="edit-review-btn" data-review-id="{{ $review->review_id }}">Bewerk Opmerking</button>
                             </div>
                             <div class="info-rechts">
                                 <div class="stars">
@@ -101,6 +102,14 @@
                                     @endfor
                                 </div>
                             </div>
+                            {{-- Hidden Edit Form --}}
+                            <form action="{{ route('reviews.update', $review->review_id) }}" method="POST" class="edit-review-form" style="display: none; width: 100%; margin-top: 1rem;">
+                                @csrf
+                                @method('PATCH')
+                                <textarea name="comment" class="form-control" rows="3">{{ $review->extra_info }}</textarea>
+                                <button type="submit" class="btn btn-primary btn-sm mt-2">Opslaan</button>
+                                <button type="button" class="btn btn-secondary btn-sm mt-2 cancel-edit-btn" data-review-id="{{ $review->review_id }}">Annuleren</button>
+                            </form>
                         </div>
                     @empty
                         <p>Je hebt nog geen reviews gegeven.</p>
