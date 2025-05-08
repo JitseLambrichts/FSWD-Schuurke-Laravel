@@ -84,13 +84,28 @@ document.querySelectorAll('.edit-review-btn').forEach(button => {
     button.addEventListener('click', function() {
         const reviewId = this.getAttribute('data-review-id');
         const reviewDiv = document.getElementById(`review-${reviewId}`);
-        const commentP = reviewDiv.querySelector('.review-comment');
         const editForm = reviewDiv.querySelector('.edit-review-form');
-        
-        // Hide comment, show form
-        if (commentP) commentP.style.display = 'none';
-        this.style.display = 'none'; // Hide edit button
-        if (editForm) editForm.style.display = 'block';
+        const deleteForm = reviewDiv.querySelector('.delete-review-form'); // Select the delete form
+        const commentP = reviewDiv.querySelector('.review-comment');
+        const infoLinksDiv = reviewDiv.querySelector('.info-links .edit-review-btn').parentElement; // Get the parent of the button
+
+        if (editForm && deleteForm) {
+            const isHidden = editForm.style.display === 'none';
+            editForm.style.display = isHidden ? 'block' : 'none';
+            deleteForm.style.display = isHidden ? 'block' : 'none'; // Toggle delete form visibility
+
+            if (commentP) {
+                commentP.style.display = isHidden ? 'none' : 'block';
+            }
+            // Hide the "Bewerk Opmerking" button and other sibling buttons in info-links when form is shown
+            if (infoLinksDiv) {
+                Array.from(infoLinksDiv.children).forEach(child => {
+                    if(child.tagName === 'BUTTON' && child.classList.contains('edit-review-btn')) {
+                        child.style.display = isHidden ? 'none' : 'inline-block';
+                    }
+                });
+            }
+        }
     });
 });
 
@@ -98,14 +113,27 @@ document.querySelectorAll('.cancel-edit-btn').forEach(button => {
     button.addEventListener('click', function() {
         const reviewId = this.getAttribute('data-review-id');
         const reviewDiv = document.getElementById(`review-${reviewId}`);
-        const commentP = reviewDiv.querySelector('.review-comment');
         const editForm = reviewDiv.querySelector('.edit-review-form');
-        const editButton = reviewDiv.querySelector('.edit-review-btn');
-        
-        // Hide form, show comment and edit button
-        if (editForm) editForm.style.display = 'none';
-        if (commentP) commentP.style.display = 'block';
-        if (editButton) editButton.style.display = 'inline-block'; 
+        const deleteForm = reviewDiv.querySelector('.delete-review-form'); // Select the delete form
+        const commentP = reviewDiv.querySelector('.review-comment');
+        const infoLinksDiv = reviewDiv.querySelector('.info-links .edit-review-btn').parentElement;
+
+        if (editForm && deleteForm) {
+            editForm.style.display = 'none';
+            deleteForm.style.display = 'none'; // Hide delete form on cancel
+
+            if (commentP) {
+                commentP.style.display = 'block';
+            }
+             // Show the "Bewerk Opmerking" button again
+            if (infoLinksDiv) {
+                 Array.from(infoLinksDiv.children).forEach(child => {
+                    if(child.tagName === 'BUTTON' && child.classList.contains('edit-review-btn')) {
+                        child.style.display = 'inline-block';
+                    }
+                });
+            }
+        }
     });
 });
 

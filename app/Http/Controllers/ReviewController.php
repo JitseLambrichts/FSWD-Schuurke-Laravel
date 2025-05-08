@@ -45,12 +45,9 @@ class ReviewController extends Controller
         return redirect()->route('reviews.index')->with('success', 'Review toegevoegd!');
     }
 
-    /**
-     * Update the specified review comment in storage.
-     */
+    // Review updaten
     public function update(Request $request, Review $review)
     {
-        // Authorization: Ensure the logged-in user owns this review
         if ($review->user_id !== Auth::id()) {
             abort(403, 'Unauthorized action.');
         }
@@ -64,5 +61,17 @@ class ReviewController extends Controller
         ]);
 
         return redirect()->route('reviews.index')->with('success', 'Review opmerking bijgewerkt!');
+    }
+
+    // review updaten
+    public function destroy(Review $review)
+    {
+        if ($review->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $review->delete();
+
+        return redirect()->route('reviews.index')->with('success', 'Review succesvol verwijderd!');
     }
 }

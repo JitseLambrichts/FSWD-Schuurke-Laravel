@@ -102,13 +102,19 @@
                                     @endfor
                                 </div>
                             </div>
-                            {{-- Hidden Edit Form --}}
-                            <form action="{{ route('reviews.update', $review->review_id) }}" method="POST" class="edit-review-form" style="display: none; width: 100%; margin-top: 1rem;">
+                            {{-- Hidden Edit Form --}} <!-- CoPilot -->
+                            <form action="{{ route('reviews.update', $review->review_id) }}" method="POST" class="edit-review-form" style="display: none; width: 100%; margin-top: 1rem; max-width: fit-content">
                                 @csrf
                                 @method('PATCH')
                                 <textarea name="comment" class="form-control" rows="3">{{ $review->extra_info }}</textarea>
                                 <button type="submit" class="btn btn-primary btn-sm mt-2">Opslaan</button>
                                 <button type="button" class="btn btn-secondary btn-sm mt-2 cancel-edit-btn" data-review-id="{{ $review->review_id }}">Annuleren</button>
+                            </form>
+                            {{-- Hidden Delete Form --}}
+                            <form action="{{ route('reviews.destroy', $review->review_id) }}" method="POST" class="delete-review-form" style="display: none; width: 100%; margin-top: 0.5rem; max-width: fit-content;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm mt-2" onclick="return confirm('Weet je zeker dat je deze review wilt verwijderen?')">Verwijder</button>
                             </form>
                         </div>
                     @empty
