@@ -61,8 +61,7 @@
     color: #f0c883;
 }
 
-/* Theme toggle button styling */
-#theme-toggle-btn {
+#theme-toggle-button {
     background: transparent;
     border: none;
     color: #3a3535;
