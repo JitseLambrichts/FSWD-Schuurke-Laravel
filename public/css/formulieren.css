@@ -1,3 +1,5 @@
+/* CSS voor de formulieren in het algemeen */
+
 #body-login, #body-register, #body-contact, #body-reserveren {
     padding: 2rem;
     display: flex;
@@ -65,6 +67,7 @@ input:focus, textarea:focus {
     box-shadow: 0 0 0 2px rgba(58, 53, 53, 0.1);
 }
 
+/* TODO bronvermelding Copilot */
 @media (max-width: 480px) {
   #login-formulier,
   #register-formulier,
@@ -77,6 +80,7 @@ input:focus, textarea:focus {
       gap: 0.1rem !important;
   }
   
+  /* sommige inputs specifiek taggen */
   #login-formulier input[type="text"],
   #login-formulier input[type="email"],
   #login-formulier input[type="password"],
@@ -99,7 +103,6 @@ input:focus, textarea:focus {
       font-size: 16px !important;
   }
   
-  /* Aanpassing voor textarea die normaal hoger moet zijn */
   #contact-formulier textarea,
   #reservatie-formulier textarea {
       height: auto !important;
