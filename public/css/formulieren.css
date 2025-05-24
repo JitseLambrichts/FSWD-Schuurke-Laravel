@@ -6,9 +6,9 @@
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
-  }
-  
-  #login-formulier, #register-formulier, #contact-formulier, #reservatie-formulier {
+}
+
+#login-formulier, #register-formulier, #contact-formulier, #reservatie-formulier {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -22,22 +22,22 @@
     border-radius: 2rem;
     box-shadow: 0.5rem 0.5rem 1rem rgba(0,0,0,0.02);
     padding-top: 3rem;
-  }
+}
   
-  #login-formulier .form-group, 
-  #register-formulier .form-group, 
-  #contact-formulier .form-group, 
-  #reservatie-formulier .form-group {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      margin-bottom: 1rem;
-  }
+#login-formulier .form-group, 
+#register-formulier .form-group, 
+#contact-formulier .form-group, 
+#reservatie-formulier .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1rem;
+}
 
-  #reservatie-formulier .form-group input, 
-  #reservatie-formulier .form-group textarea, 
-  #reservatie-formulier .form-group select {
+#reservatie-formulier .form-group input, 
+#reservatie-formulier .form-group textarea, 
+#reservatie-formulier .form-group select {
     padding: 0.75rem;
     border: 1px solid var(--kader-border, #3a35353e);
     border-radius: 4px;
@@ -65,6 +65,60 @@ input:focus, textarea:focus {
     outline: none;
     border-color: var(--kader-border, #3a35353e);
     box-shadow: 0 0 0 2px rgba(58, 53, 53, 0.1);
+}
+
+#review-formulier {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+#review-formulier .form-group select{
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    border: 1px solid var(--kader-border, #3a35353e);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1rem;
+    width: 100% !important;
+    max-width: 350px;
+    box-sizing: border-box;
+}
+
+#review-formulier #input-box textarea {
+    font-family: inherit;
+    font-size: inherit;
+    height: 10rem;
+    padding: 0.75rem;
+    width: 100% !important;
+    border: 1px solid var(--kader-border, #3a35353e);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#review-formulier .form-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    margin-bottom: 0;
+}
+
+@media (max-width: 940px) {
+    #review-formulier {
+        flex-direction: column;
+        gap: 2rem;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    #inputs {
+        width: 100%;
+    }
+
+    #review-formulier .form-group, #sterren, #informatie-review {
+        width: 100% !important;
+    }
 }
 
 /* TODO bronvermelding Copilot */
