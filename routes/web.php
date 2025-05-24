@@ -6,14 +6,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ReserveringController;
-use App\Models\Reservatie;
+use App\Http\Controllers\MenuController;
 
+
+// Get-methodes
 Route::get('/', function () {
     return view('home');
 })->name('home');
-
-Route::get('/menu', [App\Http\Controllers\MenuController::class, 'index'])->name('menu');
-Route::get('/menu', [App\Http\Controllers\SuggestieController::class, 'index'])->name('menu');
 
 Route::get('/nieuws', function () {
     return view('nieuws');
@@ -27,27 +26,32 @@ Route::get('/login', function () {
     return view('login');
 })->name('login')->middleware('guest');
 
-Route::get('/bestellen', [BestellingWinkelwagenController::class, 'index'])->name('bestellen')->middleware('auth');
-
 Route::get('/register', function () {
     return view('register');
 })->name('register')->middleware('guest');
 
-Route::get('/mijn-account', [UserController::class, 'account'])->name('mijn-account')->middleware('auth');
+// Geen functie omdat deze data uit de database gaat halen, en hierdoor de controller gaat gebruiken ipv een function
+// Rest heeft dit niet omdat dit statische pagina's zijn
+Route::get('/menu', [MenuController::class, 'index'])->name('menu');
+
+
+// Post-methodes
 Route::post('/create-user', [UserController::class, 'store'])->name('create-user');
 Route::post('/login', [UserController::class, 'show'])->name('login');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
-Route::post('/reserveringen', [ReserveringController::class, 'index'])->name('reserveringen.index');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
-// Group review routes with auth middleware
+
+// Alle functies met middleware
 Route::middleware(['auth'])->group(function () {
+    Route::get('/bestellen', [BestellingWinkelwagenController::class, 'index'])->name('bestellen');
+    Route::get('/mijn-account', [UserController::class, 'account'])->name('mijn-account');
     Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
-    Route::post('/reviews.store', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
     Route::patch('/reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
     Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
     Route::get('/reserveringen', [ReserveringController::class, 'index'])->name('reserveringen.index');
-    Route::post('/reserveringen.store', [ReserveringController::class, 'store'])->name('reserveringen.store');
+    Route::post('/reserveringen', [ReserveringController::class, 'store'])->name('reserveringen.store');
     Route::get('/winkelwagen', [BestellingWinkelwagenController::class, 'index'])->name('winkelwagen.index');
     Route::post('/winkelwagen/toevoegen', [BestellingWinkelwagenController::class, 'toevoegen'])->name('winkelwagen.toevoegen');
     Route::delete('/winkelwagen/verwijderen', [BestellingWinkelwagenController::class, 'verwijderen'])->name('winkelwagen.verwijderen');
