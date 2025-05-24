@@ -48,14 +48,14 @@
         </div>
         <div class="wit-kader-half">
             <h2>Laatste nieuwtjes</h2>
-                <ul>
-                    <li>Valentijn Menu 2025:</li>
-                </ul>
-                <p>
-                    Valentijn staat voor de deur. Ook dit jaar bieden we een lekker valentijnsmenu aan in onze taverne:
-                </p>
-                <img src="{{ asset('images/valentijnmenu.jpg') }}" alt="Foto valentijnsmenu">
-                <a href="{{ route('nieuws') }}"> <strong>Zie meer</strong></a>
+            <ul>
+                <li>Valentijn Menu 2025:</li>
+            </ul>
+            <p>
+                Valentijn staat voor de deur. Ook dit jaar bieden we een lekker valentijnsmenu aan in onze taverne:
+            </p>
+            <img src="{{ asset('images/valentijnmenu.jpg') }}" alt="Foto valentijnsmenu">
+            <a href="{{ route('nieuws') }}"> <strong>Zie meer</strong></a>
         </div>
     </div>
 @endsection

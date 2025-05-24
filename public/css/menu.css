@@ -1,27 +1,29 @@
-html {
-    color: #3a3535;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    scale: 0.9;
-  }
-  to {
-    opacity: 1;
-    scale: 1;
-  }
-}
-
-.wit-kader-algemeen h1 {
-    width: 100%;
-    padding-bottom: 1rem;
-    border-bottom: 0.15rem solid #3a3535;
-    margin-bottom: 1.4rem;
-}
-
-#body-menu {
+#suggestie-container {
     display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.suggestie {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    border: 0.09rem solid var(--kader-border, #3a35353e);
+    border-radius: 2cap;
+    width: 45%;
+    padding: 2rem;
+    box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.1);
+}
+
+.bestelling-info-suggesties {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem;
+    width: 100%;
+    margin: 2rem;
 }
 
 #gerechten {
@@ -56,51 +58,6 @@ html {
   box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.25);
 }
 
-label {
-    cursor: pointer;
-}
-
-.wit-kader-algemeen {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
-    background-color: var(--kader-background, white);
-    padding: 3rem;
-    animation: fadeIn 0.2s ease-in forwards;
-    box-shadow: 0.5rem 0.5rem 1rem var(--kader-shadow, rgba(0,0,0,0.2));
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    scale: 0.9;
-  }
-  to {
-    opacity: 1;
-    scale: 1;
-  }
-}
-
-.suggestie {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    border: 0.09rem solid var(--kader-border, #3a35353e);
-    border-radius: 2cap;
-    width: 45%;
-    padding: 2rem;
-    box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.1);
-}
-
-.bestelling-info-suggesties {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 3rem;
-    width: 100%;
-    margin: 2rem;
-}
-
 .bestelling-info-gerechten {
     display: flex;
     flex-direction: row;
@@ -126,15 +83,8 @@ label {
     box-shadow: 0 0 0 2px rgba(230, 222, 215, 0.3);
 }
 
-#suggestie-container {
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    gap: 2rem;
-}
 
-/* TODO Bronvermelding Copilot */
-
+/* TODO bronvermelding Copilot */
 @media (max-width: 940px) {
     #suggestie-container {
         flex-wrap: wrap;
@@ -146,11 +96,6 @@ label {
 
     .containers-kolom {
         margin: 2rem;
-    }
-
-    .wit-kader-algemeen {
-        padding: 2rem;
-        margin-top: 3rem;
     }
     
     #gerechten {
@@ -186,12 +131,6 @@ label {
 }
 
 @media (max-width: 480px) {
-    .wit-kader-algemeen {
-        padding: 1.5rem;
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-    }
-    
     #gerechten {
         padding: 0.5rem;
         gap: 2rem;

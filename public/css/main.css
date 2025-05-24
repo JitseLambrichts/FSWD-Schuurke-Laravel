@@ -93,6 +93,10 @@ html {
     margin: 0;
 }
 
+label {
+    cursor: pointer;
+}
+
 /* TODO animatie onderlijnd From Uiverse.io by WhiteNervosa */ 
 #navbar {
     background-color: white;
@@ -382,6 +386,23 @@ button {
     }
 }
 
+/* Algemene wit-kader class voor consistent design */
+.wit-kader-algemeen {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    background-color: var(--kader-background, white);
+    padding: 3rem;
+    animation: fadeIn 0.2s ease-in forwards;
+    box-shadow: 0.5rem 0.5rem 1rem var(--kader-shadow, rgba(0,0,0,0.2));
+}
+
+.wit-kader-algemeen h1 {
+    width: 100%;
+    padding-bottom: 1rem;
+    border-bottom: 0.15rem solid #3a3535; /* zorgen voor een divider onder de titel */
+    margin-bottom: 1.4rem;
+}
+
 /* media querries voor de verschillende schermen */
 /* hier wel met pixels gewerkt omdat schermgrootte toch vast ligt */
 @media (max-width: 940px) {
@@ -493,6 +514,21 @@ button {
     #vacature {
         margin-left: 0;
         width: 100%;
+    }
+    
+    /* Algemene responsive styles voor wit-kader-algemeen */
+    .wit-kader-algemeen {
+        padding: 2rem;
+        margin-top: 3rem;
+    }
+}
+
+/* Media query voor mobiele telefoons */
+@media (max-width: 480px) {
+    .wit-kader-algemeen {
+        padding: 1.5rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
     }
 }
 

@@ -227,10 +227,6 @@ select {
 
 /* Add new media query for phones */
 @media (max-width: 480px) {
-    .wit-kader-algemeen {
-        padding: 1.5rem;
-    }
-
     /* Fix star rating display on small screens */
     .rating {
         display: flex;

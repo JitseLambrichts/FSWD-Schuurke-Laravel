@@ -8,11 +8,11 @@
             @foreach($suggesties as $suggestie)
                 <div class="suggestie">
                     <div class="tekst-links">
-                        <h2>{{ ucfirst($suggestie->gerecht->naam) }}</h2>
+                        <h2>{{ $suggestie->gerecht->naam }}</h2>
                         @if($suggestie->gerecht->beschrijving)
                             <p>Beschrijving: <strong>{{ $suggestie->gerecht->beschrijving }}</strong></p>
                         @endif
-                        <p>Prijs: <strong>€{{ number_format($suggestie->gerecht->prijs, 2, ',', '.') }}</strong></p>
+                        <p>Prijs: <strong>€{{ number_format($suggestie->gerecht->prijs, 2, ',', '.') }}</strong></p> <!-- zorgen dat het getal (met een . dus) kan worden omgezet naar een prijs (dus met een , ipv een .) -->
                         @if($suggestie->gerecht->allergenen)
                             <p>Allergenen: <strong>{{ $suggestie->gerecht->allergenen }}</strong></p>
                         @endif
@@ -34,34 +34,32 @@
     </div>
     <div class="wit-kader-algemeen">
         <h1>Menu</h1>
-        <div id="body-menu">
-            <div id="gerechten">
-                @foreach($gerechten as $gerecht)
-                    <div class="gerecht">
-                        <div class="tekst-links">
-                            <h2>{{ ucfirst($gerecht->naam) }}</h2>
-                            @if($gerecht->beschrijving)
-                                <p>Beschrijving: <strong>{{ $gerecht->beschrijving }}</strong></p>
-                            @endif
-                            <p>Prijs: <strong>€{{ number_format($gerecht->prijs, 2, ',', '.') }}</strong></p>
-                            @if($gerecht->allergenen)
-                                <p>Allergenen: <strong>{{ $gerecht->allergenen }}</strong></p>
-                            @endif
+        <div id="gerechten">
+            @foreach($gerechten as $gerecht)
+                <div class="gerecht">
+                    <div class="tekst-links">
+                        <h2>{{ $gerecht->naam }}</h2>
+                        @if($gerecht->beschrijving)
+                            <p>Beschrijving: <strong>{{ $gerecht->beschrijving }}</strong></p>
+                        @endif
+                        <p>Prijs: <strong>€{{ number_format($gerecht->prijs, 2, ',', '.') }}</strong></p>
+                        @if($gerecht->allergenen)
+                            <p>Allergenen: <strong>{{ $gerecht->allergenen }}</strong></p>
+                        @endif
+                    </div>
+                    <div class="bestelling-info-gerechten">
+                        <div class="aantal-gerechten">
+                            <p>Aantal:</p>
+                            <input type="number" name="aantal" class="aantal-input" min="1" value="1">
                         </div>
-                        <div class="bestelling-info-gerechten">
-                            <div class="aantal-gerechten">
-                                <p>Aantal:</p>
-                                <input type="number" name="aantal" class="aantal-input" min="1" value="1">
-                            </div>
-                            <div class="shopping-cart">
-                                <button data-gerecht-id="{{ $gerecht->gerecht_id }}">
-                                    <i class="fa-solid fa-cart-plus"></i>
-                                </button>
-                            </div>
+                        <div class="shopping-cart">
+                            <button data-gerecht-id="{{ $gerecht->gerecht_id }}">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
                         </div>
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
         </div>
     </div>
 @endsection
