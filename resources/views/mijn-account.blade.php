@@ -9,7 +9,7 @@
         <div id="bestaande-reservaties">
             <h3>Uw aankomende reservaties:</h3>
             <br>
-            @forelse ($reserveringen as $reservering)
+            @forelse ($reserveringen as $reservering) <!-- forelse gebruiken ipv foreach want de reserveringen kunnen leeg zijn -->
                 <div class="aankomende-reservatie">
                     <ul>
                         <li><strong>{{ $reservering->datum }}</strong> om <strong>{{ $reservering->tijdstip }}</strong> met {{ $reservering->aantal_personen }} personen.</li>
