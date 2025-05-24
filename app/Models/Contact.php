@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
 {
-    use Hasfactory;
+    use HasFactory;
     protected $table = 'contacts';
     protected $primaryKey = 'contactform_id';
 

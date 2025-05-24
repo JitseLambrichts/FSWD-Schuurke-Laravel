@@ -10,7 +10,7 @@ class Betaling extends Model
     use HasFactory;
     
     protected $table = 'betalingen';
-    protected $primaryKey = 'betalingen_id';
+    protected $primaryKey = 'betaling_id';
 
     protected $fillable = [
         'bestelling_id',
