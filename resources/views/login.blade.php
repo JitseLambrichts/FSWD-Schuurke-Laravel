@@ -7,7 +7,7 @@
             <h2>Log-in:</h2>
             <br>
             @if ($errors->any())
-                <div class="alert alert-danger mt-3">
+                <div class="error-message">
                     <ul>
                         @foreach ($errors->all() as $error)
                             <p>{{ $error }}</p>

@@ -9,7 +9,7 @@
     padding: 0; /* Zorgt ervoor dat elk element default geen padding heeft */
 }
 
-:root {
+:root { /* voor de dark/light mode kleuren voorzien */
     --background-light: white;
     --text-light: #3a3535;
     --shadow-light: rgba(0,0,0,0.2);
@@ -44,7 +44,7 @@
 .dark-mode textarea,
 .dark-mode select,
 .dark-mode .gegeven-review,
-.dark-mode .nieuwtje,           /* Add these new selectors */
+.dark-mode .nieuwtje,         
 .dark-mode .winkelwagen-item,
 .dark-mode .vorige-bestelling,
 .dark-mode form,
@@ -57,6 +57,7 @@
     border-color: #e6ded7; /* Lichtere border color voor dark mode */
 }
 
+/* register links een andere kleur want anders moeilijk zichtbaar */
 .dark-mode #register-link a {
     color: #f0c883;
 }
@@ -82,6 +83,7 @@
     background-color: var(--text-dark);
 }
 
+/* algemene instellingen */
 html {
     scroll-behavior: smooth;
     cursor: default;
@@ -99,6 +101,7 @@ html {
     padding-right: 4rem;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     position: fixed;
     top: 0; 
     left: 0; 
@@ -109,13 +112,6 @@ html {
     transition: all 0.3s ease;
 }
 
-#navbar nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-}
-
 #navbar ul {
     list-style: none;
     display: flex;
@@ -123,10 +119,7 @@ html {
     gap: 1.5rem;
 }
 
-#navbar li {
-    display: inline-block;
-}
-
+/* dit is dus van de bron */
 #navbar a {
     color: #3a3535;
     padding: 0.9rem;
@@ -137,15 +130,12 @@ html {
     position: relative;
     border: none;
     background: none;
-    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1); /* definieert hoe de transitie verloopt over de tijd, cubic-bezier functie creëert een aangepaste timing curve */
     transition-duration: 400ms;
-    transition-property: color; 
+    transition-property: color; /* bepaald welke eigenschap verandert */
 }
 
-#navbar:hover {
-    background-color: white;
-}
-
+/* zorgen dat de knoppen dikker worden */
 #navbar a:hover {
     font-weight: 700;
 }
@@ -156,6 +146,7 @@ html {
     display: block;
 }
 
+/* veranderen van kleur van de knoppen in de navbar */
 #navbar a:focus,
   #navbar a:hover {
     color: black;
@@ -168,21 +159,22 @@ html {
     left: 0%;
 }
 
+/* ook weer van de bron */
 #navbar a:after {
-    content: "";
-    pointer-events: none;
+    content: ""; /* maakt een pseudo-element voor de onderstreep-animatie */
+    pointer-events: none; /* zorgt ervoor dat dit pseudo-element niet klikbaar is */
     bottom: 0.5rem;
     left: 50%;
     position: absolute;
     width: 0%;
     height: 0.13rem;
     background-color: black;
-    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1); /* definieert hoe de transitie verloopt over de tijd, cubic-bezier functie creëert een aangepaste timing curve */
     transition-duration: 400ms;
-    transition-property: width, left;
+    transition-property: width, left; /* definieert weer welke parameters moeten worden aangepast */
 }
 
-/* From Uiverse.io by talhabangyal */ 
+/* TODO hamburger menu element gehaald From Uiverse.io by talhabangyal */ 
 .hamburger {
     margin-right: 2rem;
     display: none;
@@ -208,12 +200,12 @@ html {
     stroke-width: 3;
     /* Define the transition for transforming the Stroke */
     transition:
-        stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+        stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1), /* stroke-dasharray en stroke-dashoffset zijn SVG-eigenschappen */
         stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .line-top-bottom {
-    stroke-dasharray: 12 63;
+    stroke-dasharray: 12 63; /* betekent 12px streepje en dan 63px gat */
 }
 
 .hamburger input:checked + svg {
@@ -225,7 +217,6 @@ html {
     stroke-dashoffset: -32.42;
 }
 
-
 a {
     text-decoration: none;
     color: #3a3535;
@@ -233,13 +224,14 @@ a {
 
 body {
     display: grid;
-    grid-template-rows: auto 1fr auto; /* 1fr zorgt dat het middengedeelte uitrekt */
+    grid-template-rows: auto 1fr auto; /* 1fr zorgt dat het middengedeelte (alles buiten de navbar en footer de overige plaats op de pagina krijgt */
     padding: 4rem 4rem 0 4rem;
     background: #e6ded7;
     max-width: 100%;
-    min-height: 100vh; /* Zorg dat body minstens de volledige viewport hoogte beslaat */
+    min-height: 100vh;
 }
 
+/* zorgen voor een extra grote spatie */
 .space {
     height: 15rem;
 }
@@ -248,7 +240,7 @@ body {
     background-color: white;
     display: flex;
     padding: 2rem;
-    margin-left: -4rem;
+    margin-left: -4rem; /* negatief want moet tot buiten het scherm gaan, anders blijft er een randje over */
     margin-right: -4rem;
     margin-bottom: -4rem;
     align-items: center;
@@ -256,7 +248,7 @@ body {
     right: 0;
     bottom: 0;
     height: fit-content;
-    margin-top: auto; /* Duwt de footer naar beneden wanneer er weinig content is */
+    margin-top: auto;
 }
 
 #socials {
@@ -281,35 +273,30 @@ body {
     margin-left: 3rem;
 }
 
+/* error message voor als iets faalt zoals bv. inloggen */
 .error-message {
-    padding: 1rem;
-    color: #e3342f;
-    font-size: 0.85em;
-    margin-top: 0.25rem;
-    display: block;
-}
-
-.alert {
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid transparent;
-    border-radius: 4px;
-}
-
-.alert-danger {
     padding: 1rem;
     color: #721c24;
     background-color: #f8d7da;
-    border-color: #f5c6cb;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    font-size: 0.85em;
+    margin-top: 0.25rem;
+    margin-bottom: 20px;
+    display: block;
 }
 
+/* succes message voor als iets gelukt is zoals bv. reserveren */
 .alert-success {
     padding: 1rem;
     color: #155724;
     background-color: #d4edda;
-    border-color: #c3e6cb;
+    border: 1px solid #c3e6cb;
+    border-radius: 4px;
+    margin-bottom: 20px;
 }
 
+/* TODO bronvermelding */
 button {
     --primary-color: #e6ded7;
     --secondary-color: black;
@@ -355,7 +342,7 @@ button {
   }
   
   button .arrow::before {
-    content: "";
+    content: ""; /* weer content instellen voor de animatie */
     box-sizing: border-box;
     position: absolute;
     border: solid var(--secondary-color);
@@ -380,9 +367,10 @@ button {
   
   button:hover .arrow:before {
     right: 0;
-    border-color: var(--hover-text); /* TODO Bron: Claude */
+    border-color: var(--hover-text);
   }
 
+  /* zorgt voor een animatie van de witte kaders om website "smooth te laten laden" */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -394,6 +382,8 @@ button {
     }
 }
 
+/* media querries voor de verschillende schermen */
+/* hier wel met pixels gewerkt omdat schermgrootte toch vast ligt */
 @media (max-width: 940px) {
     body {
         padding: 4rem 2rem 0 2rem;
@@ -425,7 +415,7 @@ button {
         text-align: center;
         transition: 0.3s;
         padding: 20px 0;
-        z-index: 99;
+        z-index: 99; /* zorgen dat deze boven de rest blijft staan */
     }
 
     .nav-menu li {
@@ -436,13 +426,12 @@ button {
         right: 0;
     }
 
-    /* Improved footer responsive adjustments for tablet */
     #footer {
         flex-wrap: wrap;
         gap: 1.5rem;
         padding: 1.5rem;
-        margin-left: -2rem;  /* Match the body padding at this breakpoint */
-        margin-right: -2rem; /* Match the body padding at this breakpoint */
+        margin-left: -2rem; 
+        margin-right: -2rem;
     }
     
     #socials {
@@ -492,7 +481,7 @@ button {
     #socials {
         width: 100%;
         border-right: none;
-        border-bottom: 0.15rem solid #e6ded7;
+        border-bottom: 0.15rem solid #e6ded7; /* border moet worden aangepast want de vacature en de socials staan nu onder elkaar */
         padding-right: 0;
         padding-bottom: 1.5rem;
     }

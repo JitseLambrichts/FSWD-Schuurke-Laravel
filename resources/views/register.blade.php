@@ -6,7 +6,7 @@
         <div id="body-register">
             <h2>Registreer:</h2>
             @if ($errors->any())
-                <div class="alert alert-danger mt-3">
+                <div class="error-message">
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
