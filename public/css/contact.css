@@ -1,11 +1,3 @@
-#contact-formulier .form-group input, textarea {
-  width: 70% !important;
-}
-
-.form-group textarea {
-    height: 10rem;
-}
-
 .wit-kader-contact {
     display: flex;
     flex-direction: row;

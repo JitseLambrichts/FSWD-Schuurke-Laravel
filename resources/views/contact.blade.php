@@ -7,10 +7,10 @@
             <h2>Contacteer ons:</h2>
             @if (session('success'))
                 <div class="alert alert-success">
-                    {{ session('success') }}
+                    {{ session('success') }}  <!-- weer zorgen voor een positieve feedback als de mail verstuurd is -->
                 </div>
             @endif
-            @if ($errors->any())
+            @if ($errors->any()) <!-- ook errors laten zien als het misloopt -->
                 <div class="error-message">
                     <ul>
                         @foreach ($errors->all() as $error)
@@ -41,7 +41,7 @@
                     @enderror
                 </div>
                 <br>
-                <button type="submit"> <!-- TODO Library -->
+                <button type="submit"> <!-- TODO button van library -->
                     Verzend
                     <div class="arrow-wrapper">
                         <div class="arrow"></div>
@@ -55,9 +55,9 @@
             <h3>U kan ons ook bereiken via:</h3>
             <br>
             <ul>
-                <li>Per e-mail: <span onclick="openEmail('info@taverne-schuurke.be')"><strong>info@taverne-schuurke.be</strong></span></li> <!-- TODO bronvermelding -->
+                <li>Per e-mail: <span onclick="openEmail('info@taverne-schuurke.be')"><strong>info@taverne-schuurke.be</strong></span></li>
                 <li>Per telefoon: <strong>011 79 38 18</strong></li>
-                <li>Of kom gerust even langs: <a href="https://www.google.be/maps/place/Taverne+'t+Schuurke/@51.0905828,5.5218537,17.76z/data=!4m6!3m5!1s0x47c0d701d78f0a41:0x3e0a581c4147b39c!8m2!3d51.090477!4d5.5228915!16s%2Fg%2F1tjthdzb?hl=nl&entry=ttu&g_ep=EgoyMDI1MDIxOS4xIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer"><strong>Tulpenstraat 4, 3670 Oudsbergen.</strong></a></li>
+                <li>Of kom gerust even langs: <a href="https://www.google.be/maps/place/Taverne+'t+Schuurke/@51.0905828,5.5218537,17.76z/data=!4m6!3m5!1s0x47c0d701d78f0a41:0x3e0a581c4147b39c!8m2!3d51.090477!4d5.5228915!16s%2Fg%2F1tjthdzb?hl=nl&entry=ttu&g_ep=EgoyMDI1MDIxOS4xIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer"><strong>Tulpenstraat 4, 3670 Oudsbergen.</strong></a></li> <!-- zorgen dat google maps open gaat als op de tekst geklikt wordt -->
             </ul>
         </div>
         <div id="live-locatie">

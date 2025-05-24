@@ -32,7 +32,7 @@ class ContactController extends Controller
         ]);
 
         if ($response->successful()) {
-            return redirect()->back()->with('succes', 'Uw bericht werd succesvol verzonden');
+            return redirect()->back()->with('success', 'Uw bericht werd succesvol verzonden');
         } else {
             return redirect()->back()->with('error', 'Er ging iets mis met verzenden');
         }

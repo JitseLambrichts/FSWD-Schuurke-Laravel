@@ -52,7 +52,7 @@
 #register-formulier .form-group input,
 #contact-formulier .form-group input,
 #contact-formulier .form-group textarea {
-    width: 50% !important;
+    width: 60% !important;
     padding: 0.75rem;
     border: 1px solid var(--kader-border, #3a35353e);
     border-radius: 4px;
