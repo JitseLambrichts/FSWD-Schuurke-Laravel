@@ -1,48 +1,21 @@
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    scale: 0.9;
-  }
-  to {
-    opacity: 1;
-    scale: 1;
-  }
-}
-
 #body-bestellen, #body-bestellen-succes {
     width: 100%;
     display: flex;
     gap: 2rem;
 }
 
-#body-bestellen-succes {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-}
-
-#vorige-bestellingen {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.vorige-bestelling {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 0.09rem solid var(--kader-border, #3a35353e);
-    border-radius: 2cap;
-    padding: 1.5rem;
-    box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.1);
+#body-bestellen h2 {
+    margin-bottom: 1rem;
 }
 
 #nieuwe-bestellingen {
     width: 50%;
     border-right: 0.3rem solid #e6ded7;
+}
+
+#nieuwe-bestellingen h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 #winkelwagen {
@@ -69,20 +42,6 @@
     border-top: 0.2rem solid #e6ded7;
 }
 
-#body-bestellen h2 {
-    margin-bottom: 1rem;
-}
-
-#nieuwe-bestellingen h3 {
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-#keuze{
-    display: flex;
-    gap: 2.5rem;
-}
-
 /* From Uiverse.io by coding-masala */ 
 .radio-group {
     display: flex;
@@ -102,7 +61,7 @@
     background-color: #e6ded7;
     border: 1px solid var(--kader-border, #3a35353e);
     border-radius: 4px;
-    transition: background-color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, border-color 0.2s; /* zorgen dat de background-color en de broder-color mooi alle 2 animeren */
     color: black;
 }
 
@@ -122,7 +81,7 @@
 }
 
 .radio-input:focus + .radio-label {
-    outline: 2px solid white;
+    outline: 2px solid white; /* is hetzelfde als border, maar neemt alleen geen ruimte in (zweeft er als het ware boven) */
 }
 
 .radio-inner-circle {
@@ -145,7 +104,7 @@
 }
 
 .radio-input:checked + .radio-label .radio-inner-circle::after {
-    content: '';
+    content: ''; /* weer zorgen voor een smooth animation */
     display: block;
     width: 0.5em;
     height: 0.5em;
@@ -155,38 +114,33 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-      
-.form-group {
-    margin-bottom: 1.5rem;
+} 
+
+#vorige-bestellingen {
+    width: 50%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    width: 100% !important;
+    gap: 1rem;
 }
 
-.form-group input {
-    width: 30% !important;
-    padding: 0.75rem;
-    border: 1px solid var(--kader-border, #3a35353e);
-    border-radius: 4px;
-    font-family: inherit;
-    font-size: 1rem;
-    box-sizing: border-box;
-} 
+.vorige-bestelling {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 0.09rem solid var(--kader-border, #3a35353e);
+    border-radius: 2cap;
+    padding: 1.5rem;
+    box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.1);
+}
 
-.form-group input:focus, 
-.form-group textarea:focus,
-.form-group select:focus {
-    outline: none;
-    border-color: var(--kader-border, #3a35353e);
-    box-shadow: 0 0 0 2px rgba(58, 53, 53, 0.1);
-} 
-
-form {
+/* CSS voor de bestel-succes pagina */
+#body-bestellen-succes {
     display: flex;
     flex-direction: column;
-} 
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
 
 .titel-succes {
     display: flex;
@@ -204,7 +158,7 @@ form {
     margin-top: 1rem;
 }
 
-@media (max-width: 940px) {     /* 830px*/
+@media (max-width: 940px) {
     .form-group input {
         width: 50% !important;
     }
@@ -217,6 +171,7 @@ form {
     }
 }
 
+/* TODO bronvermelding Copilot */
 @media (max-width: 480px) {
     #body-bestellen {
         flex-direction: column;
@@ -244,17 +199,6 @@ form {
         width: 100%;
     }
 
-    /* TODO Bronvermelding Copilot */
-    /* Fix voor horizontale scroll */
-    .wit-kader-algemeen {
-        width: 100%;
-        max-width: 100%;
-        padding-left: 10px;
-        padding-right: 10px;
-        box-sizing: border-box;
-        overflow-x: hidden;
-    }
-
     #winkelwagen {
         width: 100%;
     }
@@ -271,15 +215,9 @@ form {
         flex-wrap: wrap;
     }
     
-    /* Voorkom dat lange woorden/content de container doen overstromen */
+    /* zorgen dat lange woorden/content de container niet doen overstromen */
     #winkelwagen, .vorige-bestelling, .item-info {
         word-break: break-word;
         overflow-wrap: break-word;
-    }
-    
-    /* Zorg dat het bestelformulier niet breder is dan het scherm */
-    #bestel-formulier {
-        width: 100%;
-        box-sizing: border-box;
     }
 }

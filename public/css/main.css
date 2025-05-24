@@ -518,17 +518,12 @@ button {
     
     /* Algemene responsive styles voor wit-kader-algemeen */
     .wit-kader-algemeen {
-        padding: 2rem;
-        margin-top: 3rem;
-    }
-}
-
-/* Media query voor mobiele telefoons */
-@media (max-width: 480px) {
-    .wit-kader-algemeen {
-        padding: 1.5rem;
-        margin-top: 2rem;
-        margin-bottom: 2rem;
+        width: 100%;
+        max-width: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+        box-sizing: border-box;
+        overflow-x: hidden; /* zorgen dat er geen horizontale scrolbar komt */
     }
 }
 
