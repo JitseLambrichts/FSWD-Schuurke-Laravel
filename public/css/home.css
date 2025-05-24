@@ -6,6 +6,7 @@
     margin-top: 4rem;
 }
 
+/* TODO bronvermelding component */
 .wit-kader-home {
     display: grid;
     position: relative;
@@ -26,8 +27,9 @@
     width: fit-content;
 }
 
-@keyframes text-clip {  /* TODO animatie uitleggen */
-    from {
+/* zorgen dat de tekst van onder naar boven verschijnt */
+@keyframes text-clip {
+        from {
         clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
     }
     to {
@@ -35,15 +37,17 @@
     }
 }
 
+/* verplaatst het container element */
 @keyframes outer-left {
     from {
-        transform: translateX(80%);  /* Veranderd van 50% naar 100% */
+        transform: translateX(80%); 
     }
     to {
         transform: none;
     }
 }
 
+/* verplaatst de binnenste tekst */
 @keyframes inner-left {
     from {
         transform: translateX(-50%);
@@ -87,6 +91,7 @@
     animation: image-in 1s cubic-bezier(0.5, 0, 0.1, 1) 2s backwards;
 }
 
+/* animatie voor de foto */ 
 @keyframes image-in {
     from {
         clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
@@ -115,11 +120,7 @@
     margin: 0;
 }
 
-#sectie1 {
-    max-width: 100%;
-    width: auto;
-}
-
+/* omhulsel van de 2 kaders van onder */
 #info {
     height: fit-content;
     display: flex;
@@ -133,14 +134,14 @@
 .wit-kader-half {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;  /* Zet standaard uitlijning naar links */
+    align-items: flex-start;
     background-color: white;
     padding: 3rem;
     height: fit-content;
     width: 45%;
     font-size: 1.2rem;
     box-shadow: 0.5rem 0.5rem 1rem rgba(0,0,0,0.2);
-    box-sizing: border-box; /* Ensure padding is included in width */
+    box-sizing: border-box; /* bepaalt hoe de totale breedte en hoogte van een element berekent wordt */
 }
 
 .wit-kader-half h2 {
@@ -200,7 +201,6 @@ img {
         padding: 2rem 1rem;
     }
     
-    /* Add these styles to better handle the wit-kader-half elements */
     .wit-kader-half {
         width: 90%;
         margin-bottom: 1rem;
@@ -211,7 +211,6 @@ img {
     }
 }
 
-/* Add an even smaller size for mobile phones */
 @media (max-width: 480px) {
     #wit-kader-titel {
         height: 80vh;

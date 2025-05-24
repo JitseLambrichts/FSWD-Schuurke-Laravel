@@ -5,7 +5,7 @@
     <div id="hero">
         <div class="wit-kader-home">
             <div class="title">
-                <div class="title-inner">
+                <div class="title-inner"> <!-- kaan ook nog eventueel weggelaten worden maar is gekopieerd van de bron -->
                     <div class="hoofdtitel">
                         <div class="hoofdtitel-inner">Taverne</div>
                     </div>
