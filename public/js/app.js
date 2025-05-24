@@ -2,9 +2,8 @@ function openEmail(email) {
     window.location.href = "mailto:" + email;
 }
 
-// Wait for DOM content to be fully loaded before accessing elements
 document.addEventListener('DOMContentLoaded', function() {
-    // Use the correct selector for the hamburger element based on your HTML
+    // Navbarmenu
     let hamburger = document.querySelector(".hamburger input");
     let navMenu = document.querySelector(".nav-menu");
 
@@ -21,16 +20,78 @@ document.addEventListener('DOMContentLoaded', function() {
             navMenu.classList.remove('active');
         }
     }
-});
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Minimum afhaaltijd is nu + 30 minuten
+    // Winkelwagen logica
+    const cartButtons = document.querySelectorAll('.shopping-cart button');
+    
+    cartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const gerechtId = this.getAttribute('data-gerecht-id');
+            
+            const itemContainer = this.closest('.suggestie, .gerecht');
+            
+            const aantalInput = itemContainer ? itemContainer.querySelector('.aantal-input') : null;
+            const aantal = aantalInput ? aantalInput.value : 1;
+            
+            const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            
+            const payload = {
+                gerecht_id: gerechtId,
+                aantal: aantal,
+                _token: token 
+            };
+            
+            this.disabled = true;
+            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+            
+            fetch('/winkelwagen/toevoegen', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', 
+                    'Accept': 'application/json',       
+                    'X-CSRF-TOKEN': token             
+                },
+                body: JSON.stringify(payload) 
+            })
+            .then(response => {
+                this.disabled = false;
+                this.innerHTML = '<i class="fa-solid fa-cart-plus"></i>';
+                
+                if (!response.ok) {
+                    return response.json().then(data => {
+                        if (response.status === 401) {
+                            alert('Je moet ingelogd zijn om te bestellen.');
+                            window.location.href = '/login'; 
+                        } else {
+                            throw new Error(data.message || `Fout ${response.status}: Kon item niet toevoegen.`);
+                        }
+                    }).catch(() => {
+                        throw new Error(`Fout ${response.status}: Kon item niet toevoegen.`);
+                    });
+                }
+                return response.json(); 
+            })
+            .then(data => {
+                if (data && data.success) {
+                    alert(data.message || 'Gerecht toegevoegd aan winkelwagen!');
+                } else if (data && data.message) {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert(error.message || 'Er is een onbekende fout opgetreden bij het toevoegen aan de winkelwagen.');
+                this.disabled = false;
+                this.innerHTML = '<i class="fa-solid fa-cart-plus"></i>';
+            });
+        });
+    });
+
     const afhaaltijdstipInput = document.getElementById('afhaaltijdstip');
     if (afhaaltijdstipInput) {
         const now = new Date();
-        now.setMinutes(now.getMinutes() + 30); // 30 minuten vanaf nu
+        now.setMinutes(now.getMinutes() + 30);
         
-        // Format voor datetime-local input: YYYY-MM-DDThh:mm
         const year = now.getFullYear();
         const month = String(now.getMonth() + 1).padStart(2, '0');
         const day = String(now.getDate()).padStart(2, '0');
@@ -42,13 +103,11 @@ document.addEventListener('DOMContentLoaded', function() {
         afhaaltijdstipInput.value = minDateTime;
     }
     
-    // Verwijder item knoppen
     const deleteButtons = document.querySelectorAll('.verwijder-item');
     deleteButtons.forEach(button => {
         button.addEventListener('click', function() {
             const gerechtId = this.getAttribute('data-gerecht-id');
             if (confirm('Weet je zeker dat je dit item wilt verwijderen?')) {
-                // CSRF token ophalen
                 const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                 
                 fetch('/winkelwagen/verwijderen', {
@@ -64,7 +123,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Pagina herladen om de winkelwagen bij te werken
                         window.location.reload();
                     } else {
                         alert('Er is een fout opgetreden: ' + data.message);
@@ -77,96 +135,91 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-});
 
-// Review Edit Toggle
-document.querySelectorAll('.edit-review-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        const reviewId = this.getAttribute('data-review-id');
-        const reviewDiv = document.getElementById(`review-${reviewId}`);
-        const editForm = reviewDiv.querySelector('.edit-review-form');
-        const deleteForm = reviewDiv.querySelector('.delete-review-form'); // Select the delete form
-        const commentP = reviewDiv.querySelector('.review-comment');
-        const infoLinksDiv = reviewDiv.querySelector('.info-links .edit-review-btn').parentElement; // Get the parent of the button
+    // Review logica
+    document.querySelectorAll('.edit-review-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const reviewId = this.getAttribute('data-review-id');
+            const reviewDiv = document.getElementById(`review-${reviewId}`);
+            const editForm = reviewDiv.querySelector('.edit-review-form');
+            const deleteForm = reviewDiv.querySelector('.delete-review-form'); 
+            const commentP = reviewDiv.querySelector('.review-comment');
+            const infoLinksDiv = reviewDiv.querySelector('.info-links .edit-review-btn').parentElement; 
 
-        if (editForm && deleteForm) {
-            const isHidden = editForm.style.display === 'none';
-            editForm.style.display = isHidden ? 'block' : 'none';
-            deleteForm.style.display = isHidden ? 'block' : 'none'; // Toggle delete form visibility
+            if (editForm && deleteForm) {
+                const isHidden = editForm.style.display === 'none';
+                editForm.style.display = isHidden ? 'block' : 'none';
+                deleteForm.style.display = isHidden ? 'block' : 'none'; 
 
-            if (commentP) {
-                commentP.style.display = isHidden ? 'none' : 'block';
+                if (commentP) {
+                    commentP.style.display = isHidden ? 'none' : 'block';
+                }
+
+                if (infoLinksDiv) {
+                    Array.from(infoLinksDiv.children).forEach(child => {
+                        if(child.tagName === 'BUTTON' && child.classList.contains('edit-review-btn')) {
+                            child.style.display = isHidden ? 'none' : 'inline-block';
+                        }
+                    });
+                }
             }
-            // Hide the "Bewerk Opmerking" button and other sibling buttons in info-links when form is shown
-            if (infoLinksDiv) {
-                Array.from(infoLinksDiv.children).forEach(child => {
-                    if(child.tagName === 'BUTTON' && child.classList.contains('edit-review-btn')) {
-                        child.style.display = isHidden ? 'none' : 'inline-block';
-                    }
-                });
-            }
-        }
+        });
     });
-});
 
-document.querySelectorAll('.cancel-edit-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        const reviewId = this.getAttribute('data-review-id');
-        const reviewDiv = document.getElementById(`review-${reviewId}`);
-        const editForm = reviewDiv.querySelector('.edit-review-form');
-        const deleteForm = reviewDiv.querySelector('.delete-review-form'); // Select the delete form
-        const commentP = reviewDiv.querySelector('.review-comment');
-        const infoLinksDiv = reviewDiv.querySelector('.info-links .edit-review-btn').parentElement;
+    document.querySelectorAll('.cancel-edit-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const reviewId = this.getAttribute('data-review-id');
+            const reviewDiv = document.getElementById(`review-${reviewId}`);
+            const editForm = reviewDiv.querySelector('.edit-review-form');
+            const deleteForm = reviewDiv.querySelector('.delete-review-form');
+            const commentP = reviewDiv.querySelector('.review-comment');
+            const infoLinksDiv = reviewDiv.querySelector('.info-links .edit-review-btn').parentElement;
 
-        if (editForm && deleteForm) {
-            editForm.style.display = 'none';
-            deleteForm.style.display = 'none'; // Hide delete form on cancel
+            if (editForm && deleteForm) {
+                editForm.style.display = 'none';
+                deleteForm.style.display = 'none';
 
-            if (commentP) {
-                commentP.style.display = 'block';
+                if (commentP) {
+                    commentP.style.display = 'block';
+                }
+
+                if (infoLinksDiv) {
+                     Array.from(infoLinksDiv.children).forEach(child => {
+                        if(child.tagName === 'BUTTON' && child.classList.contains('edit-review-btn')) {
+                            child.style.display = 'inline-block';
+                        }
+                    });
+                }
             }
-             // Show the "Bewerk Opmerking" button again
-            if (infoLinksDiv) {
-                 Array.from(infoLinksDiv.children).forEach(child => {
-                    if(child.tagName === 'BUTTON' && child.classList.contains('edit-review-btn')) {
-                        child.style.display = 'inline-block';
-                    }
-                });
-            }
-        }
+        });
     });
-});
 
-// Theme toggling functionality
-document.addEventListener('DOMContentLoaded', function() {
+    // Light/dark mode toggle logica
     const themeToggleBtn = document.getElementById('theme-toggle-button');
-    const iconElement = themeToggleBtn.querySelector('i');
-    
-    // Check if user has a saved preference
-    const savedTheme = localStorage.getItem('theme');
-    
-    // Apply saved theme if it exists
-    if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-        iconElement.classList.replace('fa-moon', 'fa-sun');
-    }
-    
-    // Toggle theme when button is clicked
-    themeToggleBtn.addEventListener('click', function() {
-        // Toggle dark mode class on body
-        document.body.classList.toggle('dark-mode');
+    if (themeToggleBtn) {
+        const iconElement = themeToggleBtn.querySelector('i');
         
-        // Update the icon
-        if (document.body.classList.contains('dark-mode')) {
+        const savedTheme = localStorage.getItem('theme');
+        
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
             iconElement.classList.replace('fa-moon', 'fa-sun');
-            localStorage.setItem('theme', 'dark');
-            
-        } else {
-            iconElement.classList.replace('fa-sun', 'fa-moon');
-            localStorage.setItem('theme', 'light');
-            
         }
-    });
+        
+        themeToggleBtn.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                iconElement.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+                
+            } else {
+                iconElement.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+                
+            }
+        });
+    }
 });
 
 
