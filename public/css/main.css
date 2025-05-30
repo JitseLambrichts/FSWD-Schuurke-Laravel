@@ -20,10 +20,10 @@
     --shadow-dark: rgba(0,0,0,0.4);
     --border-dark: #e6ded7;
 
-    --kader-background: var(var(--background-light));
-    --kader-text: var(var(--text-light));
-    --kader-shadow: var(var(--shadow-light));
-    --kader-border: var(var(--border-light));
+    --kader-background: var(--background-light);
+    --kader-text: var(--text-light);
+    --kader-shadow: var(--shadow-light);
+    --kader-border: var(--border-light);
 }
 
 .dark-mode .wit-kader-algemeen,

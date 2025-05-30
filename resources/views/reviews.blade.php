@@ -93,6 +93,7 @@
                                 <h3>{{ ucfirst($review->gerecht->naam) }}</h3>
                                 <p class="review-comment">{{ $review->extra_info ?: 'Geen extra informatie' }}</p>
                                 <small>{{ $review->datum ? date('d/m/Y', strtotime($review->datum)) : 'Geen datum' }}</small>
+                                <br>
                                 <button class="edit-review-btn" data-review-id="{{ $review->review_id }}">Bewerk Opmerking</button>
                             </div>
                             <div class="info-rechts">
