@@ -16,12 +16,6 @@
                 </div>
             @endif
 
-            @if (session('succes')) <!-- als er de reservatie lukt, dan positieve feeback geven aan de klant/gebruiker -->
-                <div class="alert alert-success">
-                    {{ session('succes') }}
-                </div>
-            @endif
-
             <form id="reservatie-formulier" action="{{ route('reserveringen.store') }}" method="POST" >
                 @csrf
                 <div class="form-group">

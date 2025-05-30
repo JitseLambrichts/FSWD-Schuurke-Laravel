@@ -2,7 +2,35 @@ function openEmail(email) {
     window.location.href = "mailto:" + email;
 }
 
+// Functie om feedback berichten om te zetten naar JavaScript alerts
+function convertFeedbackMessagesToAlerts() {
+    // Zoek naar success berichten (voormalige groene kaders)
+    const successMessages = document.querySelectorAll('.alert-success');
+    successMessages.forEach(function(element) {
+        const messageText = element.textContent.trim();
+        if (messageText) {
+            alert(messageText);
+            // Verwijder het element volledig uit de DOM
+            element.remove();
+        }
+    });
+    
+    // Zoek naar error berichten (voormalige rode kaders)
+    const errorMessages = document.querySelectorAll('.error-message');
+    errorMessages.forEach(function(element) {
+        const messageText = element.textContent.trim();
+        if (messageText) {
+            alert(messageText);
+            // Verwijder het element volledig uit de DOM
+            element.remove();
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Feedback berichten omzetten naar alerts
+    convertFeedbackMessagesToAlerts();
+    
     // Navbarmenu
     let hamburger = document.querySelector(".hamburger input");
     let navMenu = document.querySelector(".nav-menu");

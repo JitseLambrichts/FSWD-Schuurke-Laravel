@@ -279,25 +279,12 @@ body {
 
 /* error message voor als iets faalt zoals bv. inloggen */
 .error-message {
-    padding: 1rem;
-    color: #721c24;
-    background-color: #f8d7da;
-    border: 1px solid #f5c6cb;
-    border-radius: 4px;
-    font-size: 0.85em;
-    margin-top: 0.25rem;
-    margin-bottom: 20px;
-    display: block;
+    visibility: hidden
 }
 
 /* succes message voor als iets gelukt is zoals bv. reserveren */
 .alert-success {
-    padding: 1rem;
-    color: #155724;
-    background-color: #d4edda;
-    border: 1px solid #c3e6cb;
-    border-radius: 4px;
-    margin-bottom: 20px;
+    visibility: hidden
 }
 
 /* TODO bronvermelding */
