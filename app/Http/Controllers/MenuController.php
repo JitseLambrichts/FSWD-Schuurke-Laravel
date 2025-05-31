@@ -8,13 +8,15 @@ use App\Models\Suggestie;
 
 class MenuController extends Controller
 {
+    // Om de gerechten weer te geven
     public function index() {
+        // Alle gerechten ophalen
         $gerechten = Gerecht::all();
 
-        // ook de suggesties selecteren
+        // Alle suggesties ophalen (ook alle informatie die bij het gerecht staat en dus niet bij de suggestie meenemen)
         $suggesties = Suggestie::with('gerecht')->get();
         
-        // zowel de suggesties als ge gerechten inladen
+        // Zowel de suggesties als ge gerechten inladen
         return view('menu', compact('suggesties', 'gerechten'));
     }
 }
