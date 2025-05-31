@@ -62,7 +62,7 @@
     <div id="footer">
         <div id="socials">
             <h3>Volg ons</h3>
-            <i class="fa-brands fa-facebook"></i>
+            <a href="https://www.facebook.com/p/Taverne-t-Schuurke-100063516492760/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook"> </i> </a>
         </div>
         <div id="vacature">
             <h3>Vacature:</h3>
@@ -72,12 +72,10 @@
         </div>
     </div>
     <script async type='module' src='https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js'></script>
-    <zapier-interfaces-chatbot-embed is-popup='true' chatbot-id='cm91xwsi4003dgnvav8ni99a7'></zapier-interfaces-chatbot-embed>
+    <zapier-interfaces-chatbot-embed is-popup='true' chatbot-id='cmbcfuf1000bw9rqvp9x8n1mm'></zapier-interfaces-chatbot-embed>
 
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/cart.js') }}"></script>
     
-    <!-- Behoud dit voor modules die specifieke pagina scripts nodig hebben -->
     @yield('scripts')
 </body>
 </html>

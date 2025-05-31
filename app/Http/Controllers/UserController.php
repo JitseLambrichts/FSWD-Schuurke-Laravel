@@ -10,8 +10,7 @@ use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
-    public function show(Request $request)
-    {
+    public function show(Request $request) {
         // Gaat controleren of de waardes voldoen aan de "voorwaardes"
         $validated = $request->validate([
             'email' => 'required|email',
@@ -32,8 +31,7 @@ class UserController extends Controller
     }
 
     // Een user opslaan
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $validated = $request->validate([
             'name' => 'required|string|max:225',
             'email' => 'required|email|unique:users',

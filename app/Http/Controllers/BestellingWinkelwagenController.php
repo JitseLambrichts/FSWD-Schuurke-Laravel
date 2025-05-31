@@ -16,8 +16,7 @@ use Exception;
 class BestellingWinkelwagenController extends Controller
 {
     // Om de weergave van het huidige en vorige winkelwagentjes te laten zien
-    public function index()
-    {
+    public function index() {
         // Haal het winkelmandje op voor de huidige user
         $winkelwagen = Bestelling::where('user_id', Auth::id())
             ->where('status', 'In winkelwagen')
@@ -53,8 +52,7 @@ class BestellingWinkelwagenController extends Controller
     }
 
     // Items toevoegen aan het winkelwagentje
-    public function toevoegen(Request $request)
-    {
+    public function toevoegen(Request $request) {
         try {
             // Controleren of de input wel aan de "voorwaarden" voldoet -> niet alleen in de front-end controleren
             $validated = $request->validate([
@@ -140,8 +138,7 @@ class BestellingWinkelwagenController extends Controller
     }
     
     // Gerecht verwijderen uit het winkelmandje
-    public function verwijderen(Request $request)
-    {
+    public function verwijderen(Request $request) {
         try {
             // Controleren of de input wel aan de "voorwaarden" voldoet -> niet alleen in de front-end controleren
             $validated = $request->validate([
@@ -203,8 +200,7 @@ class BestellingWinkelwagenController extends Controller
     }
     
     // Bestelling plaatsen
-    public function bestellen(Request $request)
-    {
+    public function bestellen(Request $request) {
         try {
             // Controleren of de input wel aan de "voorwaarden" voldoet -> niet alleen in de front-end controleren
             $validated = $request->validate([
@@ -283,8 +279,7 @@ class BestellingWinkelwagenController extends Controller
     
     // Succes pagina na voltooien van bestelling
     // Bronvermelding Copilot
-    public function succes()
-    {
+    public function succes() {
         $bestelling_id = session('bestelling_id');
         
         if (!$bestelling_id) {

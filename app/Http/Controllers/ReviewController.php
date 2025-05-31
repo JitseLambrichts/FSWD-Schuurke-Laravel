@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
-    public function index()
-    {
+    public function index() {
         // De reviews van de user ophalen 
         $reviews = Auth::user()->reviews;
         
@@ -25,8 +24,7 @@ class ReviewController extends Controller
     }
 
     // Een review opslaan
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         // Weer controleren of de waarden aan de "voorwaarden" voldoen
         $validated = $request->validate([
             'gerecht_id' => 'required|exists:gerechten,gerecht_id',
@@ -47,8 +45,7 @@ class ReviewController extends Controller
     }
 
     // Een review updaten
-    public function update(Request $request, Review $review)
-    {
+    public function update(Request $request, Review $review) {
         // Weer controleren of de waardes voldoen aan de "voorwaardes"
         $validated = $request->validate([
             'comment' => 'nullable|string|max:500',
@@ -63,8 +60,7 @@ class ReviewController extends Controller
     }
 
     // Een review verwijderen
-    public function destroy(Review $review)
-    {
+    public function destroy(Review $review) {
         // De review verwijderen
         $review->delete();
 

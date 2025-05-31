@@ -30,8 +30,6 @@ Route::get('/register', function () {
     return view('register');
 })->name('register')->middleware('guest');
 
-// Geen functie omdat deze data uit de database gaat halen, en hierdoor de controller gaat gebruiken ipv een function
-// Rest heeft dit niet omdat dit statische pagina's zijn
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');
 
 
