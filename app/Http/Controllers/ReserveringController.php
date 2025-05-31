@@ -8,26 +8,24 @@ use Illuminate\Support\Facades\Auth;
 
 class ReserveringController extends Controller
 {
+    // De reserveren pagina weergeven
     public function index() {
         return view('reserveren');
     }
 
+    // De reservering opslaan
     public function store(Request $request) {
-        $messages = [
-            'datum.after_or_equal' => 'De reserveringsdatum moet vandaag of in de toekomst zijn.',
-            'aantal-personen.min' => 'Er moet minimaal 1 persoon worden gereserveerd.',
-            'aantal-personen.max' => 'Er kunnen maximaal 20 personen per reservering worden geboekt.'
-        ];
 
-        $request->validate([
+        $validated = $request->validate([
             'datum' => 'required|date|after_or_equal:today',
             'tijdstip' => 'required',
             'aantal-personen' => 'required|integer|min:1|max:20',
-        ], $messages);
+        ]);
 
+        // Random tafelnummer genereren
         $tafelnummer = rand(1,20);
 
-        $reservatie = Reservatie::create([
+        Reservatie::create([
             'user_id' => Auth::id(),
             'datum' => $request->datum,
             'tijdstip' => $request->tijdstip,
@@ -36,6 +34,7 @@ class ReserveringController extends Controller
             'speciale_verzoeken' => $request->opmerkingen,
         ]);
 
+        // Teruggaan naar de standaardpagina (form resetten)
         return redirect()->route('reserveringen.index')->with('succes', 'Uw reservatie is succesvol geplaatst!');
     }
 }
