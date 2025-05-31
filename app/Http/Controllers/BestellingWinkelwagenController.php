@@ -10,16 +10,15 @@ use App\Models\Betaling;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon; // Add this import at the top
+use Carbon\Carbon;
+use Exception;
 
 class BestellingWinkelwagenController extends Controller
 {
-    /**
-     * Toon de winkelwagen / bestellingspagina
-     */
+    // Om de weergave van het huidige en vorige winkelwagentjes te laten zien
     public function index()
     {
-        // Haal huidige winkelwagen op voor de ingelogde gebruiker
+        // Haal het winkelmandje op voor de huidige user
         $winkelwagen = Bestelling::where('user_id', Auth::id())
             ->where('status', 'In winkelwagen')
             ->first();
@@ -28,12 +27,12 @@ class BestellingWinkelwagenController extends Controller
         $totaalprijs = 0;
         
         if ($winkelwagen) {
-            // Haal alle items op in de winkelwagen met gerecht informatie
+            // Haal alle items van het winkelwagentje
             $items = BestellingBevat::where('bestelling_id', $winkelwagen->bestelling_id)
-                ->with('gerecht')  // Eager loading van gerecht relatie
+                ->with('gerecht')
                 ->get();
                 
-            // Bereken totaalprijs
+            // Berekenen van de totaalprijs
             $totaalprijs = $winkelwagen->totaalprijs;
         }
 
@@ -44,6 +43,7 @@ class BestellingWinkelwagenController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
         
+        // Alles samen returnen voor de pagina
         return view('bestellen', [
             'winkelwagen' => $winkelwagen,
             'items' => $items,
@@ -52,27 +52,17 @@ class BestellingWinkelwagenController extends Controller
         ]);
     }
 
-    /**
-     * Voeg een gerecht toe aan de winkelwagen
-     */
+    // Items toevoegen aan het winkelwagentje
     public function toevoegen(Request $request)
     {
         try {
-            // Valideer de input
+            // Controleren of de input wel aan de "voorwaarden" voldoet -> niet alleen in de front-end controleren
             $validated = $request->validate([
                 'gerecht_id' => 'required|exists:gerechten,gerecht_id',
                 'aantal' => 'required|integer|min:1'
             ]);
             
-            // Controleer of er een actieve gebruiker is
-            if (!Auth::check()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Je moet ingelogd zijn om te bestellen'
-                ], 401);
-            }
-            
-            // Haal het gerecht op om de prijs te krijgen
+            // Gerechten ophalen
             $gerecht = Gerecht::find($request->gerecht_id);
             if (!$gerecht) {
                 return response()->json([
@@ -81,34 +71,35 @@ class BestellingWinkelwagenController extends Controller
                 ], 404);
             }
             
-            // Ophalen of aanmaken van de winkelwagen voor de gebruiker
+            // Transactie starten -> "winkelwagen aanmaken"
             DB::beginTransaction();
             
             try {
-                // Zoek bestaande winkelwagen of maak een nieuwe aan
+                // Controleren of er al een winkelwagentje bestaat voor deze user
                 $winkelwagen = Bestelling::where('user_id', Auth::id())
                     ->where('status', 'In winkelwagen')
                     ->first();
                     
+                // Als er geen bestaat, hier aanmaken
                 if (!$winkelwagen) {
                     $winkelwagen = Bestelling::create([
                         'user_id' => Auth::id(),
                         'status' => 'In winkelwagen',
-                        'totaalprijs' => 0 // Dit updaten we later
+                        'totaalprijs' => 0
                     ]);
                 }
                 
-                // Zoek of deze bestelling al het gerecht bevat
+                // Kijken of het gerecht al in de bestelling zit
                 $bestellingItem = BestellingBevat::where('bestelling_id', $winkelwagen->bestelling_id)
                     ->where('gerecht_id', $request->gerecht_id)
                     ->first();
                 
                 if ($bestellingItem) {
-                    // Update het aantal als het item al bestaat
+                    // Als het item erin zit -> het aantal verhogen
                     $bestellingItem->aantal += $request->aantal;
                     $bestellingItem->save();
                 } else {
-                    // Voeg het gerecht toe aan de bestelling
+                    // Gerecht toevoegen aan bestelling
                     BestellingBevat::create([
                         'bestelling_id' => $winkelwagen->bestelling_id,
                         'gerecht_id' => $request->gerecht_id,
@@ -116,29 +107,31 @@ class BestellingWinkelwagenController extends Controller
                     ]);
                 }
                 
-                // Update de totaalprijs van de bestelling
+                // De totaalprijs updaten van het winkelwagentje
                 $nieuweTotaalprijs = BestellingBevat::where('bestelling_id', $winkelwagen->bestelling_id)
                     ->join('gerechten', 'gerechten.gerecht_id', '=', 'bestelling_bevat_gerechten.gerecht_id')
                     ->selectRaw('SUM(gerechten.prijs * bestelling_bevat_gerechten.aantal) as totaal')
                     ->first();
                 
-                $winkelwagen->totaalprijs = $nieuweTotaalprijs->totaal ?? 0;
+                $winkelwagen->totaalprijs = $nieuweTotaalprijs->totaal ?? 0; // Als de totaal-waarde null is dan wordt 0 gebruikt
                 $winkelwagen->save();
-                
+
+                // De transacite committen
                 DB::commit();
                 
+                // Resultaat returnen
                 return response()->json([
                     'success' => true,
                     'message' => 'Product toegevoegd aan winkelwagen',
                     'winkelwagen_id' => $winkelwagen->bestelling_id
                 ]);
-            } catch (\Exception $e) {
+            // Als de transactie failed, een rollback doen
+            } catch (Exception $e) {
                 DB::rollBack();
                 throw $e;
             }
             
-        } catch (\Exception $e) {
-            Log::error('Fout bij toevoegen aan winkelwagen: ' . $e->getMessage());
+        } catch (Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Er is een fout opgetreden: ' . $e->getMessage()
@@ -146,29 +139,21 @@ class BestellingWinkelwagenController extends Controller
         }
     }
     
-    /**
-     * Verwijder een gerecht uit de winkelwagen
-     */
+    // Gerecht verwijderen uit het winkelmandje
     public function verwijderen(Request $request)
     {
         try {
+            // Controleren of de input wel aan de "voorwaarden" voldoet -> niet alleen in de front-end controleren
             $validated = $request->validate([
                 'gerecht_id' => 'required|exists:gerechten,gerecht_id',
             ]);
             
-            // Controleer of er een actieve gebruiker is
-            if (!Auth::check()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Je moet ingelogd zijn om te bestellen'
-                ], 401);
-            }
-            
-            // Zoek de actieve winkelwagen
+            // Zoeken naar winkelmandje van gebruiker
             $winkelwagen = Bestelling::where('user_id', Auth::id())
                 ->where('status', 'In winkelwagen')
                 ->first();
                 
+            // Als er geen winkelwagen gevonden is, error teruggeven
             if (!$winkelwagen) {
                 return response()->json([
                     'success' => false,
@@ -176,34 +161,39 @@ class BestellingWinkelwagenController extends Controller
                 ], 404);
             }
             
+            // Transactie starten
             DB::beginTransaction();
             
             try {
-                // Verwijder het item
+                // Gerechten verwijderen uit winkelwagen
                 BestellingBevat::where('bestelling_id', $winkelwagen->bestelling_id)
                     ->where('gerecht_id', $request->gerecht_id)
                     ->delete();
                     
-                // Update de totaalprijs
+                // Totaalprijs updaten (opnieuw berekenen van alle items in het winkelwagentje)
                 $nieuweTotaalprijs = BestellingBevat::where('bestelling_id', $winkelwagen->bestelling_id)
                     ->join('gerechten', 'gerechten.gerecht_id', '=', 'bestelling_bevat_gerechten.gerecht_id')
                     ->selectRaw('SUM(gerechten.prijs * bestelling_bevat_gerechten.aantal) as totaal')
                     ->first();
                 
-                $winkelwagen->totaalprijs = $nieuweTotaalprijs->totaal ?? 0;
+                $winkelwagen->totaalprijs = $nieuweTotaalprijs->totaal ?? 0; // Als de totaal-waarde null is dan wordt 0 gebruikt
                 $winkelwagen->save();
                 
+                // Transaction committen
                 DB::commit();
                 
+                // Resultaat returnen
                 return response()->json([
                     'success' => true,
                     'message' => 'Product verwijderd uit winkelwagen'
                 ]);
-            } catch (\Exception $e) {
+            // Als er een error optreed een rollback doen
+            } catch (Exception $e) {
                 DB::rollBack();
                 throw $e;
             }
-        } catch (\Exception $e) {
+
+        } catch (Exception $e) {
             Log::error('Fout bij verwijderen uit winkelwagen: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
@@ -212,63 +202,54 @@ class BestellingWinkelwagenController extends Controller
         }
     }
     
-    /**
-     * Plaats de bestelling
-     */
+    // Bestelling plaatsen
     public function bestellen(Request $request)
     {
-        Log::info('Bestellen request received:', $request->all()); // <-- Add this line
-
         try {
-            // Validate the separate date and time fields
+            // Controleren of de input wel aan de "voorwaarden" voldoet -> niet alleen in de front-end controleren
             $validated = $request->validate([
                 'afhaaldatum' => 'required|date',
                 'afhaaltijd' => 'required|date_format:H:i',
                 'betaalmethode' => 'required|in:Bankcontact,Credit,Cash',
             ]);
 
-            Log::info('Validation passed. Validated data:', $validated); // <-- Optional: Add log after validation
-
-            // Combine date and time
+            // Afhaaldatum en afhaaltijdstip samenvoegen
             $afhaaltijdstipString = $request->afhaaldatum . ' ' . $request->afhaaltijd;
-            $afhaaltijdstip = Carbon::createFromFormat('Y-m-d H:i', $afhaaltijdstipString);
+            $afhaaltijdstip = Carbon::createFromFormat('Y-m-d H:i', $afhaaltijdstipString); // Omzetten naar een datetime object -> Bronvermelding Copilot
 
-            // Manually validate if the combined datetime is in the future
+            // Controleren of het tijdstip wel geldig is -> als het niet geldig is een error geven
             if ($afhaaltijdstip->isPast()) {
                 return redirect()->back()
                     ->withErrors(['afhaaltijdstip' => 'Het afhaaltijdstip moet in de toekomst liggen.'])
                     ->withInput();
             }
 
-            // Controleer of er een actieve gebruiker is
-            if (!Auth::check()) {
-                return redirect()->route('login')
-                    ->with('error', 'Je moet ingelogd zijn om te bestellen');
-            }
-
-            // Zoek de actieve winkelwagen
+            // Weer de actieve winkelwagen zoeken
             $winkelwagen = Bestelling::where('user_id', Auth::id())
                 ->where('status', 'In winkelwagen')
                 ->first();
 
             if (!$winkelwagen) {
-                return redirect()->route('bestellen')
-                    ->with('error', 'Geen actieve winkelwagen gevonden');
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Geen actieve winkelwagen gevonden'
+                ], 404);
             }
 
-            // Controleer of er items in de winkelwagen zitten
+            // Controleren of er iets in de winkelwagen zit
             $itemCount = BestellingBevat::where('bestelling_id', $winkelwagen->bestelling_id)->count();
             if ($itemCount === 0) {
                 return redirect()->route('bestellen')
                     ->with('error', 'Je winkelwagen is leeg');
             }
 
+            // Transactie starten
             DB::beginTransaction();
 
             try {
-                // Update de bestelling status en het gecombineerde afhaaltijdstip
+                // Status updaten en "omgevormde" tijdstip meegeven 
                 $winkelwagen->status = 'Besteld';
-                $winkelwagen->afhaaltijdstip = $afhaaltijdstip; // Use the combined Carbon instance
+                $winkelwagen->afhaaltijdstip = $afhaaltijdstip;
                 $winkelwagen->save();
 
                 $betaling = new Betaling();
@@ -282,31 +263,26 @@ class BestellingWinkelwagenController extends Controller
                 $betaling->betaalmethode = $request->betaalmethode;
                 $betaling->save();
 
-
                 DB::commit();
 
+                // Als het gesclaag is, dan doorsturen naar een succes pagina
+                // Bronvermelding Copilot
                 return redirect()->route('bestellingen.succes')
                     ->with('bestelling_id', $winkelwagen->bestelling_id);
-            } catch (\Exception $e) {
+
+            } catch (Exception $e) {
                 DB::rollBack();
-                throw $e; // Re-throw the exception for better debugging
+                throw $e;
             }
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            Log::error('Validation failed during bestellen:', ['errors' => $e->errors(), 'input' => $request->all()]); // <-- Add log for validation errors
-            // Redirect back with validation errors
-            return redirect()->back()
-                        ->withErrors($e->validator)
-                        ->withInput();
-        } catch (\Exception $e) {
-            Log::error('Exception during bestellen:', ['message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]); // <-- Add log for general errors
+
+        } catch (Exception $e) {
             return redirect()->route('bestellen')
                 ->with('error', 'Er is een fout opgetreden: ' . $e->getMessage());
         }
     }
     
-    /**
-     * Toon succespagina na bestelling
-     */
+    // Succes pagina na voltooien van bestelling
+    // Bronvermelding Copilot
     public function succes()
     {
         $bestelling_id = session('bestelling_id');
