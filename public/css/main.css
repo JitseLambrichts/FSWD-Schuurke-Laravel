@@ -75,14 +75,6 @@
     margin: 0;
 }
 
-.dark-mode #theme-toggle-btn {
-    color: var(--text-dark);
-}
-
-.dark-mode #navbar a:after {
-    background-color: var(--text-dark);
-}
-
 /* algemene instellingen */
 html {
     scroll-behavior: smooth;
