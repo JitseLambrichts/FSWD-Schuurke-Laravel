@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Drank extends Model
 {
     use HasFactory;
+
+    protected $table = 'dranken';
     protected $primaryKey = 'drank_id';
     
     protected $fillable = [
@@ -16,10 +18,7 @@ class Drank extends Model
         'gerecht_id'
     ];
 
-    protected $table = 'dranken'; // zie gerecht voor uitleg
-
-    public function gerecht()
-    {
+    public function gerecht() {
         return $this->belongsTo(Gerecht::class, 'gerecht_id', 'gerecht_id');
     }
 }

@@ -9,8 +9,8 @@ class Suggestie extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'suggestie_id';
     protected $table = 'suggesties';
+    protected $primaryKey = 'suggestie_id';
 
     protected $fillable = [
         'periode',

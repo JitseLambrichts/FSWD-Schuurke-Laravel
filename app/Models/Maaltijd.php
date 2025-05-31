@@ -8,16 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Maaltijd extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'maaltijd_id';
+
     protected $table = 'maaltijden';
+    protected $primaryKey = 'maaltijd_id';
 
     protected $fillable = [
         'categorie', 
         'gerecht_id'
     ];
 
-    public function gerecht()
-    {
+    public function gerecht() {
         return $this->belongsTo(Gerecht::class, 'gerecht_id', 'gerecht_id');
     }
 }

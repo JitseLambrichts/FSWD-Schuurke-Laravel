@@ -7,9 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class BestellingBevat extends Model
 {
     protected $table = 'bestelling_bevat_gerechten';
-
-    public $incrementing = false; // Fix typo: was $increment
-
+    public $incrementing = false;   //incrementing op false zetten want deze tabel in de database heeft geen eigen id
     protected $primaryKey = ['bestelling_id', 'gerecht_id'];
     
     protected $fillable = [
@@ -18,13 +16,11 @@ class BestellingBevat extends Model
         'aantal'
     ];
     
-    public function bestelling()
-    {
+    public function bestelling() {
         return $this->belongsTo(Bestelling::class, 'bestelling_id');
     }
     
-    public function gerecht()
-    {
+    public function gerecht() {
         return $this->belongsTo(Gerecht::class, 'gerecht_id');
     }
 }
