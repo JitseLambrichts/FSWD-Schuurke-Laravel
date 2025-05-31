@@ -18,9 +18,9 @@ class ContactController extends Controller
 
         // Een nieuw Contact-object aanmaken (om zo op te slaan in de database)
         Contact::create([
-            'naam' => $request->naam,
-            'email' => $request->email,
-            'bericht' => $request->bericht
+            'naam' => $validated['naam'],
+            'email' => $validated['email'],
+            'bericht' => $validated['bericht']
         ]);
 
         // Gebruik maken van de webhook voor te linken met de automatisatie
@@ -28,9 +28,9 @@ class ContactController extends Controller
 
         // Info doorsturen naar de webhook
         $response = Http::post($webhookUrl, [
-            'naam' => $request->naam,
-            'email' => $request->email,
-            'bericht' => $request->bericht
+            'naam' => $validated['naam'],
+            'email' => $validated['email'],
+            'bericht' => $validated['bericht']
         ]);
 
         // Feedback geven aan de user of de verzending goed verwerkt is

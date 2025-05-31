@@ -27,11 +27,12 @@ class ReserveringController extends Controller
 
         Reservatie::create([
             'user_id' => Auth::id(),
-            'datum' => $request->datum,
-            'tijdstip' => $request->tijdstip,
+            'datum' => $validated['datum'],
+            'tijdstip' => $validated['tijdstip'],
+            'aantal_personen' => $validated['aantal-personen'],
             'tafelnummer' => $tafelnummer,
-            'aantal_personen' => $request->input('aantal-personen'),
             'speciale_verzoeken' => $request->opmerkingen,
+            
         ]);
 
         // Teruggaan naar de standaardpagina (form resetten)

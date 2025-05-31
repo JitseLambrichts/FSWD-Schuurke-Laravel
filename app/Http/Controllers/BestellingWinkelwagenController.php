@@ -63,7 +63,7 @@ class BestellingWinkelwagenController extends Controller
             ]);
             
             // Gerechten ophalen
-            $gerecht = Gerecht::find($request->gerecht_id);
+            $gerecht = Gerecht::find($validated['gerecht_id']);
             if (!$gerecht) {
                 return response()->json([
                     'success' => false,
@@ -91,19 +91,19 @@ class BestellingWinkelwagenController extends Controller
                 
                 // Kijken of het gerecht al in de bestelling zit
                 $bestellingItem = BestellingBevat::where('bestelling_id', $winkelwagen->bestelling_id)
-                    ->where('gerecht_id', $request->gerecht_id)
+                    ->where('gerecht_id', $validated['gerecht_id'])
                     ->first();
                 
                 if ($bestellingItem) {
                     // Als het item erin zit -> het aantal verhogen
-                    $bestellingItem->aantal += $request->aantal;
+                    $bestellingItem->aantal += $validated['aantal'];
                     $bestellingItem->save();
                 } else {
                     // Gerecht toevoegen aan bestelling
                     BestellingBevat::create([
                         'bestelling_id' => $winkelwagen->bestelling_id,
-                        'gerecht_id' => $request->gerecht_id,
-                        'aantal' => $request->aantal
+                        'gerecht_id' => $validated['gerecht_id'],
+                        'aantal' => $validated['aantal']
                     ]);
                 }
                 
@@ -167,7 +167,7 @@ class BestellingWinkelwagenController extends Controller
             try {
                 // Gerechten verwijderen uit winkelwagen
                 BestellingBevat::where('bestelling_id', $winkelwagen->bestelling_id)
-                    ->where('gerecht_id', $request->gerecht_id)
+                    ->where('gerecht_id', $validated['gerecht_id'])
                     ->delete();
                     
                 // Totaalprijs updaten (opnieuw berekenen van alle items in het winkelwagentje)
@@ -214,7 +214,7 @@ class BestellingWinkelwagenController extends Controller
             ]);
 
             // Afhaaldatum en afhaaltijdstip samenvoegen
-            $afhaaltijdstipString = $request->afhaaldatum . ' ' . $request->afhaaltijd;
+            $afhaaltijdstipString = $validated['afhaaldatum'] . ' ' . $validated['afhaaltijd'];
             $afhaaltijdstip = Carbon::createFromFormat('Y-m-d H:i', $afhaaltijdstipString); // Omzetten naar een datetime object -> Bronvermelding Copilot
 
             // Controleren of het tijdstip wel geldig is -> als het niet geldig is een error geven
@@ -255,12 +255,12 @@ class BestellingWinkelwagenController extends Controller
                 $betaling = new Betaling();
                 $betaling->bestelling_id = $winkelwagen->bestelling_id;
                 $betaling->datum = now();
-                if($request->betaalmethode === 'Cash') {
+                if($validated['betaalmethode'] === 'Cash') {
                     $betaling->status = 'Niet betaald';
                 } else {
                     $betaling->status = 'Betaald';
                 }
-                $betaling->betaalmethode = $request->betaalmethode;
+                $betaling->betaalmethode = $validated['betaalmethode'];
                 $betaling->save();
 
                 DB::commit();
