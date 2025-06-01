@@ -5,48 +5,38 @@
         <h1>Mijn Account</h1>
         <div id="body-register">
             <h2>Registreer:</h2>
-
-            @if ($errors->any())
-                <div class="error-message">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <p>{{ $error }}</p>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
             <br>
 
             <form id="register-formulier" action="{{ route('create-user') }}" method="POST">
                 @csrf
                 <div class="form-group">
                     <input type="text" name="name" placeholder="Naam" required>
-                    @error('naam')
+                    @error('name')
                         <span class="error-message">{{ $message }}</span>
                     @enderror
                 </div>
 
                 <div class="form-group">
                     <input type="text" name="email" placeholder="Email" required>
-                    @error('naam')
+                    @error('email')
                         <span class="error-message">{{ $message }}</span>
                     @enderror
                 </div>
 
                 <div class="form-group">
                     <input type="password" name="password" placeholder="Wachtwoord" required>
-                    @error('naam')
+                    @error('password')
                         <span class="error-message">{{ $message }}</span>
                     @enderror
                 </div>  
 
                 <div class="form-group">
                     <input type="password" name="password_confirmation" placeholder="Bevestig wachtwoord" required>
-                    @error('naam')
+                    @error('password_confirmation')
                         <span class="error-message">{{ $message }}</span>
                     @enderror
                 </div>
-                <br>
+                <br>                
 
                 <button type="submit"> <!-- Bronvermelding UIVerse -->
                     Registreer

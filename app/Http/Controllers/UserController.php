@@ -18,7 +18,10 @@ class UserController extends Controller
         ]);
 
         // User inloggen
-        if (Auth::attempt($validated)) {
+        if (Auth::attempt([
+            'email' => $validated['email'],
+            'password' => $validated['password']
+        ])) {
             $request->session()->regenerate();
             
             return redirect()->route('mijn-account')->with('status', 'Succesvol ingelogd!');

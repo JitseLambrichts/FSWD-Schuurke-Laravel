@@ -39,7 +39,7 @@ class BestellingWinkelwagenController extends Controller
         $vorigebestellingen = Bestelling::where('user_id', Auth::id())
             ->where('status', '!=', 'In winkelwagen')
             ->with(['betaling', 'bestellingItems.gerecht'])
-            ->orderBy('created_at', 'desc')
+            ->orderBy('created_at', 'asc')
             ->get();
         
         // Alles samen returnen voor de pagina
@@ -62,6 +62,7 @@ class BestellingWinkelwagenController extends Controller
             
             // Gerechten ophalen
             $gerecht = Gerecht::find($validated['gerecht_id']);
+
             if (!$gerecht) {
                 return response()->json([
                     'success' => false,
@@ -191,7 +192,6 @@ class BestellingWinkelwagenController extends Controller
             }
 
         } catch (Exception $e) {
-            Log::error('Fout bij verwijderen uit winkelwagen: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
                 'message' => 'Er is een fout opgetreden: ' . $e->getMessage()
@@ -261,7 +261,7 @@ class BestellingWinkelwagenController extends Controller
 
                 DB::commit();
 
-                // Als het gesclaag is, dan doorsturen naar een succes pagina
+                // Als het geslaagd is, dan doorsturen naar de succes pagina
                 return redirect()->route('bestellingen.succes')
                     ->with('bestelling_id', $winkelwagen->bestelling_id);
 

@@ -5,15 +5,6 @@
         <h1>Contact</h1>
         <div id="body-contact">
             <h2>Contacteer ons:</h2>
-            @if ($errors->any()) <!-- Als er iets misloopt, de errors laten zien -->
-                <div class="error-message">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <p>{{ $error }}</p>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
             <br>
 
             <form id="contact-formulier" action="{{ route('contact.submit') }}" method="POST">
@@ -21,24 +12,25 @@
 
                 <div class="form-group">
                     <input type="text" name="naam" placeholder="Naam" required>
-                    @error('naam')
-                        <span class="error-message">{{ $message }}</span>
-                    @enderror
                 </div>
 
                 <div class="form-group">
                     <input type="text" name="email" placeholder="Email" required>
-                    @error('email')
-                        <span class="error-message">{{ $message }}</span>
-                    @enderror
                 </div>
 
                 <div class="form-group">
                     <textarea name="bericht" placeholder="Laat hier je bericht achter" required></textarea>
-                    @error('bericht')
-                        <span class="error-message">{{ $message }}</span>
-                    @enderror
                 </div>
+
+                @if ($errors->any()) <!-- Als er iets misloopt, de errors laten zien -->
+                    <div class="error-message">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <p>{{ $error }}</p>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                 <br>
                 <button type="submit"> <!-- Bronvermelding UIVerse -->

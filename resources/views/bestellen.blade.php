@@ -61,18 +61,11 @@
                                 </label>
                             </div>
 
-                            @error('betaalmethode')
-                                <span class="error-message">{{ $message }}</span>
-                            @enderror
-                            @error('afhaaldatum')
-                                <span class="error-message">{{ $message }}</span>
-                            @enderror
-                            @error('afhaaltijd')
-                                <span class="error-message">{{ $message }}</span>
-                            @enderror
-                            @error('afhaaltijdstip')
-                                <span class="error-message">{{ $message }}</span>
-                            @enderror
+                             @if($errors->any())
+                                @foreach($errors->all() as $error)
+                                    <span class="error-message">{{ $error }}</span>
+                                @endforeach
+                            @endif
 
                             <button type="submit">
                                 Bestel

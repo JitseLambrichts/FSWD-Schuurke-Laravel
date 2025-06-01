@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ReserveringController extends Controller
 {
-    // De reserveren pagina weergeven
+    // De reserveren pagina weergeven -> kan ook direct in de routes gezet worden ipv index
     public function index() {
         return view('reserveren');
     }

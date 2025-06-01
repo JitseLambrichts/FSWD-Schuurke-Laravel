@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>'t Schuurke</title>
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">  <!-- Had ik misschien beter allemaal apart gedaan -->
     <link rel="stylesheet" href="{{ asset('css/bestellen.css') }}">
     <link rel="stylesheet" href="{{ asset('css/contact.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
@@ -22,7 +22,7 @@
 </head>
 <body>
     <div id="navbar">
-        <img src="{{ asset('images/logo_schuurke.png') }}" alt="Logo Schuurke">
+        <img src="{{ asset('images/logo_schuurke.png') }}" alt="Logo Schuurke"> 
         <ul class="nav-menu">
             <li><a href="{{ route('home') }}"><i class="fa-solid fa-house"></i></a></li>
             <li><a href="{{ route('menu') }}">Menu</a></li>

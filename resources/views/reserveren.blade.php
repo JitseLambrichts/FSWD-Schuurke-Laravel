@@ -12,9 +12,6 @@
                 <div class="form-group">
                     <label for="datum">Datum:</label>
                     <input type="date" id="datum" name="datum" min="{{ date('Y-m-d') }}" value="{{ old('datum') }}" required>
-                    @error('datum')
-                        <span class="error-message">{{ $message }}</span> 
-                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -28,17 +25,11 @@
                             <option value="{{ $time }}" {{ old('tijdstip') == $time ? 'selected' : '' }}>{{ $time }}</option>
                         @endforeach
                     </select>
-                    @error('tijdstip')
-                        <span class="error-message">{{ $message }}</span>
-                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="aantal_personen">Aantal personen:</label>
                     <input type="number" id="aantal_personen" name="aantal_personen" min="1" max="20" value="1" required>
-                    @error('aantal_personen')
-                        <span class="error-message">{{ $message }}</span>
-                    @enderror
                 </div>
 
                 <div class="form-group">
