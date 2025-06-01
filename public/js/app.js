@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Winkelwagen logica
+    // Bronvermelding Copilot
     const cartButtons = document.querySelectorAll('.shopping-cart button');
     
     cartButtons.forEach(button => {

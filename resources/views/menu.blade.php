@@ -4,6 +4,7 @@
     <div class="wit-kader-algemeen">
         <h1>Suggesties (Van ... tot ...)</h1>
         <br>
+
         <div id="suggestie-container">
             @foreach($suggesties as $suggestie)
                 <div class="suggestie">
@@ -17,6 +18,7 @@
                             <p>Allergenen: <strong>{{ $suggestie->gerecht->allergenen }}</strong></p>
                         @endif
                     </div>
+
                     <div class="bestelling-info-suggesties">
                         <div class="aantal-suggesties">
                             <p>Aantal:</p>
@@ -28,6 +30,7 @@
                             </button>
                         </div>
                     </div>
+
                 </div>
             @endforeach
         </div>
@@ -47,6 +50,7 @@
                             <p>Allergenen: <strong>{{ $gerecht->allergenen }}</strong></p>
                         @endif
                     </div>
+
                     <div class="bestelling-info-gerechten">
                         <div class="aantal-gerechten">
                             <p>Aantal:</p>
@@ -58,6 +62,7 @@
                             </button>
                         </div>
                     </div>
+                    
                 </div>
             @endforeach
         </div>
