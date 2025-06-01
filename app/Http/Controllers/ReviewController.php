@@ -24,7 +24,7 @@ class ReviewController extends Controller
     }
 
     // Een review opslaan
-    public function store(Request $request) {
+    public function opslaan(Request $request) {
         // Weer controleren of de waarden aan de "voorwaarden" voldoen
         $validated = $request->validate([
             'gerecht_id' => 'required|exists:gerechten,gerecht_id',
@@ -60,7 +60,7 @@ class ReviewController extends Controller
     }
 
     // Een review verwijderen
-    public function destroy(Review $review) {
+    public function verwijder(Review $review) {
         // De review verwijderen
         $review->delete();
 

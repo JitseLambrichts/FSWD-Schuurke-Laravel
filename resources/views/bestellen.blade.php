@@ -10,7 +10,6 @@
                 <div id="winkelwagen">
                     @if($winkelwagen && $items->count() > 0)
                         @foreach($items as $item)
-
                             <div class="winkelwagen-item">
                                 <div class="item-info">
                                     <p>{{ $item->gerecht->naam }} (€{{ number_format($item->gerecht->prijs, 2, ',', '.') }}) x {{ $item->aantal }}</p>
@@ -22,7 +21,6 @@
                                     </button>
                                 </div>
                             </div>
-
                         @endforeach
                         
                         <div id="totaal">
@@ -117,7 +115,7 @@
                     </div>
 
                 @empty
-                <p>Je hebt nog geen eerder bestellingen geplaatst</p>
+                    <p>Je hebt nog geen eerder bestellingen geplaatst</p>
                 @endforelse
             </div>
         </div>

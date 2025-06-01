@@ -30,6 +30,7 @@ Route::get('/register', function () {
     return view('register');
 })->name('register')->middleware('guest');
 
+// Heeft hier als enigste een controller nodig aangezien deze data uit de database moet halen
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');
 
 
@@ -45,11 +46,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/bestellen', [BestellingWinkelwagenController::class, 'index'])->name('bestellen');
     Route::get('/mijn-account', [UserController::class, 'account'])->name('mijn-account');
     Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
-    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::post('/reviews', [ReviewController::class, 'opslaan'])->name('reviews.store');
     Route::patch('/reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
-    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+    Route::delete('/reviews/{review}', [ReviewController::class, 'verwijder'])->name('reviews.destroy');
     Route::get('/reserveringen', [ReserveringController::class, 'index'])->name('reserveringen.index');
-    Route::post('/reserveringen', [ReserveringController::class, 'store'])->name('reserveringen.store');
+    Route::post('/reserveringen', [ReserveringController::class, 'opslaan'])->name('reserveringen.store');
     Route::get('/winkelwagen', [BestellingWinkelwagenController::class, 'index'])->name('winkelwagen.index');
     Route::post('/winkelwagen/toevoegen', [BestellingWinkelwagenController::class, 'toevoegen'])->name('winkelwagen.toevoegen');
     Route::delete('/winkelwagen/verwijderen', [BestellingWinkelwagenController::class, 'verwijderen'])->name('winkelwagen.verwijderen');

@@ -5,15 +5,6 @@
         <h1>Reserveren</h1>
         <div id="body-reserveren">
             <h2>Maak hier je reservatie:</h2>
-            @if ($errors->any())
-                <div class="error-message">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <p>{{ $error }}</p>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
             <br>
 
             <form id="reservatie-formulier" action="{{ route('reserveringen.store') }}" method="POST" >
@@ -54,6 +45,16 @@
                     <label for="opmerkingen">Speciale verzoeken:</label>
                     <textarea id="opmerkingen" name="opmerkingen" rows="3">{{ old('opmerkingen') }}</textarea>
                 </div>
+
+                @if ($errors->any())
+                    <div class="error-message">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <p>{{ $error }}</p>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif                
 
                 <button>
                     Reserveer

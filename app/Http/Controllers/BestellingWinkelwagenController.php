@@ -262,7 +262,6 @@ class BestellingWinkelwagenController extends Controller
                 DB::commit();
 
                 // Als het gesclaag is, dan doorsturen naar een succes pagina
-                // Bronvermelding Copilot
                 return redirect()->route('bestellingen.succes')
                     ->with('bestelling_id', $winkelwagen->bestelling_id);
 

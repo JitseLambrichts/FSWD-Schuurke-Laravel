@@ -14,7 +14,7 @@ class ReserveringController extends Controller
     }
 
     // De reservering opslaan
-    public function store(Request $request) {
+    public function opslaan(Request $request) {
 
         $validated = $request->validate([
             'datum' => 'required|date|after_or_equal:today',
