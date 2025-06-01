@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+<!-- Bronvermelding Copilot -->
 @section('content')
 <div class="wit-kader-algemeen">
     <h1>Bestelling geplaatst</h1>
