@@ -9,6 +9,8 @@ use App\Models\Maaltijd;
 use App\Models\Restaurant;
 use App\Models\Suggestie;
 
+use Exception;
+
 class SuggestiesSeeder extends Seeder
 {
     /**
@@ -18,7 +20,6 @@ class SuggestiesSeeder extends Seeder
      */
     public function run()
     {
-        // --- CONFIGURATIE ---
         $restaurant = Restaurant::firstOrCreate(
             ['naam' => 't Schuurke'],
             [
@@ -28,20 +29,19 @@ class SuggestiesSeeder extends Seeder
             ]
         );
         
+        // Standaard waarden
         $restaurantId = $restaurant->restaurant_id;
         $periode = 'april-mei 2025';
         $suggestieCategorie = 'Suggestie';
-        // --- EINDE CONFIGURATIE ---
 
-        $this->command->warn("Deleting existing suggestions for restaurant ID: {$restaurantId}");
+        $this->command->warn("Verwijderen suggesties voor: {$restaurantId}");
 
         try {
-            // 1. Clear any existing suggesties
             DB::statement('SET FOREIGN_KEY_CHECKS=0');
-            Suggestie::truncate();
+            Suggestie::truncate();      // Suggesties tabel verwijderen
             DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
-            // 2. Vind Gerecht IDs van bestaande suggesties voor dit restaurant
+            // Filteren op de bestaande suggesties
             $bestaandeSuggestieGerechtIds = Maaltijd::where('categorie', $suggestieCategorie)
                 ->whereHas('gerecht', function ($query) use ($restaurantId) {
                     $query->where('restaurant_id', $restaurantId);
@@ -51,20 +51,19 @@ class SuggestiesSeeder extends Seeder
                 ->pluck('gerecht.gerecht_id')
                 ->filter();
 
+            // Als er gevonden worden, deze verwijderen
             if ($bestaandeSuggestieGerechtIds->isNotEmpty()) {
-                // 3. Verwijder de Maaltijd records die bij deze suggesties horen
                 Maaltijd::whereIn('gerecht_id', $bestaandeSuggestieGerechtIds)->delete();
 
-                // 4. Verwijder de Gerecht records zelf
                 Gerecht::whereIn('gerecht_id', $bestaandeSuggestieGerechtIds)->delete();
 
-                $this->command->info('Existing suggestions deleted.');
+                $this->command->info('Bestaande suggesties verwijdert');
             } else {
-                $this->command->info('No existing suggestions found to delete.');
+                $this->command->info('Geen bestaande suggesties gevonden');
             }
 
-            // --- Definieer de Suggesties ---
-            $this->command->info('Preparing new suggestions...');
+            // Nieuwe suggesties klaarzetten
+            $this->command->info('Suggesties initialiseren');
             $suggestions = [
                 [
                     'naam' => 'Ribbetjes zoet-zuur',
@@ -92,13 +91,11 @@ class SuggestiesSeeder extends Seeder
                 ],
             ];
             
-            $this->command->info('New suggestions prepared. Starting database insertion...');
+            $this->command->info('Suggesties geinitialiseerd, nu toevoegen aan database');
             $totalItems = count($suggestions);
             $this->command->getOutput()->progressStart($totalItems);
 
-            // --- Voeg suggesties toe aan de database ---
             foreach ($suggestions as $item) {
-                // Maak het Gerecht record aan
                 $gerecht = Gerecht::create([
                     'naam' => $item['naam'],
                     'beschrijving' => $item['beschrijving'] ?? null,
@@ -107,16 +104,13 @@ class SuggestiesSeeder extends Seeder
                     'restaurant_id' => $restaurantId,
                 ]);
 
-                // Haal de ID op
                 $gerechtId = $gerecht->gerecht_id ?? $gerecht->id;
 
-                // Maak het Maaltijd record aan met de suggestie categorie
                 Maaltijd::create([
                     'gerecht_id' => $gerechtId,
                     'categorie' => $suggestieCategorie,
                 ]);
 
-                // IMPORTANT: Create the Suggestie record that connects to this Gerecht
                 Suggestie::create([
                     'periode' => $periode,
                     'gerecht_id' => $gerechtId,
@@ -126,10 +120,10 @@ class SuggestiesSeeder extends Seeder
             }
             $this->command->getOutput()->progressFinish();
 
-            $this->command->info("Suggestions seeded successfully for restaurant ID: {$restaurantId}");
+            $this->command->info("Suggesties succesvol toegevoegd voor: {$restaurantId}");
             
-        } catch (\Exception $e) {
-            $this->command->error("Error seeding suggestions: " . $e->getMessage());
+        } catch (Exception $e) {
+            $this->command->error("Error met toevoegen suggesties: " . $e->getMessage());
         }
     }
 }

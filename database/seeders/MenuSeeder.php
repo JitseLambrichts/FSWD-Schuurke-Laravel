@@ -21,27 +21,25 @@ class MenuSeeder extends Seeder
         $restaurant = Restaurant::firstOrCreate(
             ['naam' => 't Schuurke'], // Zoek op deze naam
             [ // Maak aan met deze gegevens als het niet bestaat
-                'telefoonnummer' => '011-123456', // Voorbeeld
-                'email' => 'info@schuurke.be', // Voorbeeld
-                'openingsuren' => 'Ma-Zo: 11:00 - 22:00' // Voorbeeld
+                'telefoonnummer' => '011-123456',
+                'email' => 'info@schuurke.be',
+                'openingsuren' => 'Ma-Zo: 11:00 - 22:00'
             ]
         );
         $restaurantId = $restaurant->restaurant_id; // Gebruik de ID
 
         DB::transaction(function () use ($restaurantId) {
-            // Verwijder eerst dranken/maaltijden die verwijzen naar gerechten van dit restaurant
-            $this->command->warn('Deleting existing menu items for restaurant ID: ' . $restaurantId);
+            // Eerste de "menu" verwijderen om dubbelen te voorkomen
+            $this->command->warn("Verwijderen suggesties voor: {$restaurantId}");
             $gerechtIds = Gerecht::where('restaurant_id', $restaurantId)->pluck('gerecht_id'); // Gebruik gerecht_id als dat je primary key is
             if ($gerechtIds->isNotEmpty()) {
                 Drank::whereIn('gerecht_id', $gerechtIds)->delete();
                 Maaltijd::whereIn('gerecht_id', $gerechtIds)->delete();
-                // Verwijder dan de gerechten zelf
                 Gerecht::whereIn('gerecht_id', $gerechtIds)->delete();
             }
-             $this->command->info('Existing menu items deleted.');
+             $this->command->info('Menu verwijdert');
 
-            // --- Definieer het VOLLEDIGE menu ---
-            $this->command->info('Preparing menu data...');
+            $this->command->info('Menu data initialiseren');
             $menu = [
                 // --- Borrelhapjes ---
                 ['type' => 'maaltijd', 'categorie' => 'Borrelhapje', 'naam' => 'Party snacks (12 stuks)', 'beschrijving' => 'Met mayonaise en ketchup', 'prijs' => 9.00, 'allergenen' => 'Gluten, Ei, Soja, Mosterd (kan bevatten)'], // Aanname allergenen
@@ -320,13 +318,12 @@ class MenuSeeder extends Seeder
                 ['type' => 'drank', 'naam' => 'Passoa', 'prijs' => 5.20, 'volume' => 0.05, 'alcohol' => 14.9], // Aanname volume/alcohol
 
             ];
-             $this->command->info('Menu data prepared. Starting database insertion...');
+             $this->command->info('Menu data geinitialiseerd, nu toevoegen aan database');
              $totalItems = count($menu);
              $this->command->getOutput()->progressStart($totalItems);
 
-            // --- Voeg menu items toe aan de database ---
+            // Voeg de items toe aan de database
             foreach ($menu as $item) {
-                // Maak het Gerecht record aan
                 $gerecht = Gerecht::create([
                     'naam' => $item['naam'],
                     'beschrijving' => $item['beschrijving'] ?? null,
@@ -335,28 +332,28 @@ class MenuSeeder extends Seeder
                     'restaurant_id' => $restaurantId,
                 ]);
 
-                // Maak het Drank of Maaltijd record aan
-                // Gebruik $gerecht->gerecht_id als dat je primary key is, anders $gerecht->id
-                $gerechtId = $gerecht->gerecht_id ?? $gerecht->id; // Pas aan op basis van je primary key naam
+                // GerechtId ophalen
+                $gerechtId = $gerecht->gerecht_id ?? $gerecht->id;
 
+                // Filteren op drank of maaltijd
                 if ($item['type'] === 'drank') {
                     Drank::create([
                         'gerecht_id' => $gerechtId,
                         'volume' => $item['volume'] ?? null,
-                        'alcohol_percentage' => $item['alcohol'] ?? null, // Let op: kolomnaam is alcohol_percentage
+                        'alcohol_percentage' => $item['alcohol'] ?? null,
                     ]);
                 } elseif ($item['type'] === 'maaltijd') {
                     Maaltijd::create([
                         'gerecht_id' => $gerechtId,
-                        'categorie' => $item['categorie'] ?? 'Algemeen', // Standaard categorie
+                        'categorie' => $item['categorie'] ?? 'Algemeen',
                     ]);
                 }
                  $this->command->getOutput()->progressAdvance();
             }
 
              $this->command->getOutput()->progressFinish();
-        }); // Einde transactie
+        });
 
-        $this->command->info('Menu items seeded successfully for restaurant ID: ' . $restaurantId);
+        $this->command->info("Menu items toegevoegd voor: {$restaurantId}");
     }
 }

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('naam');
             $table->string('telefoonnummer', 50);
             $table->string('email');
-            $table->text('openingsuren');
-            $table->timestamps();                   //Verschil tussen string en text -> text is lang en geen limiet terwijl string een lim heeft van 255
+            $table->text('openingsuren');   //Verschil tussen string en text -> text is lang en geen limiet terwijl string een lim heeft van 255
+            $table->timestamps();                   
         });
     }
 
