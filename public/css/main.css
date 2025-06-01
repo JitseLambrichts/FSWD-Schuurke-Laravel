@@ -36,7 +36,6 @@
     border: var(--border-dark);
 }
 
-/* Add this to your main.css file */
 .dark-mode .gerecht,
 .dark-mode .suggestie,
 .dark-mode .gerecht button,
@@ -57,7 +56,7 @@
     border-color: #e6ded7; /* Lichtere border color voor dark mode */
 }
 
-/* register links een andere kleur want anders moeilijk zichtbaar */
+/* Register links een andere kleur want anders moeilijk zichtbaar */
 .dark-mode #register-link a {
     color: #f0c883;
 }
@@ -75,7 +74,6 @@
     margin: 0;
 }
 
-/* algemene instellingen */
 html {
     scroll-behavior: smooth;
     cursor: default;
@@ -89,7 +87,7 @@ label {
     cursor: pointer;
 }
 
-/* TODO animatie onderlijnd From Uiverse.io by WhiteNervosa */ 
+/* Bronvermelding animatie onderlijnd From Uiverse.io by WhiteNervosa */ 
 #navbar {
     background-color: white;
     font-size: 22px;
@@ -115,7 +113,6 @@ label {
     gap: 1.5rem;
 }
 
-/* dit is dus van de bron */
 #navbar a {
     color: #3a3535;
     padding: 0.9rem;
@@ -131,7 +128,7 @@ label {
     transition-property: color; /* bepaald welke eigenschap verandert */
 }
 
-/* zorgen dat de knoppen dikker worden */
+/* Zorgen dat de knoppen dikker worden */
 #navbar a:hover {
     font-weight: 700;
 }
@@ -155,7 +152,6 @@ label {
     left: 0%;
 }
 
-/* ook weer van de bron */
 #navbar a:after {
     content: ""; /* maakt een pseudo-element voor de onderstreep-animatie */
     pointer-events: none; /* zorgt ervoor dat dit pseudo-element niet klikbaar is */
@@ -170,7 +166,7 @@ label {
     transition-property: width, left; /* definieert weer welke parameters moeten worden aangepast */
 }
 
-/* TODO hamburger menu element gehaald From Uiverse.io by talhabangyal */ 
+/* Bronvermelding: From Uiverse.io by talhabangyal */ 
 .hamburger {
     margin-right: 2rem;
     display: none;
@@ -227,7 +223,7 @@ body {
     min-height: 100vh;
 }
 
-/* zorgen voor een extra grote spatie */
+/* Zorgen voor een extra grote spatie */
 .space {
     height: 15rem;
 }
@@ -236,7 +232,7 @@ body {
     background-color: white;
     display: flex;
     padding: 2rem;
-    margin-left: -4rem; /* negatief want moet tot buiten het scherm gaan, anders blijft er een randje over */
+    margin-left: -4rem; /* Negatief want moet tot buiten het scherm gaan, anders blijft er een randje over */
     margin-right: -4rem;
     margin-bottom: -4rem;
     align-items: center;
@@ -269,17 +265,12 @@ body {
     margin-left: 3rem;
 }
 
-/* error message voor als iets faalt zoals bv. inloggen */
+/* Error message voor als iets faalt zoals bv. inloggen */
 .error-message {
     visibility: hidden
 }
 
-/* succes message voor als iets gelukt is zoals bv. reserveren */
-.alert-success {
-    visibility: hidden
-}
-
-/* TODO bronvermelding */
+/* Bronvermelding: UIverse */
 button {
     --primary-color: #e6ded7;
     --secondary-color: black;
@@ -307,25 +298,25 @@ button {
     align-self: center;
     margin-bottom: 1rem;
     margin-top: 1rem;
-  }
+}
   
-  button .arrow-wrapper {
+button .arrow-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+}
   
-  button .arrow {
+button .arrow {
     margin-top: 1px;
     width: var(--arrow-width);
     background: var(--primary-color);
     height: var(--arrow-stroke);
     position: relative;
     transition: 0.2s;
-  }
+}
   
-  button .arrow::before {
-    content: ""; /* weer content instellen voor de animatie */
+button .arrow::before {
+    content: ""; /* Content instellen voor de animatie */
     box-sizing: border-box;
     position: absolute;
     border: solid var(--secondary-color);
@@ -336,33 +327,21 @@ button {
     transition: 0.2s;
     padding: 3px;
     transform: rotate(-45deg);
-  }
+}
   
-  button:hover {
+button:hover {
     background-color: var(--hover-color);
     color: var(--hover-text);
     cursor: pointer;
-  }
+}
   
-  button:hover .arrow {
+button:hover .arrow {
     background: var(--primary-color);
-  }
+}
   
-  button:hover .arrow:before {
+button:hover .arrow:before {
     right: 0;
     border-color: var(--hover-text);
-  }
-
-  /* zorgt voor een animatie van de witte kaders om website "smooth te laten laden" */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        scale: 0.9;
-    }
-    to {
-        opacity: 1;
-        scale: 1;
-    }
 }
 
 /* Algemene wit-kader class voor consistent design */
@@ -382,8 +361,20 @@ button {
     margin-bottom: 1.4rem;
 }
 
-/* media querries voor de verschillende schermen */
-/* hier wel met pixels gewerkt omdat schermgrootte toch vast ligt */
+/* Zorgt voor een animatie van de witte kaders om website "smooth te laten laden" */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        scale: 0.9;
+    }
+    to {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+/* Media querries voor de verschillende schermen */
+/* Hier wel met pixels gewerkt omdat schermgrootte toch vast ligt */
 @media (max-width: 940px) {
     body {
         padding: 4rem 2rem 0 2rem;
@@ -495,7 +486,6 @@ button {
         width: 100%;
     }
     
-    /* Algemene responsive styles voor wit-kader-algemeen */
     .wit-kader-algemeen {
         width: 100%;
         max-width: 100%;

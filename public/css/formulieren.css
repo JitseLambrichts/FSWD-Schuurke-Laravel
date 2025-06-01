@@ -162,7 +162,7 @@ input:focus, textarea:focus {
     }
 }
 
-/* TODO bronvermelding Copilot */
+/* Bronvermelding Copilot */
 @media (max-width: 480px) {
   #login-formulier,
   #register-formulier,
@@ -175,7 +175,7 @@ input:focus, textarea:focus {
       gap: 0.1rem !important;
   }
   
-  /* sommige inputs specifiek taggen */
+  /* Sommige inputs specifiek taggen */
   #login-formulier input[type="text"],
   #login-formulier input[type="email"],
   #login-formulier input[type="password"],

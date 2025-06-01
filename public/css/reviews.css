@@ -21,7 +21,7 @@ select {
     width: 100% !important;
 }
 
-/* TODO From Uiverse.io by aguerquin */ 
+/* Bronvermelding: From Uiverse.io by aguerquin */ 
 #sterren {
     display: flex;
     flex-direction: column;
@@ -34,9 +34,9 @@ select {
     margin-bottom: 1rem;
 }
 
-/* het > is een child combinator -> selecteerd alleen de directe kinderen van een element */ 
-/* hier betekent dit eigenlijk dat alleen de labels die element zijn van de class rating getarget worden */
-/* verschil met .rating label -> bij deze manier worden alle label elementen getarget, maar op de huidige manier is dit alleen de label rechtstreeks onder de .rating */
+/* Het > is een child combinator -> selecteert alleen de directe kinderen van een element */ 
+/* Hier betekent dit eigenlijk dat alleen de labels die element zijn van de class rating "getarget" worden */
+/* Verschil met .rating label -> bij deze manier worden alle label elementen "getarget", maar op de huidige manier is dit alleen de label rechtstreeks onder de .rating */
 .rating > label {
     margin-right: 0rem;
 }
@@ -60,8 +60,8 @@ select {
     fill: #ffa723;
 }
 
-/* de ~ selecteert alle volgende sibling elementen die na het eerste element komen */
-/* zorgt er eigenlijk voor dat als er een ster aangeduid wordt dat de vorige ook mee gaan "oplichten" */
+/* De ~ selecteert alle volgende sibling elementen die na het eerste element komen */
+/* Zorgt er eigenlijk voor dat als er een ster aangeduid wordt dat de vorige ook mee gaan "oplichten" */
 .rating:not(:checked) > label:hover ~ label > svg,
 .rating:not(:checked) > label:hover > svg {
     fill: #ff9e0b;
@@ -152,7 +152,7 @@ select {
         padding-bottom: 1rem;
         margin-bottom: 2rem;
         border-right: none;
-        border-bottom: 0.4rem solid #e6ded7; /* weer van border right naar border onder omdat elementen onder elkaar komen te staan */
+        border-bottom: 0.4rem solid #e6ded7; /* Van border right naar border onder omdat elementen onder elkaar komen te staan */
     }
 
     #sterren {
@@ -166,7 +166,7 @@ select {
     }
 }
 
-/* TODO bronvermelding Copilot */
+/* Bronvermelding Copilot */
 @media (max-width: 480px) {
     .rating {
         display: flex;

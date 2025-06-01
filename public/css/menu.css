@@ -77,14 +77,12 @@
     box-sizing: border-box;
 }
 
-.aantal-gerechten input:focus, .aantal-suggesties input:focus {     /* probleem met kleur van de focus */
+.aantal-gerechten input:focus, .aantal-suggesties input:focus { 
     outline: none;
     border-color: var(--kader-border, #3a35353e);
     box-shadow: 0 0 0 2px rgba(230, 222, 215, 0.3);
 }
 
-
-/* TODO bronvermelding Copilot */
 @media (max-width: 940px) {
     #suggestie-container {
         flex-wrap: wrap;

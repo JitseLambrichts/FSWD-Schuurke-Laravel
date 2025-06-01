@@ -3,19 +3,8 @@ function openEmail(email) {
 }
 
 // Functie om feedback berichten om te zetten naar JavaScript alerts
-function convertFeedbackMessagesToAlerts() {
-    // Zoek naar success berichten (voormalige groene kaders)
-    const successMessages = document.querySelectorAll('.alert-success');
-    successMessages.forEach(function(element) {
-        const messageText = element.textContent.trim();
-        if (messageText) {
-            alert(messageText);
-            // Verwijder het element volledig uit de DOM
-            element.remove();
-        }
-    });
-    
-    // Zoek naar error berichten (voormalige rode kaders)
+function convertFeedbackMessagesToAlerts() {    
+    // Zoek naar error berichten
     const errorMessages = document.querySelectorAll('.error-message');
     errorMessages.forEach(function(element) {
         const messageText = element.textContent.trim();
