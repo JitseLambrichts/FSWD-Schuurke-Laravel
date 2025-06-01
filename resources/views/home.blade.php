@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- TODO Bronvermelding hero section -->
+<!-- TODO Bronvermelding UIVerse -->
     <div id="hero">
         <div class="wit-kader-home">
             <div class="title">
-                <div class="title-inner"> <!-- kan ook nog eventueel weggelaten worden maar is gekopieerd van de bron -->
+                <div class="title-inner"> <!-- Kan ook nog eventueel weggelaten worden maar is gekopieerd van de bron -->
                     <div class="hoofdtitel">
                         <div class="hoofdtitel-inner">Taverne</div>
                     </div>
@@ -51,9 +51,7 @@
             <ul>
                 <li>Valentijn Menu 2025:</li>
             </ul>
-            <p>
-                Valentijn staat voor de deur. Ook dit jaar bieden we een lekker valentijnsmenu aan in onze taverne:
-            </p>
+            <p>Valentijn staat voor de deur. Ook dit jaar bieden we een lekker valentijnsmenu aan in onze taverne:</p>
             <img src="{{ asset('images/valentijnmenu.jpg') }}" alt="Foto valentijnsmenu">
             <a href="{{ route('nieuws') }}"> <strong>Zie meer</strong></a>
         </div>
