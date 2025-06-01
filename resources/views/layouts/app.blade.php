@@ -40,7 +40,7 @@
                 </button>
             </li>
         </ul>
-        <!-- From Uiverse.io by talhabangyal --> 
+        <!-- Bronvermelding: From Uiverse.io by talhabangyal --> 
         <label class="hamburger">
             <input type="checkbox" />
             <svg viewBox="0 0 32 32">

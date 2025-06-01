@@ -30,12 +30,12 @@
                     @enderror
                 </div>
                 <br>
-                <button type="submit"> <!-- TODO Library -->
+                <button type="submit"> <!-- Bronvermelding -->
                     Log in
                     <div class="arrow-wrapper">
                         <div class="arrow"></div>
                     </div>
-                </button> <!-- Library -->
+                </button>
                 <div id="register-link">
                     <p>Heeft u nog geen account? <a href="{{ route('register') }}"><strong>Registreer</strong></a></p>
                 </div>
