@@ -10,7 +10,7 @@
                 <div class="error-message">
                     <ul>
                         @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
+                            <p>{{ $error }}</p>
                         @endforeach
                     </ul>
                 </div>
@@ -54,7 +54,7 @@
                         <div class="arrow"></div>
                     </div>
                 </button>
-                
+
             </form>
         </div>
     </div>
