@@ -26,7 +26,7 @@ class UserController extends Controller
 
         // Als er een error is, deze error weergeven
         throw ValidationException::withMessages([
-            'credentials' => 'Sorry, incorrect credentials',
+            'credentials' => 'Fout emailadres of wachtwoord',
         ]);
     }
 

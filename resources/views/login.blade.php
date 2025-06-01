@@ -7,31 +7,25 @@
             <h2>Log-in:</h2>
             <br>
 
-            @if ($errors->any())
-                <div class="error-message">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <p>{{ $error }}</p>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
             <form id="login-formulier" action="{{ route('login') }}" method="POST">
                 @csrf
                 <div class="form-group">
                     <input type="text" name="email" placeholder="Email" required>
-                    @error('naam')
-                        <span class="error-message">{{ $message }}</span>
-                    @enderror
                 </div>
 
                 <div class="form-group">
                     <input type="password" name="password" placeholder="Wachtwoord" required>
-                    @error('password')
-                        <span class="error-message">{{ $message }}</span>
-                    @enderror
                 </div>
+
+                @if ($errors->any())
+                    <div class="error-message">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <p>{{ $error }}</p>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif                  
 
                 <br>
                 <button type="submit"> <!-- Bronvermelding UIVerse -->
@@ -39,7 +33,7 @@
                     <div class="arrow-wrapper">
                         <div class="arrow"></div>
                     </div>
-                </button>
+                </button>              
                 
                 <div id="register-link">
                     <p>Heeft u nog geen account? <a href="{{ route('register') }}"><strong>Registreer</strong></a></p>

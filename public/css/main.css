@@ -267,7 +267,11 @@ body {
 
 /* Error message voor als iets faalt zoals bv. inloggen */
 .error-message {
-    visibility: hidden
+    visibility: visible !important;
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
 }
 
 /* Bronvermelding: UIverse */

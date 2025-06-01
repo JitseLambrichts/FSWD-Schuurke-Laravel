@@ -2,23 +2,7 @@ function openEmail(email) {
     window.location.href = "mailto:" + email;
 }
 
-// Functie om feedback berichten om te zetten naar JavaScript alerts
-function convertFeedbackMessagesToAlerts() {    
-    // Zoek naar error berichten
-    const errorMessages = document.querySelectorAll('.error-message');
-    errorMessages.forEach(function(element) {
-        const messageText = element.textContent.trim();
-        if (messageText) {
-            alert(messageText);
-            // Verwijder het element volledig uit de DOM
-            element.remove();
-        }
-    });
-}
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Feedback berichten omzetten naar alerts
-    convertFeedbackMessagesToAlerts();
     
     // Navbarmenu
     let hamburger = document.querySelector(".hamburger input");
