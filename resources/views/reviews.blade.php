@@ -6,12 +6,13 @@
         <div id="body-review">
             <div id="nieuwe-review">
                 <h2>Plaats een nieuwe review:</h2>
+
                 <div id="inputs">
                     <form id="review-formulier" action="{{ route('reviews.store') }}" method="POST">
                         @csrf
-                        <div class="form-group"> <!--BRONVERMELDING Copilot-->
+                        <div class="form-group"> 
                             <p>Selecteer gerecht: </p>
-                            <select id="dish-selection" name="gerecht_id" required>
+                            <select id="dish-selection" name="gerecht_id" required> <!--Bronvermelding Copilot-->
                                 <option value="" disabled selected>Kies een gerecht</option>
                                 @foreach($maaltijden as $categorie => $items)
                                     <optgroup label="{{ $categorie }}">
@@ -24,9 +25,10 @@
                                 @endforeach
                             </select>
                         </div>
+
                         <div id="sterren">
                             <p>Uw beoordeling:</p>
-                            <!-- From Uiverse.io by aguerquin -->
+                            <!-- Bronvermelding stijl: From Uiverse.io by aguerquin -->
                             <div class="rating">
                                 <input type="radio" id="star5" name="rate" value="5" required />
                                 <label title="Excellent!" for="star5">
@@ -70,27 +72,31 @@
                                 </label>
                             </div>
                         </div>
+
                         <div id="informatie-review">
                             <div id="input-box">
                                 <textarea name="comment" placeholder="Geef hier extra informatie (optioneel)"></textarea>
                             </div>
                         </div>
-                        <button type="submit"> <!-- TODO Library -->
+
+                        <button type="submit"> <!-- Bronvermelding UIVerse -->
                             Review
                             <div class="arrow-wrapper">
                                 <div class="arrow"></div>
                             </div>
-                        </button> <!-- Library -->
+                        </button>
+
                     </form>
                 </div>
             </div>
             <div id="bestaande-reviews">
                 <h2>Mijn reviews:</h2>
+
                 <div id="gegeven-reviews">
                     @forelse($reviews as $review)
                         <div class="gegeven-review" id="review-{{ $review->review_id }}">
                             <div class="info-links">
-                                <h3>{{ ucfirst($review->gerecht->naam) }}</h3>
+                                <h3>{{ $review->gerecht->naam }}</h3>
                                 <p class="review-comment">{{ $review->extra_info ?: 'Geen extra informatie' }}</p>
                                 <small>{{ $review->datum ? date('d/m/Y', strtotime($review->datum)) : 'Geen datum' }}</small>
                                 <br>
@@ -103,7 +109,7 @@
                                     @endfor
                                 </div>
                             </div>
-                            {{-- Hidden Edit Form --}} <!-- CoPilot -->
+                            {{-- Hidden Edit Form --}} <!-- Bronvermelding CoPilot -->
                             <form action="{{ route('reviews.update', $review->review_id) }}" method="POST" class="edit-review-form" style="display: none; width: 100%; margin-top: 1rem; max-width: fit-content">
                                 @csrf
                                 @method('PATCH')
