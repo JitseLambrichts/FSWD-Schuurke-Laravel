@@ -6,6 +6,7 @@
     <h1>Mijn Account</h1>
     <div id="body-mijn-account">
         <h2>Welkom {{ Auth::user()->name }} !</h2>
+
         <div id="bestaande-reservaties">
             <h3>Uw aankomende reservaties:</h3>
             <br>
@@ -19,7 +20,8 @@
                 <p>Je hebt nog geen reservaties gemaakt.</p>
             @endforelse
         </div>
-        <form id="logout-button" method="POST" action="{{ route('logout') }}">
+
+        <form id="logout-button" action="{{ route('logout') }}" method="POST">
             @csrf
             <button type="submit">
                 Log out
@@ -28,6 +30,7 @@
                 </div>
             </button>
         </form>
+        
     </div>
 </div>
 @endauth
