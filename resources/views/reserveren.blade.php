@@ -34,9 +34,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="aantal-personen">Aantal personen:</label>
-                    <input type="number" id="aantal-personen" name="aantal-personen" min="1" max="20" value="1" required>
-                    @error('aantal-personen')
+                    <label for="aantal_personen">Aantal personen:</label>
+                    <input type="number" id="aantal_personen" name="aantal_personen" min="1" max="20" value="1" required>
+                    @error('aantal_personen')
                         <span class="error-message">{{ $message }}</span>
                     @enderror
                 </div>

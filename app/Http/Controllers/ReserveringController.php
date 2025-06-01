@@ -19,7 +19,7 @@ class ReserveringController extends Controller
         $validated = $request->validate([
             'datum' => 'required|date|after_or_equal:today',
             'tijdstip' => 'required',
-            'aantal-personen' => 'required|integer|min:1|max:20',
+            'aantal_personen' => 'required|integer|min:1|max:20',
         ]);
 
         // Random tafelnummer genereren
@@ -29,7 +29,7 @@ class ReserveringController extends Controller
             'user_id' => Auth::id(),
             'datum' => $validated['datum'],
             'tijdstip' => $validated['tijdstip'],
-            'aantal_personen' => $validated['aantal-personen'],
+            'aantal_personen' => $validated['aantal_personen'],
             'tafelnummer' => $tafelnummer,
             'speciale_verzoeken' => $request->opmerkingen,
             
