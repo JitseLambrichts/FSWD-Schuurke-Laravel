@@ -6,6 +6,7 @@
         <div id="body-login">
             <h2>Log-in:</h2>
             <br>
+
             @if ($errors->any())
                 <div class="error-message">
                     <ul>
@@ -15,6 +16,7 @@
                     </ul>
                 </div>
             @endif
+
             <form id="login-formulier" action="{{ route('login') }}" method="POST">
                 @csrf
                 <div class="form-group">
@@ -23,19 +25,22 @@
                         <span class="error-message">{{ $message }}</span>
                     @enderror
                 </div>
+
                 <div class="form-group">
                     <input type="password" name="password" placeholder="Wachtwoord" required>
                     @error('password')
                         <span class="error-message">{{ $message }}</span>
                     @enderror
                 </div>
+
                 <br>
-                <button type="submit"> <!-- Bronvermelding -->
+                <button type="submit"> <!-- Bronvermelding UIVerse -->
                     Log in
                     <div class="arrow-wrapper">
                         <div class="arrow"></div>
                     </div>
                 </button>
+                
                 <div id="register-link">
                     <p>Heeft u nog geen account? <a href="{{ route('register') }}"><strong>Registreer</strong></a></p>
                 </div>
